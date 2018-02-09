@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login {
@@ -26,7 +27,7 @@ public class Login {
 			PrintWriter out = res.getWriter();
 			res.setContentType("text/plain");
 			out.print(ret.toString());
-		}catch(IOException e){
+		}catch(IOException | JSONException e){
 			e.printStackTrace();
 		}
 	}

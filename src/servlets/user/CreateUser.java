@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CreateUser extends HttpServlet {
@@ -27,8 +28,9 @@ public class CreateUser extends HttpServlet {
 			PrintWriter out = res.getWriter();
 			res.setContentType("text/plain");
 			out.print(ret.toString());
-		}catch(IOException e){
+		}catch(IOException | JSONException e){
 			e.printStackTrace();
 		}
+		
 	}
 }
