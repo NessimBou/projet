@@ -83,9 +83,7 @@ public class User {
 	 * @param login login de l'utilisateur
 	 * @throws SQLException 
 	 */
-	public static void expireSession(int login) throws SQLException{
-		
-	}
+	
 
 	/**Deconnecte un utilisateur
 	 * 
@@ -96,7 +94,7 @@ public class User {
 	public static JSONObject logout(int login) throws JSONException{
 		try{
 			//fonction à implementer
-			expireSession(login);
+			BdTools.expireSession(login);
 			return serviceAccepted();
 		}
 		catch(SQLException e)
@@ -105,5 +103,32 @@ public class User {
 		}
 	}
 	
+	//version Dina
+	public static JSONObject logoutVD(int key, String login){
+		if(login == null){
+			return ServiceRefused.serviceRefused("Wrong Argument",-1);
+		}
+		boolean is_login = BdTools.userExist(login);
+		if(!is_login){
+			return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	
+		}
+		//verifie si la clé existe dans la base de donnée
+		boolean is_key= BdTools.keyExist(key);
+		if(!is_key){
+			return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecté", 3);
+		}
+		
+		JSONObject fin = new JSONObject();
+		try{
+			if(BdTools.expireSession(key)){
+				fin.put("session", "fermé");
+			}else{
+				return ServiceRefused.serviceRefused("La session n'a pas expiré", 4);
+			}
+		}catch(JSONException | SQLException e){
+			e.printStackTrace();
+		}
+		return fin;
+	}
 
 }

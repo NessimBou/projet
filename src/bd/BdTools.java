@@ -1,4 +1,7 @@
 package bd;
+
+import java.sql.SQLException;
+
 /**Classe permettant de verifier si les données sont contenues dans la base de données
  * 
  * @author NessimDina
@@ -45,6 +48,18 @@ public class BdTools {
 	}
 	
 	public boolean isRoot(String user){
+		return true;
+	}
+	
+	public static boolean expireSession(int login) throws SQLException{
+		return true;
+	}
+	/**Verifie si la clé existe
+	 * 
+	 * @param key clé de l'utilisateur
+	 * @return true/false
+	 */
+	public static boolean keyExist(int key){
 		return true;
 	}
 	
