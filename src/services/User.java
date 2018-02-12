@@ -2,6 +2,9 @@ package services;
 
 import serviceTool.ServiceRefused;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -73,6 +76,33 @@ public class User {
 		return retour;	
 	
 
+	}
+	
+	/**expire une session
+	 * 
+	 * @param login login de l'utilisateur
+	 * @throws SQLException 
+	 */
+	public static void expireSession(int login) throws SQLException{
+		
+	}
+
+	/**Deconnecte un utilisateur
+	 * 
+	 * @param login identifiant de l'utilisateur
+	 * @return True si il a bien été deconnecté
+	 * @throws JSONException
+	 */
+	public static JSONObject logout(int login) throws JSONException{
+		try{
+			//fonction à implementer
+			expireSession(login);
+			return serviceAccepted();
+		}
+		catch(SQLException e)
+		{
+			return ServiceRefused.serviceRefused("Erreur SQL (User.logout) " + e, 500);
+		}
 	}
 	
 
