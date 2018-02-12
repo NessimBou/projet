@@ -2,4 +2,22 @@
 
 
 09/02 : Documentation ok, ServiceRefused(ok), createUser et Login(ok).
-13/002 : Logout dans User ok ( reste à implementer expireSession et Service accepted et crée le servlet logout) 
+13/002 : Logout dans User ok ( reste à implementer expireSession et Service accepted et crée le servlet logout)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+note : Integer.toString(int i) transforme un int en String
