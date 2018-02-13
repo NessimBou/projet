@@ -2,7 +2,9 @@ package bd;
 
 import java.sql.SQLException;
 
-/**Classe permettant de verifier si les données sont contenues dans la base de données
+import com.mysql.jdbc.Connection;
+
+/**Classe permettant de verifier si les donnï¿½es sont contenues dans la base de donnï¿½es
  * 
  * @author NessimDina
  *
@@ -13,7 +15,7 @@ public class BdTools {
 		
 	}
 	
-	/**Methode ajoutant un utilisateur à la base de donnée
+	/**Methode ajoutant un utilisateur ï¿½ la base de donnï¿½e
 	 * 
 	 * @param login identifiant de l'user
 	 * @param mdp mdp de l'user
@@ -24,16 +26,25 @@ public class BdTools {
 	public static void addToDBUser(String login,String mdp, String nom,String Prenom){
 		
 	}
-	/** Methode permettant de verifier si l'utilisateur existe dans la base de données
+	/** Methode permettant de verifier si l'utilisateur existe dans la base de donnï¿½es
 	 * 
 	 * @param login l'identifiant de l'utilisateur 
 	 * @return True si il existe, false sinon
 	 */
 	public static boolean userExist(String login){
+		boolean retour;
+		try {
+			Class.forName("com.mysql.jdbc.Priad").newInstance();
+			Connection c = Database.getMySQLConnection();
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 
-	/** Methode permettant de verifier si c'est le bon mdp associé à l'utilisateur
+	/** Methode permettant de verifier si c'est le bon mdp associï¿½ ï¿½ l'utilisateur
 	 * 
 	 * @param password le mot de passe de l'utilisateur
 	 * @param login le nom de l'utilisateur 
@@ -54,9 +65,9 @@ public class BdTools {
 	public static boolean expireSession(int login) throws SQLException{
 		return true;
 	}
-	/**Verifie si la clé existe
+	/**Verifie si la clï¿½ existe
 	 * 
-	 * @param key clé de l'utilisateur
+	 * @param key clï¿½ de l'utilisateur
 	 * @return true/false
 	 */
 	public static boolean keyExist(int key){

@@ -23,13 +23,13 @@ public class User {
 		
 	}
 	
-	/**Methode permettant de créer un user
+	/**Methode permettant de crï¿½er un user
 	 * 
 	 * @param nom nom de l'utilisateur
 	 * @param prenom prenom de l'utilisateur 
 	 * @param login identifiant de l'utilisateur
 	 * @param mdp mdp de l'utilisateur 
-	 * @return un messsage si l'utilisateur à été crée, un message d'erreur si l'utilisateur existe deja 
+	 * @return un messsage si l'utilisateur ï¿½ ï¿½tï¿½ crï¿½e, un message d'erreur si l'utilisateur existe deja 
 	 * @throws JSONException 
 	 */
 	public static JSONObject createUser(String nom, String prenom, String login, String mdp) throws JSONException{
@@ -49,7 +49,7 @@ public class User {
 	 * 
 	 * @param login identifiant de l'utilisateur 
 	 * @param mdp mdp de l'utilisateur 
-	 * @return ouvre la session de l'utilisateur si les données sont bonnes 
+	 * @return ouvre la session de l'utilisateur si les donnï¿½es sont bonnes 
 	 */
 	public static JSONObject login (String login, String password){
 		if(login == null || password == null){
@@ -88,12 +88,12 @@ public class User {
 	/**Deconnecte un utilisateur
 	 * 
 	 * @param login identifiant de l'utilisateur
-	 * @return True si il a bien été deconnecté
+	 * @return True si il a bien ï¿½tï¿½ deconnectï¿½
 	 * @throws JSONException
 	 */
 	public static JSONObject logout(int login) throws JSONException{
 		try{
-			//fonction à implementer
+			//fonction ï¿½ implementer
 			BdTools.expireSession(login);
 			return serviceAccepted();
 		}
@@ -112,18 +112,18 @@ public class User {
 		if(!is_login){
 			return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	
 		}
-		//verifie si la clé existe dans la base de donnée
+		//verifie si la clï¿½ existe dans la base de donnï¿½e
 		boolean is_key= BdTools.keyExist(key);
 		if(!is_key){
-			return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecté", 3);
+			return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
 		}
 		
 		JSONObject fin = new JSONObject();
 		try{
 			if(BdTools.expireSession(key)){
-				fin.put("session", "fermé");
+				fin.put("session", "ferme");
 			}else{
-				return ServiceRefused.serviceRefused("La session n'a pas expiré", 4);
+				return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
 			}
 		}catch(JSONException | SQLException e){
 			e.printStackTrace();
