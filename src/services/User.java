@@ -32,17 +32,20 @@ public class User {
 	 * @return un messsage si l'utilisateur � �t� cr�e, un message d'erreur si l'utilisateur existe deja 
 	 * @throws JSONException 
 	 */
-	public static JSONObject createUser(String nom, String prenom, String login, String mdp) throws JSONException{
+	public static JSONObject createUser(String login, String mdp,String nom, String prenom) throws JSONException{
 		JSONObject ret = new JSONObject();
-		if(bd.BdTools.userExist(login)){
-			ret.put("Status","KO");
-			ret.put("Error","UserExist");
-			return ret;
-		}else{
-			ret.put("Satus","OK");
-			bd.BdTools.addToDBUser(login, mdp, nom, prenom);
-			return ret;
+		try{
+			if(bd.BdTools.userExist(login)){
+				ret.put("Status","KO");
+				ret.put("Error","UserExist");
+			}else{
+				ret.put("Satus","OK");
+				bd.BdTools.addToDBUser(login, mdp, nom, prenom);
+			}
+		}catch(JSONException | SQLException e){
+			e.printStackTrace();
 		}
+		return ret;
 	}
 	
 	/** Methode permettant de ce login
@@ -55,34 +58,42 @@ public class User {
 		if(login == null || password == null){
 			return ServiceRefused.serviceRefused("Wrong Argument", -1);
 		}
-		boolean is_login = BdTools.userExist(login);
-		if(!is_login){
-			return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	
-		}
-		boolean check_pwd =  BdTools.checkPassword(login,password);
-		if(!check_pwd){
-			return ServiceRefused.serviceRefused("Erreur de login ou password", 2);
-		}
-		JSONObject retour  = new JSONObject();
-		String key = BdTools.insertSession(login,false);
+		
+		
 		try {
+			//Verifie que l'utilisateur
+			boolean is_login = BdTools.userExist(login);
+			if(!is_login){
+				return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	
+			}
+		
+			//Verifie le bon mdp
+			boolean check_pwd =  BdTools.checkPassword(login,password);
+			if(!check_pwd){
+				return ServiceRefused.serviceRefused("Erreur de login ou password", 2);
+			}
+		
+			//Recupere l'id de l'utilisateur
+			int id_user=BdTools.getIdUser(login);
+		
+			JSONObject retour  = new JSONObject();
+			String key = BdTools.insertSession(id_user,false);
+		
 			retour.put("status", "ok");
 			retour.put("key",key);
+			return retour;	
+			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return ServiceRefused.serviceRefused("JSON problem"+e.getMessage(),100);
+		}catch(Exception e){
+			return ServiceRefused.serviceRefused("Problem..."+e.getMessage(), 10000);
 		}
 		
-		return retour;	
+		
 	
 
 	}
 	
-	/**expire une session
-	 * 
-	 * @param login login de l'utilisateur
-	 * @throws SQLException 
-	 */
 	
 
 	/**Deconnecte un utilisateur
@@ -91,44 +102,35 @@ public class User {
 	 * @return True si il a bien �t� deconnect�
 	 * @throws JSONException
 	 */
-	public static JSONObject logout(int login) throws JSONException{
-		try{
-			//fonction � implementer
-			BdTools.expireSession(login);
-			return serviceAccepted();
-		}
-		catch(SQLException e)
-		{
-			return ServiceRefused.serviceRefused("Erreur SQL (User.logout) " + e, 500);
-		}
-	}
-	
-	//version Dina
-	public static JSONObject logoutVD(int key, String login){
+
+	public static JSONObject logout(int key, String login){
 		if(login == null){
 			return ServiceRefused.serviceRefused("Wrong Argument",-1);
 		}
-		boolean is_login = BdTools.userExist(login);
-		if(!is_login){
-			return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	
-		}
-		//verifie si la cl� existe dans la base de donn�e
+		boolean is_login;
 		boolean is_key= BdTools.keyExist(key);
-		if(!is_key){
-			return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
-		}
-		
 		JSONObject fin = new JSONObject();
-		try{
+		try {
+			is_login = BdTools.userExist(login);
+			if(!is_login){
+				return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	
+			}
+			if(!is_key){
+				return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
+			}
+			
 			if(BdTools.expireSession(key)){
 				fin.put("session", "ferme");
 			}else{
 				return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
 			}
+		
+			
 		}catch(JSONException | SQLException e){
 			e.printStackTrace();
-		}
+		}	
 		return fin;
+		
 	}
 
 }

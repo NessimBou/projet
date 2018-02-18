@@ -1,8 +1,12 @@
 package bd;
 
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 
-import com.mysql.jdbc.Connection;
+import serviceTool.Database;
 
 /**Classe permettant de verifier si les donnï¿½es sont contenues dans la base de donnï¿½es
  * 
@@ -30,17 +34,25 @@ public class BdTools {
 	 * 
 	 * @param login l'identifiant de l'utilisateur 
 	 * @return True si il existe, false sinon
+	 * @throws SQLException 
 	 */
-	public static boolean userExist(String login){
-		boolean retour;
-		try {
-			Class.forName("com.mysql.jdbc.Priad").newInstance();
-			Connection c = Database.getMySQLConnection();
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public static boolean userExist(String login) throws SQLException{
+		
+		//Créer une nouvelle connexion à cette adresse
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+		Statement lecture = c.createStatement();
+		// crée une requete sql qui recupere l'identifiant de l'uilisateur
+		String query="SELECT id FROM user WHERE login ='"+login+"';";
+		ResultSet resultat = lecture.executeQuery(query);
+		if (!resultat.next()){
+			resultat.close();
+			lecture.close();
+			c.close();
+			return false;
 		}
+		resultat.close();
+		lecture.close();
+		c.close();
 		return true;
 	}
 
@@ -54,7 +66,7 @@ public class BdTools {
 		return true;
 	}
 	
-	public static String insertSession(String login , boolean rest){
+	public static String insertSession(int id_user , boolean rest){
 		return null;
 	}
 	
@@ -72,6 +84,11 @@ public class BdTools {
 	 */
 	public static boolean keyExist(int key){
 		return true;
+	}
+
+	public static int getIdUser(String login) {
+		
+		return 0;
 	}
 	
 }

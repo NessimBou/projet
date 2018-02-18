@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context>
+	<Ressource
+	 name="jdbc/db" type="javax.sql.DataSource"
+	 maxActive="100" maxIdle="30" maxWait="10000"
+	 url="jdbx:mysql://com.mysql.jdbc.Driver"
+	 username="[username]" password="[password]"
+	/>
+</context>
