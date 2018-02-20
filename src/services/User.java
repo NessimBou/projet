@@ -39,7 +39,7 @@ public class User {
 				ret.put("Status","KO");
 				ret.put("Error","UserExist");
 			}else{
-				ret.put("Satus","OK");
+				ret.put("Status","OK");
 				bd.BdTools.addToDBUser(login, mdp, nom, prenom);
 			}
 		}catch(JSONException | SQLException e){
@@ -59,7 +59,6 @@ public class User {
 			return ServiceRefused.serviceRefused("Wrong Argument", -1);
 		}
 		
-		
 		try {
 			//Verifie que l'utilisateur
 			boolean is_login = BdTools.userExist(login);
@@ -67,6 +66,7 @@ public class User {
 				return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	
 			}
 		
+			
 			//Verifie le bon mdp
 			boolean check_pwd =  BdTools.checkPassword(login,password);
 			if(!check_pwd){
@@ -76,26 +76,33 @@ public class User {
 			//Recupere l'id de l'utilisateur
 			int id_user=BdTools.getIdUser(login);
 		
+	
 			JSONObject retour  = new JSONObject();
-			String key = BdTools.insertSession(id_user,false);
+			String key = BdTools.insertSession(id_user,true);
+			
+			//verifier si il est bien connecté
+			if(key != null && BdTools.getConnect(login)){
+				retour.put("status", "ok");
+				retour.put("key",key);
+				return retour;
+			}else{
+				retour.put("status", "KO");
+				retour.put("Erreur clé ou connection", -1);
+				return retour;
+			}
+			
+			
 		
-			retour.put("status", "ok");
-			retour.put("key",key);
-			return retour;	
+				
 			
 		} catch (JSONException e) {
 			return ServiceRefused.serviceRefused("JSON problem"+e.getMessage(),100);
 		}catch(Exception e){
 			return ServiceRefused.serviceRefused("Problem..."+e.getMessage(), 10000);
 		}
-		
-		
-	
-
 	}
-	
-	
 
+	
 	/**Deconnecte un utilisateur
 	 * 
 	 * @param login identifiant de l'utilisateur
@@ -124,8 +131,6 @@ public class User {
 			}else{
 				return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
 			}
-		
-			
 		}catch(JSONException | SQLException e){
 			e.printStackTrace();
 		}	

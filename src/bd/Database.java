@@ -1,4 +1,4 @@
-package serviceTool;
+package bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,14 +24,14 @@ public class Database {
 		return datasource.getConnection();
 	}
 	
-	/**Renvoye une nouvelle connexion à une base de données
+	/**Renvoye une nouvelle connexion a une base de donnees
 	 * 
 	 * @return nouvelle connexion
 	 * @throws SQLException
 	 */
 	public static Connection getMySQLConnection() throws SQLException{
 		if(DBStatic.mysql_pooling == false){
-			return (DriverManager.getConnection("jdbc:mysql://"+DBStatic.mysql_host+"/"+dbStatic.mysql_db,DBStatic.mysql_username,DBStatic.mysql_password));
+			return (DriverManager.getConnection("jdbc:mysql://"+DBStatic.mysql_host+"/"+DBStatic.mysql_db,DBStatic.mysql_username,DBStatic.mysql_password));
 		}else{
 			if(database == null){
 				database = new Database("jdbc/db");
