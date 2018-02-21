@@ -107,10 +107,11 @@ public class User {
 	 * 
 	 * @param login identifiant de l'utilisateur
 	 * @return True si il a bien �t� deconnect�
+	 * @throws SQLException 
 	 * @throws JSONException
 	 */
 
-	public static JSONObject logout(int key, String login){
+	public static JSONObject logout(int key, String login) throws SQLException{
 		if(login == null){
 			return ServiceRefused.serviceRefused("Wrong Argument",-1);
 		}

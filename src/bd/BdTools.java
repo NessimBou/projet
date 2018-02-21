@@ -58,6 +58,8 @@ public class BdTools {
 		// cree une requete sql qui recupere l'identifiant de l'uilisateur
 		String query="SELECT id FROM user WHERE login ='"+login+"';";
 		ResultSet resultat = lecture.executeQuery(query);
+		
+		//si il n'y a pas de next alors l'utilisateur n'existe pas 
 		if (!resultat.next()){
 			resultat.close();
 			lecture.close();
@@ -120,8 +122,10 @@ public class BdTools {
 		Statement lecture = c.createStatement();
 		// cree une requete sql qui recupere l'identifiant de l'uilisateur
 		id = Integer.parseInt(login);
-		String query="SELECT * FROM Session WHERE idUser ='"+id+"';";
+		String query="SELECT * FROM session WHERE idUser ='"+id+"';";
 		ResultSet resultat = lecture.executeQuery(query);
+		
+		//on recupere le boolean de root et on le stock dans une variable 
 		a = resultat.getBoolean("isRoot");
 		resultat.close();
 		lecture.close();
@@ -130,7 +134,33 @@ public class BdTools {
 	}
 		
 	
-	public static boolean expireSession(int login) throws SQLException{
+	
+	 /**Si l'utilisateur est reste connecter un certain nombre de minute on expire la session sauf si il est root
+	  * 
+	  * @param key cle de connexion 
+	  * @return True/False
+	  * @throws SQLException
+	  */
+	public static boolean expireSession(int key) throws SQLException{
+		//Pour l'instant on la laisse comme ça mais apres il faudra calculer depuis combien de temps 
+		// il est connecter puis si il a depassé le temps on expire la Session
+		boolean a;
+		
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+		Statement lecture= c.createStatement();
+		String query ="Select * from session WHERE cle='"+key+"';";
+		ResultSet resultat = lecture.executeQuery(query);
+		
+		a = resultat.getBoolean("isRoot");
+		if(a == true){
+			resultat.close();
+			lecture.close();
+			c.close();
+			return false;
+		}
+		resultat.close();
+		lecture.close();
+		c.close();
 		return true;
 	}
 	
@@ -139,17 +169,37 @@ public class BdTools {
 	 * 
 	 * @param key cle de l'utilisateur
 	 * @return true/false
+	 * @throws SQLException 
 	 */
-	public static boolean keyExist(int key){
+	public static boolean keyExist(int key) throws SQLException{
+		
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+		Statement lecture = c.createStatement();
+		String query="Select * From session WHERE cle ='"+key+"';";
+		ResultSet resultat = lecture.executeQuery(query);
+		
+		if(!resultat.next()){
+			resultat.close();
+			lecture.close();
+			c.close();
+			return false;
+		}
+		resultat.close();
+		lecture.close();
+		c.close();
 		return true;
 	}
 
 	
-
-	public static int getIdUser(String login) {
-		
-		return 0;
-	}
+//
+//	public static int getIdUser(String login) {
+//		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+//		Statement lecture = c.createStatement();
+//		int id = Integer.parseInt(login)
+//		String query = "Select * From session Where "
+//		
+//		return 0;
+//	}
 	
 	/**Verifie que l'utilisateur est connecte
 	 * 
@@ -162,12 +212,18 @@ public class BdTools {
 		
 		int id;
 		boolean a;
-		
+		//Connexion 
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture = c.createStatement();
+		
+		//passe le login de String a int
 		id = Integer.parseInt(login);
+		
+		//requete SQL
 		String query="SELECT * FROM Session WHERE idUser ='"+id+"';";
 		ResultSet resultat = lecture.executeQuery(query);
+		
+		//on regarde le boolean de connect et on le stock dans une variable
 		a = resultat.getBoolean("connect");
 		resultat.close();
 		lecture.close();
