@@ -31,10 +31,13 @@ public class User {
 	 * @param mdp mdp de l'utilisateur 
 	 * @return un messsage si l'utilisateur � �t� cr�e, un message d'erreur si l'utilisateur existe deja 
 	 * @throws JSONException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static JSONObject createUser(String login, String mdp,String nom, String prenom) throws JSONException{
+	public static JSONObject createUser(String login, String mdp,String nom, String prenom) throws JSONException, ClassNotFoundException{
 		JSONObject ret = new JSONObject();
+		
 		try{
+			//Class.forName("com.mysql.jdbc.Driver");
 			if(bd.BdTools.userExist(login)){
 				ret.put("Status","KO");
 				ret.put("Error","UserExist");
@@ -55,11 +58,13 @@ public class User {
 	 * @return ouvre la session de l'utilisateur si les donn�es sont bonnes 
 	 */
 	public static JSONObject login (String login, String password){
+		
 		if(login == null || password == null){
 			return ServiceRefused.serviceRefused("Wrong Argument", -1);
 		}
 		
 		try {
+			Class.forName("com.mysql.jdbc.Driver");
 			//Verifie que l'utilisateur
 			boolean is_login = BdTools.userExist(login);
 			if(!is_login){
@@ -73,9 +78,8 @@ public class User {
 				return ServiceRefused.serviceRefused("Erreur de login ou password", 2);
 			}
 		
-			//Recupere l'id de l'utilisateur
-			int id_user=BdTools.getIdUser(login);
-		
+
+			int id_user = Integer.parseInt(login);
 	
 			JSONObject retour  = new JSONObject();
 			String key = BdTools.insertSession(id_user,true);
@@ -90,9 +94,6 @@ public class User {
 				retour.put("Erreur clé ou connection", -1);
 				return retour;
 			}
-			
-			
-		
 				
 			
 		} catch (JSONException e) {
@@ -108,10 +109,11 @@ public class User {
 	 * @param login identifiant de l'utilisateur
 	 * @return True si il a bien �t� deconnect�
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @throws JSONException
 	 */
 
-	public static JSONObject logout(int key, String login) throws SQLException{
+	public static JSONObject logout(int key, String login) throws SQLException, ClassNotFoundException{
 		if(login == null){
 			return ServiceRefused.serviceRefused("Wrong Argument",-1);
 		}

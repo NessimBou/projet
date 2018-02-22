@@ -26,10 +26,12 @@ public class BdTools {
 	 * @param nom nom de l'user
 	 * @param Prenom prenom de l'user
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	public static void addToDBUser(String login,String mdp, String nom,String prenom) throws SQLException{
-		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+	public static void addToDBUser(String login,String mdp, String nom,String prenom) throws SQLException, ClassNotFoundException{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = Database.getMySQLConnection();
 		Statement lecture = c.createStatement();
 		String query = "INSERT into user values(NULL,'"+login+"','"+nom+"','"+prenom+"','PASSWORD("+mdp+")');";
 		int resultat= lecture.executeUpdate(query);
@@ -49,9 +51,10 @@ public class BdTools {
 	 * @param login l'identifiant de l'utilisateur 
 	 * @return True si il existe, false sinon
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static boolean userExist(String login) throws SQLException{
-		
+	public static boolean userExist(String login) throws SQLException, ClassNotFoundException{
+		Class.forName("com.mysql.jdbc.Driver");
 		//Creer une nouvelle connexion a cette adresse
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture = c.createStatement();
@@ -190,13 +193,15 @@ public class BdTools {
 		return true;
 	}
 
-	
+//	
 //
-//	public static int getIdUser(String login) {
+//	public static int getIdUser(String login) throws SQLException {
 //		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 //		Statement lecture = c.createStatement();
-//		int id = Integer.parseInt(login)
-//		String query = "Select * From session Where "
+//		int id = Integer.parseInt(login);
+//		String query = "Select * From session Where idUser ='"+id+"';";
+//		ResultSet resultat = lecture.executeQuery(query);
+//		if 
 //		
 //		return 0;
 //	}
