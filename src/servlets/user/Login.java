@@ -25,6 +25,8 @@ public class Login extends HttpServlet {
 		
 		JSONObject ret = new JSONObject();
 		try {
+			//il faut utiliser le Class.forName sinon lorsque l'on se connecte a tomcat il ne pourra pas faire les test car on lui dit jamais
+			//d'utiliser le driver
 			Class.forName("com.mysql.jdbc.Driver");
 			ret = User.login(login, pwd);
 		} catch (ClassNotFoundException e) {

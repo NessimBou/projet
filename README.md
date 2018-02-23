@@ -6,13 +6,12 @@
 13/02 : Logout dans User ok ( il faut creer le servlet logout)
 18/02 : Creation de la classe Database et du fichier context.xml permettant d'instancier le datatSource, Changement de la fonction UserExist 
 20/02 : DBstatic ok , test avecpyPhp ok implementation de certaines fonction db
+23/02 : createUser fonctionne sur tomcat. Login fonctinne presque petite erreur a cause du parseInt a regler.s
 
 #Reste a faire:
-1) tester toute les fonctions local(create user et login fonctionnent)
-2) creer les servlets adequat
-3) les tester sur le serveur(bon sur myphp)
-4) finir de creer les methodes dans BdTools
-
+1)Regler login
+2) implementer les fonctions messages
+3) tester en local puis serveur
 
 
 #note :

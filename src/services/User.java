@@ -57,7 +57,7 @@ public class User {
 	 * @param mdp mdp de l'utilisateur 
 	 * @return ouvre la session de l'utilisateur si les donn�es sont bonnes 
 	 */
-	public static JSONObject login (String login, String password){
+	public static JSONObject login (String login, String password) throws NumberFormatException{
 		
 		if(login == null || password == null){
 			return ServiceRefused.serviceRefused("Wrong Argument", -1);
@@ -78,7 +78,7 @@ public class User {
 				return ServiceRefused.serviceRefused("Erreur de login ou password", 2);
 			}
 		
-
+			//parse int cree une erreur.
 			int id_user = Integer.parseInt(login);
 	
 			JSONObject retour  = new JSONObject();
@@ -91,11 +91,13 @@ public class User {
 				return retour;
 			}else{
 				retour.put("status", "KO");
-				retour.put("Erreur clé ou connection", -1);
+				retour.put("Erreur cle ou connection", -1);
 				return retour;
 			}
 				
-			
+		}catch(NumberFormatException e){
+			return ServiceRefused.serviceRefused("erreur parseint"+e.getMessage(),10);
+		
 		} catch (JSONException e) {
 			return ServiceRefused.serviceRefused("JSON problem"+e.getMessage(),100);
 		}catch(Exception e){
