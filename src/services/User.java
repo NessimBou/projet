@@ -69,7 +69,7 @@ public class User {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			//Verifie que l'utilisateur
+			//Verifie que l'utilisateur existe 
 			boolean is_login = BdTools.userExist(login);
 			if(!is_login){
 				return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	

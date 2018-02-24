@@ -41,8 +41,6 @@ public class BdTools {
 		}else{
 			System.out.println("Erreur ajout");			
 		}
-		
-		
 	}
 
 	
@@ -107,7 +105,6 @@ public class BdTools {
 			Date dateToday = new java.sql.Date(d1.getTime());
 			query = "INSERT into session values(NULL,'"+id_user+"','"+dateToday+"','"+key+"','False','True');";
 		}
-		
 		int resultat= lecture.executeUpdate(query);
 		if(resultat == 1){
 			return key;
@@ -116,7 +113,6 @@ public class BdTools {
 			return key; 
 		}
 	}
-	
 	
 	
 
