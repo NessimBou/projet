@@ -30,7 +30,7 @@ public class Login extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver");
 			ret = User.login(login, pwd);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+	
 			e.printStackTrace();
 		}
 		

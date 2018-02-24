@@ -18,7 +18,7 @@ public class MainTest {
 
 	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException {
 		
-		String login="coucou";
+		String login="1234";
 		String password="root";
 		String nom="coucou";
 		String prenom="coucou";
@@ -31,19 +31,19 @@ public class MainTest {
 
 		//Database db=new Database("Test");
 		
-		Statement lecture = c.createStatement();
-		ResultSet curseur = lecture.executeQuery("Select * from user;");
-		while (curseur.next())
-		{
-			System.out.println(curseur.getString("id"));
-			System.out.println(curseur.getString("login"));
-			System.out.println(curseur.getString("nom"));
-			System.out.println(curseur.getString("prenom"));
-			System.out.println(curseur.getString("password"));
-		}
-		curseur.close();
-		lecture.close();
-		c.close();
+//		Statement lecture = c.createStatement();
+//		ResultSet curseur = lecture.executeQuery("Select * from user;");
+//		while (curseur.next())
+//		{
+//			System.out.println(curseur.getString("id"));
+//			System.out.println(curseur.getString("login"));
+//			System.out.println(curseur.getString("nom"));
+//			System.out.println(curseur.getString("prenom"));
+//			System.out.println(curseur.getString("password"));
+//		}
+//		curseur.close();
+//		lecture.close();
+//		c.close();
 //		//System.out.println(bd.UserTools.userExist("3408748"));
 //		System.out.println(UUID.randomUUID().toString());
 

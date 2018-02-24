@@ -38,6 +38,10 @@ public class User {
 		
 		try{
 			//Class.forName("com.mysql.jdbc.Driver");
+			if(!verif(login)){
+				ret.put("le login doit etre une suite de nombre","ko");
+				return ret;
+			}
 			if(bd.BdTools.userExist(login)){
 				ret.put("Status","KO");
 				ret.put("Error","UserExist");
@@ -115,7 +119,7 @@ public class User {
 	 * @throws JSONException
 	 */
 
-	public static JSONObject logout(int key, String login) throws SQLException, ClassNotFoundException{
+	public static JSONObject logout(String login,String key) throws SQLException, ClassNotFoundException{
 		if(login == null){
 			return ServiceRefused.serviceRefused("Wrong Argument",-1);
 		}
@@ -130,16 +134,31 @@ public class User {
 			if(!is_key){
 				return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
 			}
-			
-			if(BdTools.expireSession(key)){
-				fin.put("session", "ferme");
+			//on verifie qu'il n'est pas root puis ensuite on verifie qu'il a bien expiré la session
+			if(BdTools.isRoot(login)){
+				if(BdTools.expireSession(key)){
+					fin.put("session", "ferme");
+				}else{
+					return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
+				}	
 			}else{
-				return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
+				return ServiceRefused.serviceRefused("L'utilisateur est un root", 4);	
 			}
 		}catch(JSONException | SQLException e){
 			e.printStackTrace();
 		}	
 		return fin;
+		
+	}
+	
+	public static boolean verif(String login){
+		try{
+			int log = Integer.parseInt(login);
+			return true;
+		}catch(NumberFormatException e){
+			e.printStackTrace();
+		}
+		return false;
 		
 	}
 

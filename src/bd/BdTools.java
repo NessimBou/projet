@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.Date;
 import java.util.UUID;
 
 /**Classe permettant de verifier si les donnees sont contenues dans la base de donnees
@@ -95,7 +96,18 @@ public class BdTools {
 		String key = UUID.randomUUID().toString();
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture = c.createStatement();
-		String query = "INSERT into session values(NULL,"+id_user+",NULL,NOW,"+key+","+root+"true);";
+		String query;
+		//SQL reconnait pas true/false ecrit comme ça
+		if(root){
+			java.util.Date d1 = new java.util.Date();
+			Date dateToday = new java.sql.Date(d1.getTime());
+			query = "INSERT into session values(NULL,'"+id_user+"','"+dateToday+"','"+key+"',True,True);";
+		}else{
+			java.util.Date d1 = new java.util.Date();
+			Date dateToday = new java.sql.Date(d1.getTime());
+			query = "INSERT into session values(NULL,'"+id_user+"','"+dateToday+"','"+key+"','False','True');";
+		}
+		
 		int resultat= lecture.executeUpdate(query);
 		if(resultat == 1){
 			return key;
@@ -115,7 +127,7 @@ public class BdTools {
 	 * @return True/false
 	 * @throws SQLException
 	 */
-	public boolean isRoot(String login) throws SQLException{
+	public static boolean isRoot(String login) throws SQLException{
 		int id;
 		boolean a;
 		
@@ -129,11 +141,18 @@ public class BdTools {
 		ResultSet resultat = lecture.executeQuery(query);
 		
 		//on recupere le boolean de root et on le stock dans une variable 
-		a = resultat.getBoolean("isRoot");
+		if(resultat.next()){
+			
+			a = resultat.getBoolean("isRoot");
+			resultat.close();
+			lecture.close();
+			c.close();
+			return a;
+		}
 		resultat.close();
 		lecture.close();
 		c.close();
-		return a;
+		return false;
 	}
 		
 	
@@ -144,27 +163,26 @@ public class BdTools {
 	  * @return True/False
 	  * @throws SQLException
 	  */
-	public static boolean expireSession(int key) throws SQLException{
+	public static boolean expireSession(String key) throws SQLException{
 		//Pour l'instant on la laisse comme Ã§a mais apres il faudra calculer depuis combien de temps 
 		// il est connecter puis si il a depassÃ© le temps on expire la Session
 		boolean a;
 		
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture= c.createStatement();
-		String query ="Select * from session WHERE cle='"+key+"';";
-		ResultSet resultat = lecture.executeQuery(query);
-		
-		a = resultat.getBoolean("isRoot");
-		if(a == true){
-			resultat.close();
+		String query ="DELETE FROM session WHERE cle='"+key+"';";
+		int resultat = lecture.executeUpdate(query);
+		//cas ou il a bien supprimé la session 
+		if(resultat == 1){
+			//resultat.close();
 			lecture.close();
 			c.close();
-			return false;
+			return true;
 		}
-		resultat.close();
+		//resultat.close();
 		lecture.close();
 		c.close();
-		return true;
+		return false;
 	}
 	
 	
@@ -174,7 +192,7 @@ public class BdTools {
 	 * @return true/false
 	 * @throws SQLException 
 	 */
-	public static boolean keyExist(int key) throws SQLException{
+	public static boolean keyExist(String key) throws SQLException{
 		
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture = c.createStatement();
@@ -214,7 +232,7 @@ public class BdTools {
 	 */
 	
 	public static boolean  getConnect(String login) throws SQLException{
-		
+	
 		int id;
 		boolean a;
 		//Connexion 
@@ -225,14 +243,40 @@ public class BdTools {
 		id = Integer.parseInt(login);
 		
 		//requete SQL
-		String query="SELECT * FROM Session WHERE idUser ='"+id+"';";
+		String query="SELECT * FROM session WHERE idUser ='"+id+"';";
 		ResultSet resultat = lecture.executeQuery(query);
+		if(resultat.next()){
 		
-		//on regarde le boolean de connect et on le stock dans une variable
-		a = resultat.getBoolean("connect");
+			a = resultat.getBoolean("connect");
+			resultat.close();
+			lecture.close();
+			c.close();
+			return a;
+		}
 		resultat.close();
 		lecture.close();
 		c.close();
-		return a;
+		return false;
 	}
+	
+	public static String getKey(String login) throws SQLException{
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+		Statement lecture = c.createStatement();
+		int id = Integer.parseInt(login);
+		String query ="Select * FROM session WHERE idUser ='"+id+"';";
+		ResultSet resultat = lecture.executeQuery(query);
+		if(resultat.next()){
+		
+			String key = resultat.getString("cle");
+			resultat.close();
+			lecture.close();
+			c.close();
+			return key;
+		}
+		resultat.close();
+		lecture.close();
+		c.close();
+		return "erreur";
+	}
+
 }
