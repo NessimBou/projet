@@ -3,7 +3,7 @@ package services;
 import serviceTool.ServiceRefused;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -153,6 +153,7 @@ public class User {
 	
 	public static boolean verif(String login){
 		try{
+			@SuppressWarnings("unused")
 			int log = Integer.parseInt(login);
 			return true;
 		}catch(NumberFormatException e){

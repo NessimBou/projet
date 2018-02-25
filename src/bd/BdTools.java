@@ -14,7 +14,7 @@ import java.util.UUID;
  *
  */
 public class BdTools {
-	private boolean a;
+//	private boolean a;
 	
 	public BdTools(){
 		
@@ -162,7 +162,6 @@ public class BdTools {
 	public static boolean expireSession(String key) throws SQLException{
 		//Pour l'instant on la laisse comme ça mais apres il faudra calculer depuis combien de temps 
 		// il est connecter puis si il a depassé le temps on expire la Session
-		boolean a;
 		
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture= c.createStatement();
@@ -227,7 +226,7 @@ public class BdTools {
 	 * @throws SQLException
 	 */
 	
-	public static boolean  getConnect(String login) throws SQLException{
+	public static boolean getConnect(String login) throws SQLException{
 	
 		int id;
 		boolean a;

@@ -9,13 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.Friend;
 
 public class AddFriend extends HttpServlet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	public AddFriend() {
 		super();
 	}
@@ -26,10 +31,11 @@ public class AddFriend extends HttpServlet {
 		String idUser = req.getParameter("idUser");
 		String login = req.getParameter("login");
 		String idFriend = req.getParameter("idFriend");
+		//String loginFriend = req.getParameter("loginFriend");
 		JSONObject ret = new JSONObject();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			String key = bd.BdTools.getKey(login);
+			String key = bd.BdTools.getKey(login);	//On récupère la clé avec le login de l'utilisateur
 			ret = Friend.addFriend(key, idUser, idFriend);
 
 		}catch(ClassNotFoundException | SQLException e){
