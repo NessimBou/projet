@@ -16,13 +16,13 @@ public class BDFriends {
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException
 	 */
-	public static void addFriend(String key, String idUser, String idFriend) throws ClassNotFoundException, SQLException {
+	public static void addFriend(String idUser, String idFriend) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = Database.getMySQLConnection();
 		Statement lecture = c.createStatement();
 		java.util.Date d1 = new java.util.Date();
 		Date dateToday = new java.sql.Date(d1.getTime());
-		String query = "INSERT into friends values('"+idUser+"','"+idFriend+"','"+dateToday+"');";
+		String query = "INSERT into friend values('"+idUser+"','"+idFriend+"','"+dateToday+"');";
 		int resultat= lecture.executeUpdate(query);
 		if(resultat == 1){
 			System.out.println("Amitie ajoutée a la bdd");
@@ -40,11 +40,11 @@ public class BDFriends {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void removeFriend(String key, String idUser, String idFriend) throws ClassNotFoundException, SQLException {
+	public static void removeFriend(String idUser, String idFriend) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = Database.getMySQLConnection();
 		Statement lecture = c.createStatement();
-		String query = "DELETE FROM friends where idUser = '" + idUser + "' and to = '"+idFriend+"';";
+		String query = "DELETE FROM friend where idUser = '" + idUser + "' and idFriend = '"+idFriend+"';";
 		int resultat= lecture.executeUpdate(query);
 		if(resultat == 1){
 			System.out.println("Amitie supprimee de la bdd");

@@ -29,15 +29,14 @@ public class RemoveFriend extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException{
 
 		String idUser = req.getParameter("idUser");
-		String login = req.getParameter("login");
 		String idFriend = req.getParameter("idFriend");
 		JSONObject ret = new JSONObject();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			String key = bd.BdTools.getKey(login);		//recuperation de la cle
-			ret = Friend.removeFriend(key, idUser, idFriend);	
+			
+			ret = Friend.removeFriend(idUser, idFriend);	
 
-		}catch(ClassNotFoundException | SQLException e){
+		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
 		PrintWriter out = res.getWriter();

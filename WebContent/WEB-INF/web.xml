@@ -3,6 +3,8 @@
 <web-app> 
 	<display-name>twister</display-name> 
 	
+	
+	
 	<servlet>
 		<servlet-name>CreateUser</servlet-name>
 		<servlet-class>servlets.user.CreateUser</servlet-class>
@@ -16,6 +18,17 @@
 		<servlet-class>servlets.user.Logout</servlet-class>
 	</servlet>
 	
+	<!-- AddFriend/RemoveFriend -->
+	<servlet>
+		<servlet-name>AddFriend</servlet-name>
+		<servlet-class>servlets.friend.AddFriend</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RemoveFriend</servlet-name>
+		<servlet-class>servlets.friend.RemoveFriend</servlet-class>
+	</servlet>
+	
+	<!-- createUser/login/logout -->
 	<servlet-mapping>
 		<servlet-name>CreateUser</servlet-name>
 		<url-pattern>/createUser</url-pattern>
@@ -28,5 +41,14 @@
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- AddFriend/RemoveFriend -->
+	<servlet-mapping>
+		<servlet-name>AddFriend</servlet-name>
+		<url-pattern>/addFriend</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RemoveFriend</servlet-name>
+		<url-pattern>/removeFriend</url-pattern>	
+	</servlet-mapping>
 </web-app>
