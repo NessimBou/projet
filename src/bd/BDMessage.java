@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.Mongo;
 
 import java.util.*;
@@ -19,34 +20,23 @@ public class BDMessage {
 		
 	}
 
-	public static BasicDBObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException{
-		BasicDBObject message = new BasicDBObject();
-		int idMessage = (int)(Math.random() * 100000000);
-		BasicDBObject id = new BasicDBObject();
-		if(BdTools.userExist(idUser)){
-			DBCollection col = Database.getCollection("message");
-			
-			message.put("_id", idMessage);
-			message.put("idUser",idUser);
-			GregorianCalendar c= new java.util.GregorianCalendar();
-			Date d = c.getTime();
-			message.put("date",d);
-			message.put("message", Content);
-			//message.put("Commentaire",);
-			
-			col.insert(message);
-				
-		}
-		return 
-	}
 	
 	
-	public static boolean idMessageExist(String login, int id){
+	
+	public static boolean idMessageExist(String idUser, int id) throws UnknownHostException{
 		DBCollection col = Database.getCollection("message");
-		if(col.find({ idUser:'login',_id:'id'} ==1){
+		BasicDBObject query = new BasicDBObject();
+		query.put("idUser",idUser);
+		query.put("_id",id);
+		DBCursor cursor = col.find(query);
+		if(cursor.hasNext()){
+			cursor.close();
+			return true;
+		}
+		return false;
 	}
 	
 	
 	
-	public static void removeMessage()
+	
 }
