@@ -1,13 +1,21 @@
 package bd;
 
 
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Set;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 
 
 
@@ -46,4 +54,15 @@ public class Database {
 		}
 	}
 
+	
+	public static DBCollection getCollection(String nom_collection) throws UnknownHostException
+	{
+		//connexion à la bd
+		Mongo m = new Mongo(DBStatic.mongo_url);
+		DB db = m.getDB(DBStatic.mongo_db); //nom de votre base de données
+		DBCollection collection= db.getCollection(nom_collection);
+		return collection;
+	}
+
 }
+
