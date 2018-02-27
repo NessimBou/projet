@@ -15,9 +15,9 @@ public class Friend {
 	
 	
 	/** Ajoute un ami
-	 * @param key clé de l'utilisateur
+	 * @param key clï¿½ de l'utilisateur
 	 * @param idUser id de l'utilisateur
-	 * @param idFriend id de l'ami ajouté
+	 * @param idFriend id de l'ami ajoutï¿½
 	 * @return KO/OK
 	 * @throws ClassNotFoundException
 	 */
@@ -33,7 +33,7 @@ public class Friend {
 				return ret;
 			}if(!bd.BdTools.getConnect(idUser)) {
 				ret.put("Status", "KO");
-				ret.put("Error", "L'utilisateur n'est pas connecté");
+				ret.put("Error", "L'utilisateur n'est pas connectï¿½");
 				return ret;
 			}else{
 				ret.put("Status","OK");
@@ -48,7 +48,7 @@ public class Friend {
 	
 	
 	/** Supprime un ami
-	 * @param key clé user
+	 * @param key clï¿½ user
 	 * @param idUser id de l'utilisateur
 	 * @param idFriend id de l'ami
 	 * @return KO/OK
@@ -66,10 +66,11 @@ public class Friend {
 				return ret;
 			}if(!bd.BdTools.getConnect(idUser)) {
 				ret.put("Status", "KO");
-				ret.put("Error", "L'utilisateur n'est pas connecté");
+				ret.put("Error", "L'utilisateur n'est pas connectï¿½");
 				return ret;
 			}else {
-				ret.put("Status", "KO");
+				ret.put("Status", "ok");
+				ret.put("c'est triste",":'(");
 				bd.BDFriends.removeFriend(idUser, idFriend);
 				return ret;
 			}
@@ -91,7 +92,7 @@ public class Friend {
 				return ret;
 			}if(!bd.BdTools.getConnect(idUser)) {
 				ret.put("Status", "KO");
-				ret.put("Error", "L'utilisateur n'est pas connecté");
+				ret.put("Error", "L'utilisateur n'est pas connectï¿½");
 				return ret;
 			}else{
 				bd.BDFriends.getList(idUser);

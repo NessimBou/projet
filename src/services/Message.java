@@ -51,6 +51,8 @@ public class Message {
 	
 	public static BasicDBObject deleteMessage(String idUser,int idMessage) throws UnknownHostException{
 		BasicDBObject fin = new BasicDBObject();
+		
+		
 		if(BDMessage.idMessageExist(idUser,idMessage)){
 			
 			DBCollection col = Database.getCollection("message");

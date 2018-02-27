@@ -13,7 +13,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 /**Classe permettant de verifier si les donnees sont contenues dans la base de donnees
@@ -111,7 +114,7 @@ public class BdTools {
 		while(rs.next()){
 			//On inscrit le BLOB (en binaire) "password" input = lecture
 			InputStream input = rs.getBinaryStream("password");
-			//On cr�e un buffer de binaire
+			//On cr�e un buffer de binaire
 			byte[] buffer = new byte[1024];
 			//On lit les donnees grace au buffer puis on l'inscrit dans le fichier
 			while (input.read(buffer) > 0) {
@@ -147,14 +150,21 @@ public class BdTools {
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture = c.createStatement();
 		String query;
-		//SQL reconnait pas true/false ecrit comme �a
+		//SQL reconnait pas true/false ecrit comme �a
 		if(root){
+//			GregorianCalendar calendar = new GregorianCalendar();
+//			Date date = calendar.getTime();
+//			SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");	
+//			
 			java.util.Date d1 = new java.util.Date();
 			Date dateToday = new java.sql.Date(d1.getTime());
 			query = "INSERT into session values(NULL,'"+id_user+"','"+dateToday+"','"+key+"',True,True);";
 		}else{
 			java.util.Date d1 = new java.util.Date();
 			Date dateToday = new java.sql.Date(d1.getTime());
+//			GregorianCalendar calendar = new GregorianCalendar();
+//			Date date = calendar.getTime();
+//			SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");	
 			query = "INSERT into session values(NULL,'"+id_user+"','"+dateToday+"','"+key+"','False','True');";
 		}
 		int resultat= lecture.executeUpdate(query);
@@ -216,14 +226,14 @@ public class BdTools {
 	  * @throws SQLException
 	  */
 	public static boolean expireSession(String key) throws SQLException{
-		//Pour l'instant on la laisse comme ça mais apres il faudra calculer depuis combien de temps 
-		// il est connecter puis si il a depassé le temps on expire la Session
+		//Pour l'instant on la laisse comme Ã§a mais apres il faudra calculer depuis combien de temps 
+		// il est connecter puis si il a depassÃ© le temps on expire la Session
 		
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture= c.createStatement();
 		String query ="DELETE FROM session WHERE cle='"+key+"';";
 		int resultat = lecture.executeUpdate(query);
-		//cas ou il a bien supprim� la session 
+		//cas ou il a bien supprimé la session 
 		if(resultat == 1){
 			//resultat.close();
 			lecture.close();
@@ -330,5 +340,61 @@ public class BdTools {
 		c.close();
 		return "erreur";
 	}
+	
+//
+//		public static boolean expireSession(String key) throws SQLException, ClassNotFoundException{
+//			//Pour l'instant on la laisse comme ça mais apres il faudra calculer depuis combien de temps 
+//			// il est connecter puis si il a depassé le temps on expire la Session		
+//			Date t = new Date();
+//			Class.forName("com.mysql.jdbc.Driver");
+//			Connection c = Database.getMySQLConnection();
+//
+//			Statement lecture= c.createStatement();
+//			
+//			String query1 = "SELECT * from session where cle = '"+key+"';";
+//			ResultSet result = lecture.executeQuery(query1);
+//			if(result.next()){
+//				 t = result.getTimestamp(3);	//Index de la colonne
+//				 int d1 = (int) t.getTime();
+//				 Date d2 = new Date();
+//				 int dateToday = (int) d2.getTime();
+//				 if(datediff(t,d2));
+//			}
+//			GregorianCalendar calendar = new GregorianCalendar();
+//			//transformation en un objet Date
+//			Date date = calendar.getTime();
+//			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//			//Affichage formaté de la date
+//			System.out.println(sdf.format(date)); //renvoie 01/01/2007 00:05:15
+//			
+//			
+//
+//			
+//
+//			
+//			
+//			
+//			
+//			String query ="DELETE FROM session WHERE cle='"+key+"';";
+//			int resultat = lecture.executeUpdate(query);
+//			//cas ou il a bien supprim� la session 
+//			if(resultat == 1){
+//				//resultat.close();
+//				lecture.close();
+//				c.close();
+//				return true;
+//			}
+//			//resultat.close();
+//			lecture.close();
+//			c.close();
+//			return false;
+//		}
+//		
+//	}
+	
+	
+	
+	
+	
 
 }

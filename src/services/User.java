@@ -36,6 +36,10 @@ public class User {
 	public static JSONObject createUser(String login, String mdp,String nom, String prenom) throws JSONException, ClassNotFoundException{
 		JSONObject ret = new JSONObject();
 		
+		if(login == null || mdp == null || nom == null || prenom == null){
+			return ServiceRefused.serviceRefused("Wrong Argument", -1);
+		}
+		
 		try{
 			//Class.forName("com.mysql.jdbc.Driver");
 			if(!verif(login)){
@@ -119,25 +123,21 @@ public class User {
 	 * @throws JSONException
 	 */
 
-	public static JSONObject logout(String login,String key) throws SQLException, ClassNotFoundException{
-		if(login == null){
+	public static JSONObject logout(String key) throws SQLException, ClassNotFoundException{
+		if(key == null){
 			return ServiceRefused.serviceRefused("Wrong Argument",-1);
 		}
-		boolean is_login;
 		boolean is_key= BdTools.keyExist(key);
 		JSONObject fin = new JSONObject();
 		try {
-			is_login = BdTools.userExist(login);
-			if(!is_login){
-				return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 1);	
-			}
 			if(!is_key){
 				return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
 			}
-			//on verifie qu'il n'est pas root puis ensuite on verifie qu'il a bien expiré la session
-			if(BdTools.isRoot(login)){
+			//on verifie qu'il n'est pas root puis ensuite on verifie qu'il a bien expirï¿½ la session
+			if(BdTools.isRoot(key)){
 				if(BdTools.expireSession(key)){
 					fin.put("session", "ferme");
+					fin.put("au Revoir", "A la prochaine");
 				}else{
 					return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
 				}	
