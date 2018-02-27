@@ -3,6 +3,7 @@ package bd;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 //import java.sql.DriverManager;
 //import java.sql.ResultSet;
 import java.util.Date;
@@ -55,4 +56,30 @@ public class BDFriends {
 		c.close();	
 	}
 	
+	
+	public static String getList(String idUser) throws ClassNotFoundException, SQLException {
+		String friends = "";
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = Database.getMySQLConnection();
+		Statement lecture = c.createStatement();
+		String query = "SELECT * from friend where userId = '"+idUser+"'; ";
+		ResultSet resultat= lecture.executeQuery(query);
+		
+		//Si l'utilisateur n'a pas d'amis
+		if (!resultat.next()){
+			resultat.close();
+			lecture.close();
+			c.close();
+			return "L'utilisateur " +idUser+" n'a pas d'amis pour le moment :( ";
+		}
+		
+		while(resultat.next()) {
+			friends += resultat.getString("to");
+		}
+		resultat.close();
+		lecture.close();
+		c.close();
+		return friends;
+	}
 }

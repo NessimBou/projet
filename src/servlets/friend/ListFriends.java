@@ -12,29 +12,24 @@ import org.json.JSONObject;
 
 import services.Friend;
 
-public class RemoveFriend extends HttpServlet {
+public class ListFriends extends HttpServlet {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-
-	public RemoveFriend() {
+	public ListFriends() {
 		super();
 	}
 	
-
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException{
 
 		String idUser = req.getParameter("idUser");
-		String idFriend = req.getParameter("idFriend");
 		JSONObject ret = new JSONObject();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			
-			ret = Friend.removeFriend(idUser, idFriend);	
-
+			ret = Friend.listFriends(idUser);	
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
@@ -43,4 +38,5 @@ public class RemoveFriend extends HttpServlet {
 		out.print(ret.toString());	
 	}
 	
+
 }

@@ -2,8 +2,16 @@ package bd;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.UUID;
@@ -14,7 +22,6 @@ import java.util.UUID;
  *
  */
 public class BdTools {
-//	private boolean a;
 	
 	public BdTools(){
 		
@@ -41,6 +48,8 @@ public class BdTools {
 		}else{
 			System.out.println("Erreur ajout");			
 		}
+		lecture.close();
+		c.close();
 	}
 
 	
@@ -79,15 +88,58 @@ public class BdTools {
 	 * @param password le mot de passe de l'utilisateur
 	 * @param login le nom de l'utilisateur 
 	 * @return vrai si c'est le bon mot de passe, false sinon
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IOException 
 	 */
-	public static boolean checkPassword(String login,String password){
-//		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
-//		Statement lecture= c.createStatement();
-//		String query = "Select * from user where login =" +login+ "';"; 
-//		
-		return true;
-	}
-	
+	public static boolean checkPassword(String login,String password) throws ClassNotFoundException, SQLException, IOException{
+/*		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = Database.getMySQLConnection();
+		Statement lecture = c.createStatement();
+		
+		String query = "SELECT password from login where login = '"+login+"';";
+		PreparedStatement ps = c.prepareStatement(query);
+		ResultSet rs = ps.executeQuery();
+		
+		//On ecrit le BLOB dans un fichier pwd.txt
+		File file = new File("pwd.txt");
+		FileOutputStream output = new FileOutputStream(file);
+		//Output = ecriture
+		//-> Essayer de remplacer les FileOutPut/Input par des buffers = plus rapides
+		
+		//Tant qu'il existe un ResultSet
+		while(rs.next()){
+			//On inscrit le BLOB (en binaire) "password" input = lecture
+			InputStream input = rs.getBinaryStream("password");
+			//On crée un buffer de binaire
+			byte[] buffer = new byte[1024];
+			//On lit les donnees grace au buffer puis on l'inscrit dans le fichier
+			while (input.read(buffer) > 0) {
+				output.write(buffer);
+			}
+			
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String line;
+			while ((line = br.readLine()) != null) {
+			   if (line.equals(password)) {
+				   br.close();
+				   c.close();
+				   lecture.close();
+				   rs.close();
+				   ps.close();
+				   return true;
+			   }else {
+				   br.close();
+				   c.close();
+				   lecture.close();
+				   rs.close();
+				   ps.close();
+				   return false;
+			   }
+			}
+		}
+*/		return true;
+	}	
 
 	public static String insertSession(int id_user,boolean root ) throws SQLException{
 		//Creer une nouvelle connexion a cette adresse
@@ -107,9 +159,13 @@ public class BdTools {
 		}
 		int resultat= lecture.executeUpdate(query);
 		if(resultat == 1){
+			lecture.close();
+			c.close();
 			return key;
 		}else{
 			key = "erreur";
+			lecture.close();
+			c.close();
 			return key; 
 		}
 	}
@@ -253,6 +309,7 @@ public class BdTools {
 		c.close();
 		return false;
 	}
+	
 	
 	public static String getKey(String login) throws SQLException{
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");

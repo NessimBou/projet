@@ -19,8 +19,6 @@ public class BDMessage {
 	public BDMessage() {
 		
 	}
-
-	
 	
 	
 	public static boolean idMessageExist(String idUser, int id) throws UnknownHostException{

@@ -79,4 +79,29 @@ public class Friend {
 		return ret;
 	}
 	
+	public static JSONObject listFriends(String idUser) throws ClassNotFoundException {
+		JSONObject ret = new JSONObject();
+		if(idUser==null) {
+			return ServiceRefused.serviceRefused("Wrong Argument", -1);
+		}
+		try {
+			if(!bd.BdTools.userExist(idUser)) {
+				ret.put("Status", "KO");
+				ret.put("Error", "User n'existe pas");
+				return ret;
+			}if(!bd.BdTools.getConnect(idUser)) {
+				ret.put("Status", "KO");
+				ret.put("Error", "L'utilisateur n'est pas connecté");
+				return ret;
+			}else{
+				bd.BDFriends.getList(idUser);
+				ret.put("Status","OK");
+				return ret;
+			}
+		}catch(JSONException | SQLException e){
+			e.printStackTrace();			
+		}
+		return ret;
+	}
+	
 }

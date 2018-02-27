@@ -23,11 +23,10 @@ public class Message {
 		BasicDBObject message = new BasicDBObject();
 		
 		
-		//Choisir l'idMessage et verifie qu'il existe pas
+		//Choisir l'idMessage et verifie qu'il n'existe pas
 		int idMessage = (int)(Math.random() * 100000000);
 		while(BDMessage.idMessageExist(idUser,idMessage)){
 			idMessage = (int)(Math.random() * 100000000);
-			
 		}
 		
 		BasicDBObject id = new BasicDBObject();
@@ -45,10 +44,10 @@ public class Message {
 			//message.put("Commentaire",);
 			
 			col.insert(message);
-				
 		}
 		return id;
 	}
+	
 	
 	public static BasicDBObject deleteMessage(String idUser,int idMessage) throws UnknownHostException{
 		BasicDBObject fin = new BasicDBObject();
@@ -66,6 +65,17 @@ public class Message {
 		}
 		fin.put("message remove", "ok");
 		return fin;
+	}
+	
+	public static BasicDBObject listMessage(String idUser, String content, String listId) throws UnknownHostException {
+		BasicDBObject ret = new BasicDBObject();
+		//Cas 1 : idUser, content, listId tous null : on restaure TOUS les message
+/*		if(idUser == null & content == null & listId == null) {
+			DBCollection col = Database.getCollection("message");
+			col.find();
+			
+		}
+*/		return ret;
 	}
 
 }
