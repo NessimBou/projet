@@ -1,5 +1,6 @@
 package test;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,19 +24,22 @@ import serviceTool.*;
 
 public class MainTest {
 
-	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, UnknownHostException {
+	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, IOException {
 		
 		String login="1234";
-//		String password="root";
+		String password="root";
+		String mdp = "root";
 //		String nom="coucou";
 //		String prenom="coucou";
 //		String test = "message test";
-//		Connection sql= bd.Database.getMySQLConnection();
-//		DBCollection mango = bd.Database.getCollection("message");
-//		User user= new User();
+		Connection sql= bd.Database.getMySQLConnection();
+		DBCollection mango = bd.Database.getCollection("message");
+		User user= new User();
+//		String key = "190f2edf-7c2f-4dfc-8c66-95ef7cb32637";
+//		user.createUser(login, password, nom, prenom);
 //		user.login(login, password);
-//		System.out.println(services.User.login(login,password));
-//		
+//		System.out.println(services.User.logout(key));
+		System.out.println(bd.BdTools.checkPassword(login, mdp));
 //		Message message = new Message();
 ////		BasicDBObject idmessage= message.addMessage(login,test);
 ////		

@@ -93,7 +93,8 @@ public class User {
 			String key = BdTools.insertSession(id_user,true);
 			
 			//verifier si il est bien connecté
-			if(key != null && BdTools.getConnect(login)){
+			//je pense que le getConnect est optionnel si on a la cle a voir 
+			if(key != null){
 				retour.put("status", "ok");
 				retour.put("key",key);
 				return retour;
@@ -122,15 +123,13 @@ public class User {
 	 * @throws ClassNotFoundException 
 	 * @throws JSONException
 	 */
-
 	public static JSONObject logout(String key) throws SQLException, ClassNotFoundException{
 		if(key == null){
 			return ServiceRefused.serviceRefused("Wrong Argument",-1);
 		}
-		boolean is_key= BdTools.keyExist(key);
 		JSONObject fin = new JSONObject();
 		try {
-			if(!is_key){
+			if(!BdTools.keyExist(key)){
 				return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
 			}
 			//on verifie qu'il n'est pas root puis ensuite on verifie qu'il a bien expir� la session
@@ -153,7 +152,6 @@ public class User {
 	
 	public static boolean verif(String login){
 		try{
-			@SuppressWarnings("unused")
 			int log = Integer.parseInt(login);
 			return true;
 		}catch(NumberFormatException e){

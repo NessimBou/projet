@@ -21,15 +21,16 @@ public class Logout extends HttpServlet {
 	}
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException , IOException{
-		String login = req.getParameter("login");
+		String key = req.getParameter("key");
 		
 		JSONObject ret = new JSONObject();
 		try {
 			//il faut utiliser le Class.forName sinon lorsque l'on se connecte a tomcat il ne pourra pas faire les test car on lui dit jamais
 			//d'utiliser le driver
 			Class.forName("com.mysql.jdbc.Driver");
-			String key = BdTools.getKey(login);
-			ret = User.logout(login, key);
+			//Comme passe directement la cle en argument on a plus besoin de la recuperer avec une methode 
+			//String key = BdTools.getKey(login);
+			ret = User.logout(key);
 		} catch (ClassNotFoundException | SQLException e) {
 	
 			e.printStackTrace();

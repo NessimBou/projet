@@ -21,23 +21,24 @@ public class Friend {
 	 * @return KO/OK
 	 * @throws ClassNotFoundException
 	 */
-	public static JSONObject addFriend(String idUser, String idFriend) throws ClassNotFoundException {
+	public static JSONObject addFriend(String key, String idFriend) throws ClassNotFoundException {
 		JSONObject ret = new JSONObject();
-		if(idUser==null || idFriend == null ) {
+		if(key==null || idFriend == null ) {
 			return ServiceRefused.serviceRefused("Wrong Argument", -1);
 		}
 		try {
-			if(!bd.BdTools.userExist(idFriend) || !bd.BdTools.userExist(idUser)) {
-				ret.put("Status", "KO");
-				ret.put("Error", "Friend ou User n'existe pas");
-				return ret;
-			}if(!bd.BdTools.getConnect(idUser)) {
+			if(!bd.BdTools.keyExist(key)) {
 				ret.put("Status", "KO");
 				ret.put("Error", "L'utilisateur n'est pas connect�");
 				return ret;
+		
+			}if(!bd.BdTools.userExist(idFriend)) {
+				ret.put("Status", "KO");
+				ret.put("Error", "Friend n'existe pas");
+				return ret;
 			}else{
 				ret.put("Status","OK");
-				bd.BDFriends.addFriend(idUser, idFriend);
+				bd.BDFriends.addFriend(key, idFriend);
 				return ret;
 			}
 		}catch(JSONException | SQLException e){
@@ -54,24 +55,24 @@ public class Friend {
 	 * @return KO/OK
 	 * @throws ClassNotFoundException
 	 */
-	public static JSONObject removeFriend(String idUser, String idFriend) throws ClassNotFoundException {
+	public static JSONObject removeFriend(String key, String idFriend) throws ClassNotFoundException {
 		JSONObject ret = new JSONObject();
-		if(idUser==null || idFriend == null) {
+		if(key==null || idFriend == null) {
 			return ServiceRefused.serviceRefused("Wrong Argument", -1);
 		}
 		try {
-			if(!bd.BdTools.userExist(idFriend) || !bd.BdTools.userExist(idUser)) {
+			if(!bd.BdTools.userExist(idFriend)) {
 				ret.put("Status", "KO");
 				ret.put("Error", "Friend ou User n'existe pas");
 				return ret;
-			}if(!bd.BdTools.getConnect(idUser)) {
+			}if(!bd.BdTools.keyExist(key)) {
 				ret.put("Status", "KO");
 				ret.put("Error", "L'utilisateur n'est pas connect�");
 				return ret;
 			}else {
 				ret.put("Status", "ok");
 				ret.put("c'est triste",":'(");
-				bd.BDFriends.removeFriend(idUser, idFriend);
+				bd.BDFriends.removeFriend(key, idFriend);
 				return ret;
 			}
 		}catch (JSONException | SQLException e) {
@@ -80,22 +81,19 @@ public class Friend {
 		return ret;
 	}
 	
-	public static JSONObject listFriends(String idUser) throws ClassNotFoundException {
+	public static JSONObject listFriends(String key) throws ClassNotFoundException {
 		JSONObject ret = new JSONObject();
-		if(idUser==null) {
+		if(key==null) {
 			return ServiceRefused.serviceRefused("Wrong Argument", -1);
 		}
 		try {
-			if(!bd.BdTools.userExist(idUser)) {
-				ret.put("Status", "KO");
-				ret.put("Error", "User n'existe pas");
-				return ret;
-			}if(!bd.BdTools.getConnect(idUser)) {
+			
+			if(!bd.BdTools.keyExist(key)) {
 				ret.put("Status", "KO");
 				ret.put("Error", "L'utilisateur n'est pas connect�");
 				return ret;
 			}else{
-				bd.BDFriends.getList(idUser);
+				bd.BDFriends.getList(key);
 				ret.put("Status","OK");
 				return ret;
 			}

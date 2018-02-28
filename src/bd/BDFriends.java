@@ -11,22 +11,30 @@ import java.util.Date;
 public class BDFriends {
 
 	/** Ajoute une amitie
-	 * @param key clé de l'utilisateur
+	 * @param key clï¿½ de l'utilisateur
 	 * @param idUser id de l'utilisateur
-	 * @param idFriend id de l'ami ajouté
+	 * @param idFriend id de l'ami ajoutï¿½
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException
 	 */
-	public static void addFriend(String idUser, String idFriend) throws ClassNotFoundException, SQLException {
+	public static void addFriend(String key, String idFriend) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = Database.getMySQLConnection();
 		Statement lecture = c.createStatement();
 		java.util.Date d1 = new java.util.Date();
 		Date dateToday = new java.sql.Date(d1.getTime());
-		String query = "INSERT into friend values('"+idUser+"','"+idFriend+"','"+dateToday+"');";
-		int resultat= lecture.executeUpdate(query);
-		if(resultat == 1){
-			System.out.println("Amitie ajoutée a la bdd");
+		
+		
+		//on recupere l'idUser a partir de la cle
+		String query = "Select * FROM session WHERE cle  ='"+key+"';";
+		ResultSet resultat= lecture.executeQuery(query);;
+		int idUser = resultat.getInt("idUser");
+		
+		//Puis on ajoute l'amitie dans la table friend	
+		query = "INSERT into friend values('"+idUser+"','"+idFriend+"','"+dateToday+"');";
+		int resultat2= lecture.executeUpdate(query);
+		if(resultat2 == 1){
+			System.out.println("Amitie ajoutï¿½e a la bdd");
 		}else{
 			System.out.println("Erreur ajout ami");			
 		}
@@ -35,19 +43,27 @@ public class BDFriends {
 	}
 	
 	/** Supprime une amitie
-	 * @param key clé de l'utilisateur
+	 * @param key clï¿½ de l'utilisateur
 	 * @param idUser id de l'utilisateur
-	 * @param idFriend id de l'ami supprimé
+	 * @param idFriend id de l'ami supprimï¿½
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void removeFriend(String idUser, String idFriend) throws ClassNotFoundException, SQLException {
+	public static void removeFriend(String key, String idFriend) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = Database.getMySQLConnection();
 		Statement lecture = c.createStatement();
-		String query = "DELETE FROM friend where idUser = '" + idUser + "' and idFriend = '"+idFriend+"';";
-		int resultat= lecture.executeUpdate(query);
-		if(resultat == 1){
+		
+		
+		//on recupere l'idUser a partir de la cle
+		String query = "Select * FROM session WHERE cle  ='"+key+"';";
+		ResultSet resultat= lecture.executeQuery(query);;
+		int idUser = resultat.getInt("idUser");
+		
+		//Puis on supprime l'amitie dans la table friend
+		query = "DELETE FROM friend where idUser = '" + idUser + "' and idFriend = '"+idFriend+"';";
+		int resultat2= lecture.executeUpdate(query);
+		if(resultat2 == 1){
 			System.out.println("Amitie supprimee de la bdd");
 		}else{
 			System.out.println("Erreur suppression ami");			
@@ -57,14 +73,21 @@ public class BDFriends {
 	}
 	
 	
-	public static String getList(String idUser) throws ClassNotFoundException, SQLException {
+	public static String getList(String key) throws ClassNotFoundException, SQLException {
 		String friends = "";
 		
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = Database.getMySQLConnection();
 		Statement lecture = c.createStatement();
-		String query = "SELECT * from friend where userId = '"+idUser+"'; ";
-		ResultSet resultat= lecture.executeQuery(query);
+		
+		//on recupere l'idUser a partir de la cle
+		String query = "Select * FROM session WHERE cle  ='"+key+"';";
+		ResultSet resultat= lecture.executeQuery(query);;
+		int idUser = resultat.getInt("idUser");
+		
+		
+		query = "SELECT * from friend where userId = '"+idUser+"'; ";
+		resultat= lecture.executeQuery(query);
 		
 		//Si l'utilisateur n'a pas d'amis
 		if (!resultat.next()){
@@ -75,7 +98,7 @@ public class BDFriends {
 		}
 		
 		while(resultat.next()) {
-			friends += resultat.getString("to");
+			friends += resultat.getString("idFriend");
 		}
 		resultat.close();
 		lecture.close();
