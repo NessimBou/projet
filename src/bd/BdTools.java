@@ -44,7 +44,7 @@ public class BdTools {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = Database.getMySQLConnection();
 		Statement lecture = c.createStatement();
-		String query = "INSERT into user values(NULL,'"+login+"','"+nom+"','"+prenom+"','PASSWORD("+mdp+")');";
+		String query = "INSERT into user values(NULL,'"+login+"','"+nom+"','"+prenom+"','"+mdp+"');";
 		int resultat= lecture.executeUpdate(query);
 		if(resultat == 1){
 			System.out.println("User ajoute a la bdd");
@@ -104,46 +104,20 @@ public class BdTools {
 		//Je sais pas a quoi sert preparedStatement du coup je l'ai mis en commentaire 
 		//PreparedStatement ps = c.prepareStatement(query);
 		ResultSet resultat = lecture.executeQuery(query);
-		System.out.println("resultat:"+resultat);
 		
-		//On ecrit le BLOB dans un fichier pwd.txt
-		File file = new File("pwd.txt");
-		FileOutputStream output = new FileOutputStream(file);
-		//Output = ecriture ( output = sortie plus exactement :p)
-		//-> Essayer de remplacer les FileOutPut/Input par des buffers = plus rapides
-		
-		//Tant qu'il existe un ResultSet
 		while(resultat.next()){
-			//On inscrit le BLOB (en binaire) "password" input = lecture (merci je n'avais pas fait le lien avec output )
-			InputStream input = resultat.getBinaryStream("password");
-			//On cree un buffer de binaire
-			byte[] buffer = new byte[1024];
-			//On lit les donnees grace au buffer puis on l'inscrit dans le fichier
-			while (input.read(buffer) > 0) {
-				output.write(buffer);
-			}
-			
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String line;
-			while ((line = br.readLine()) != null) {
-			   if (line.equals(password)) {
-				   br.close();
-				   c.close();
-				   lecture.close();
-				   resultat.close();
-				  // ps.close();
-				   return true;
-			   }else {
-				   br.close();
-				   c.close();
-				   lecture.close();
-				   resultat.close();
-				  // ps.close();
-				   return false;
-			   }
+			if(resultat.getString("password").equals(password)){
+				resultat.close();
+				lecture.close();
+				c.close();
+				return true;
 			}
 		}
-		return true;
+		resultat.close();
+		lecture.close();
+		c.close();
+		return false;
+		
 	}	
 
 	public static String insertSession(int id_user,boolean root ) throws SQLException{
