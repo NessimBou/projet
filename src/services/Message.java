@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -21,35 +23,28 @@ public class Message {
 	
 	public static BasicDBObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException{
 		BasicDBObject message = new BasicDBObject();
+
 		
-		
-		//Choisir l'idMessage et verifie qu'il n'existe pas
-		int idMessage = (int)(Math.random() * 100000000);
-		while(BDMessage.idMessageExist(idUser,idMessage)){
-			idMessage = (int)(Math.random() * 100000000);
-		}
-		
-		BasicDBObject id = new BasicDBObject();
-		id.put("idMessage", idMessage);
 		if(BdTools.userExist(idUser)){
 			
 			DBCollection col = Database.getCollection("message");
 			
-			message.put("_id", idMessage);
+			//message.put("_id", 'NULL');
 			message.put("idUser",idUser);
 			GregorianCalendar c= new java.util.GregorianCalendar();
 			Date d = c.getTime();
 			message.put("date",d);
 			message.put("message", Content);
-			//message.put("Commentaire",);
 			
 			col.insert(message);
 		}
+		BasicDBObject id = new BasicDBObject();
+		id.put("message envoyé","ok");
 		return id;
 	}
 	
 	
-	public static BasicDBObject deleteMessage(String idUser,int idMessage) throws UnknownHostException{
+	public static BasicDBObject deleteMessage(String idUser,String idMessage) throws UnknownHostException{
 		BasicDBObject fin = new BasicDBObject();
 		
 		

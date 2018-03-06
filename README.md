@@ -15,10 +15,11 @@
 		
 
 #Reste a faire:
-1)Faire le expire session qui mets à jour lheure à chaque fin de requete
-2) tester en local puis serveur
-3) listFriend(pas demand� pour cette semaine)
-5) Ajout de derni�re minute : am�lioration de deleteMessage (cf TD1)
+-Faire le expire session qui mets à jour lheure à chaque fin de requet
+-modifier l'idMessage
+-tester en local puis serveur
+-listFriend(pas demand� pour cette semaine)
+-Ajout de derni�re minute : am�lioration de deleteMessage (cf TD1)
 
 
 #note :
