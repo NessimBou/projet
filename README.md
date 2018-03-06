@@ -10,19 +10,16 @@
 24/02 : Ajout des services, servlets et BD de addFriend et removeFriend. A tester.
 26/02 :	R�ecriture de la m�thode checkPassword, tr�s brouillon, � tester. 
 		Impl�mentation de listFriends (BD, Service, Servlet + web.xml), � tester aussi.
-28/06 : changer les implementations de logout addFriend removeFriend listFriend et voir note 2) j'ai commencer a revoir checkPaswword mais renvoie tout le temps false
+28/02 : changer les implementations de logout addFriend removeFriend listFriend et voir note 2) j'ai commencer a revoir checkPaswword mais renvoie tout le temps false
+06/03 : CheckPassword ok, expireSession deconnecte l'user si il est connecté + de 30 min,L'heure de connexion affiche est la bonne
 		
 
 #Reste a faire:
-1)Changer checkPassword
-2)Changer l'heure de connexion
-3)Faire le expire session qui mets à jour lheure à chaque fin de requete
-3) tester en local puis serveur
-4) listFriend(pas demand� pour cette semaine)
+1)Faire le expire session qui mets à jour lheure à chaque fin de requete
+2) tester en local puis serveur
+3) listFriend(pas demand� pour cette semaine)
 5) Ajout de derni�re minute : am�lioration de deleteMessage (cf TD1)
 
 
 #note :
 1)Integer.toString(int i) transforme un int en String
-
-2)Pour l'instant j'ai mis tout ce qui est en rapport avec le getConnect en commentaire et j'ai enlever le connect dans la bdd ( on l e rajoutera si on en a vraiment besoin 

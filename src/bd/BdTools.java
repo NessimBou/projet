@@ -120,6 +120,13 @@ public class BdTools {
 		
 	}	
 
+	/**On insere la connexion dans la table session
+	 *  
+	 * @param id_user l'id du user
+	 * @param root si il est root ou pas 
+	 * @return la clé du user
+	 * @throws SQLException
+	 */
 	public static String insertSession(int id_user,boolean root ) throws SQLException{
 		//Creer une nouvelle connexion a cette adresse
 		String key = UUID.randomUUID().toString();
@@ -128,20 +135,9 @@ public class BdTools {
 		String query;
 		//SQL reconnait pas true/false ecrit comme �a
 		if(root){
-//			GregorianCalendar calendar = new GregorianCalendar();
-//			Date date = calendar.getTime();
-//			SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");	
-//			
-			java.util.Date d1 = new java.util.Date();
-			Date dateToday = new java.sql.Date(d1.getTime());
-			query = "INSERT into session values(NULL,'"+id_user+"','"+dateToday+"','"+key+"',True);";
-		}else{
-			java.util.Date d1 = new java.util.Date();
-			Date dateToday = new java.sql.Date(d1.getTime());
-//			GregorianCalendar calendar = new GregorianCalendar();
-//			Date date = calendar.getTime();
-//			SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");	
-			query = "INSERT into session values(NULL,'"+id_user+"','"+dateToday+"','"+key+"','False');";
+			query = "INSERT into session values(NULL,'"+id_user+"',NOW(),'"+key+"',True);";
+		}else{	
+			query = "INSERT into session values(NULL,'"+id_user+"',NOW(),'"+key+"','False');";
 		}
 		int resultat= lecture.executeUpdate(query);
 		if(resultat == 1){
@@ -202,21 +198,47 @@ public class BdTools {
 	  * @throws SQLException
 	  */
 	public static boolean expireSession(String key) throws SQLException{
-		//Pour l'instant on la laisse comme Ã§a mais apres il faudra calculer depuis combien de temps 
-		// il est connecter puis si il a depassÃ© le temps on expire la Session
 		
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture= c.createStatement();
-		String query ="DELETE FROM session WHERE cle='"+key+"';";
-		int resultat = lecture.executeUpdate(query);
+		String query= "SELECT TIMESTAMPDIFF(MINUTE,t, NOW()) FROM session where cle = '"+key+"';";
+		ResultSet resultat = lecture.executeQuery(query);
 		//cas ou il a bien supprimé la session 
+		while(resultat.next()){
+			int min = resultat.getInt("TIMESTAMPDIFF(MINUTE,t, NOW())");
+			if(min > 30 && !isRoot(key)){
+				boolean deco = deconnection(key);
+				if(deco){
+					resultat.close();
+					lecture.close();
+					c.close();
+					return true;
+				}
+			}
+		}
+		resultat.close();
+		lecture.close();
+		c.close();
+		return false;
+	}
+		
+		
+	/**Deconnecte l'utilisateur
+	 * 
+	 * @param key cle de connection
+	 * @return True/False
+	 * @throws SQLException
+	 */
+	public static boolean deconnection(String key) throws SQLException{
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+		Statement lecture = c.createStatement();
+		String query = "DELETE FROM session where cle = '"+key+"';";
+		int resultat = lecture.executeUpdate(query);
 		if(resultat == 1){
-			//resultat.close();
 			lecture.close();
 			c.close();
 			return true;
 		}
-		//resultat.close();
 		lecture.close();
 		c.close();
 		return false;
@@ -248,18 +270,7 @@ public class BdTools {
 		return true;
 	}
 
-//	
-//
-//	public static int getIdUser(String login) throws SQLException {
-//		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
-//		Statement lecture = c.createStatement();
-//		int id = Integer.parseInt(login);
-//		String query = "Select * From session Where idUser ='"+id+"';";
-//		ResultSet resultat = lecture.executeQuery(query);
-//		if 
-//		
-//		return 0;
-//	}
+
 	
 	/**Verifie que l'utilisateur est connecte
 	 * 
@@ -267,34 +278,8 @@ public class BdTools {
 	 * @return TRue/false
 	 * @throws SQLException
 	 */
-//
-//	public static boolean getConnect(String login) throws SQLException{
-//	
-//		int id;
-//		boolean a;
-//		//Connexion 
-//		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
-//		Statement lecture = c.createStatement();
-//		
-//		//passe le login de String a int
-//		id = Integer.parseInt(login);
-//		
-//		//requete SQL
-//		String query="SELECT * FROM session WHERE idUser ='"+id+"';";
-//		ResultSet resultat = lecture.executeQuery(query);
-//		if(resultat.next()){
-//		
-//			a = resultat.getBoolean("connect");
-//			resultat.close();
-//			lecture.close();
-//			c.close();
-//			return a;
-//		}
-//		resultat.close();
-//		lecture.close();
-//		c.close();
-//		return false;
-//	}
+
+	
 	
 	
 	public static String getKey(String login) throws SQLException{
@@ -315,57 +300,6 @@ public class BdTools {
 		lecture.close();
 		c.close();
 		return "erreur";
-	}
-	
-//
-//		public static boolean expireSession(String key) throws SQLException, ClassNotFoundException{
-//			//Pour l'instant on la laisse comme ça mais apres il faudra calculer depuis combien de temps 
-//			// il est connecter puis si il a depassé le temps on expire la Session		
-//			Date t = new Date();
-//			Class.forName("com.mysql.jdbc.Driver");
-//			Connection c = Database.getMySQLConnection();
-//
-//			Statement lecture= c.createStatement();
-//			
-//			String query1 = "SELECT * from session where cle = '"+key+"';";
-//			ResultSet result = lecture.executeQuery(query1);
-//			if(result.next()){
-//				 t = result.getTimestamp(3);	//Index de la colonne
-//				 int d1 = (int) t.getTime();
-//				 Date d2 = new Date();
-//				 int dateToday = (int) d2.getTime();
-//				 if(datediff(t,d2));
-//			}
-//			GregorianCalendar calendar = new GregorianCalendar();
-//			//transformation en un objet Date
-//			Date date = calendar.getTime();
-//			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//			//Affichage formaté de la date
-//			System.out.println(sdf.format(date)); //renvoie 01/01/2007 00:05:15
-//			
-//			
-//
-//			
-//			String query ="DELETE FROM session WHERE cle='"+key+"';";
-//			int resultat = lecture.executeUpdate(query);
-//			//cas ou il a bien supprim� la session 
-//			if(resultat == 1){
-//				//resultat.close();
-//				lecture.close();
-//				c.close();
-//				return true;
-//			}
-//			//resultat.close();
-//			lecture.close();
-//			c.close();
-//			return false;
-//		}
-//		
-//	}
-	
-	
-	
-	
-	
+	}	
 
 }
