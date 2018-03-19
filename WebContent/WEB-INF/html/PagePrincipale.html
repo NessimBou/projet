@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Principale</title>
+        <link href="PagePrincipale.css" rel="stylesheet" type="text/css" >
+    </head>
+    <body>
+        <!-- haut de la page -->
+        <header id="header">
+   <!--         <div id=profil>
+                <input type=submit value="page de profil">
+            </div>
+            <div id="recherche">
+                <input type=search name="zone" placeholder="Zone Recherche">
+                <button id=buttonrecherche>Rechercher</button>
+            </div>
+            <div id="deconnexion">
+                <input type=submit value="deconnexion">
+            </div>-->
+            <ul>
+		  		<li><a id=profil href="profil.html" class="active">Profil</a></li>
+				<li><input id=recherche type=search name="zone" placeholder="Zone Recherche"></li>
+				<li><a id=buttonrecherche href="">Recherche</a></li>
+				<li><a id=deconnexion href="deconnexion.html">Deconnexion</a></li>
+			</ul>
+
+        </header>
+        
+        <!--Zone statistique-->
+        <nav id=stat>
+			<div>
+			</div>
+        </nav> 
+        
+        <!--section nouveau message -->
+        <section id=newmessage>
+		<div>
+			<label for="textarea">votre message:</label>
+			<br /> 
+			<textarea id=textarea placeholder="Ecrivez un message ici" > </textarea>
+			<input type=submit value=envoyer id=buttonenvoyer>
+		</div>
+        </section>
+        
+        <!--section liste message -->
+        <section>
+        </section>
+    </body>
+</html>

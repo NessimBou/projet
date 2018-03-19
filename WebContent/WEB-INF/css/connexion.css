@@ -1,0 +1,43 @@
+p,h2{
+    color: blue;
+}
+
+h1{
+    color:blue;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 0px black;
+}
+
+
+#t1,#button,#lien{
+    width: 300px;
+    margin-left: 30%;
+}
+
+tr{
+    height: 20px;
+}
+
+tr:first-child td{
+    padding-top: 20px; 
+}
+
+input[type = "text"]{
+    width: 100%;
+}
+
+p,a{
+    color: black
+}
+
+#lien{
+   
+	display: flex;
+    flex-direction: row;
+    cursor: :pointer;   
+}
+
+#button{
+    cursor:pointer;
+}
