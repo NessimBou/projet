@@ -2,25 +2,18 @@
 <html>
     <head>
         <title>Page Principale</title>
-        <link href="PagePrincipale.css" rel="stylesheet" type="text/css" >
+        <link href="../css/PagePrincipale.css" rel="stylesheet" type="text/css" >
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
+
+		<script type="text/javascript" src="main.js" ></script>
     </head>
-    <body>
+    <body onload="init()" >
         <!-- haut de la page -->
         <header id="header">
-   <!--         <div id=profil>
-                <input type=submit value="page de profil">
-            </div>
-            <div id="recherche">
-                <input type=search name="zone" placeholder="Zone Recherche">
-                <button id=buttonrecherche>Rechercher</button>
-            </div>
-            <div id="deconnexion">
-                <input type=submit value="deconnexion">
-            </div>-->
             <ul>
 		  		<li><a id=profil href="profil.html" class="active">Profil</a></li>
-				<li><input id=recherche type=search name="zone" placeholder="Zone Recherche"></li>
-				<li><a id=buttonrecherche href="">Recherche</a></li>
+				<li><input class="rec" id=recherche type=search name="zone" placeholder="Zone Recherche"></li>
+				<li><a class="rec" id=buttonrecherche href="">Recherche</a></li>
 				<li><a id=deconnexion href="deconnexion.html">Deconnexion</a></li>
 			</ul>
 
