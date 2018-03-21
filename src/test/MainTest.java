@@ -28,15 +28,61 @@ public class MainTest {
 
 	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, IOException {
 		
-		String login="12345";
+		String login="1234";
 		String password="root";
-		String mdp = "saezfzef";
 		String nom="coucou";
 		String prenom="coucou";
 		String test = "message test";
+		
+		
+		String login1="12345";
+		String password1="root";
+		String nom1="coucou";
+		String prenom1="coucou";
+		
+		String login2="123456";
+		String password2="root";
+		String nom2="coucou";
+		String prenom2="coucou";
+		
+		String login3="123457";
+		String password3="root";
+		String nom3="coucou";
+		String prenom3="coucou";
+		
+
+		
 		Connection sql= bd.Database.getMySQLConnection();
 		DBCollection mango = bd.Database.getCollection("message");
 		User user= new User();
+		String key = BdTools.getKey(login);
+		
+		Friend.removeFriend(key, login);
+		Friend.removeFriend(key, login2);
+		Friend.removeFriend(key, login3);
+		Friend.removeFriend(key, login1);
+		
+		user.DeconnectionUrgente(key);
+		BdTools.DeleteUser(login1);
+		BdTools.DeleteUser(login2);
+		BdTools.DeleteUser(login3);
+		BdTools.DeleteUser(login);
+		
+		user.createUser(login, password, nom, prenom);
+		user.createUser(login1, password1, nom1, prenom1);
+		user.createUser(login2, password2, nom2, prenom2);
+		user.createUser(login3, password3, nom3, prenom3);
+		
+		user.login(login, password);
+		key = BdTools.getKey(login);
+		
+		
+		Friend.addFriend(key,login1);
+		Friend.addFriend(key,login2);
+		Friend.addFriend(key,login3);
+		Friend.listFriends(key);
+		
+		
 //		String key = "190f2edf-7c2f-4dfc-8c66-95ef7cb32637";
 //		user.createUser(login, password, nom, prenom);
 //		user.login(login, password);
@@ -44,25 +90,16 @@ public class MainTest {
 		
 //		System.out.println(services.User.logout(key));
 //		System.out.println(bd.BdTools.checkPassword(login, mdp));
-		Message message = new Message();
+//		Message message = new Message();
 //		BasicDBObject idmessage = new BasicDBObject();
 //		idmessage = message.addMessage(login,test);
 //		System.out.println(BDMessage.getIdMessage(login));
-		message.deleteMessage(login,BDMessage.getIdMessage(login));
+//		message.deleteMessage(login,BDMessage.getIdMessage(login));
 	
 
 //	
 
-	//	Pattern pattern = Pattern.compile("PASSWORD(([a-zA-Z]*))");
-//		java.util.Date d1 = new java.util.Date();
-//		Date dateToday = new java.sql.Date(d1.getTime());
-//	
-//		System.out.println(dateToday);
-//		System.out.println(d1);
-////		
 
-		//Database db=new Database("Test");
-		
 //		Statement lecture = sql.createStatement();
 //		ResultSet curseur = lecture.executeQuery("Select t from session where idUser = '"+login+"';");
 //		while (curseur.next()){
@@ -78,8 +115,6 @@ public class MainTest {
 //		lecture.close();
 //		mango.close();
 		sql.close();
-//		//System.out.println(bd.UserTools.userExist("3408748"));
-//		System.out.println(UUID.randomUUID().toString());
 
 	}
 

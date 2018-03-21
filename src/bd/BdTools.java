@@ -269,18 +269,6 @@ public class BdTools {
 		c.close();
 		return true;
 	}
-
-
-	
-	/**Verifie que l'utilisateur est connecte
-	 * 
-	 * @param login utilisateur
-	 * @return TRue/false
-	 * @throws SQLException
-	 */
-
-	
-	
 	
 	public static String getKey(String login) throws SQLException{
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
@@ -300,6 +288,50 @@ public class BdTools {
 		lecture.close();
 		c.close();
 		return "erreur";
-	}	
+	}
+	
+	
+	public static int getIdUser(String key) throws SQLException{
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+		Statement lecture = c.createStatement();
+		String query = "Select * from session where cle ='"+key+"';";
+		ResultSet resultat = lecture.executeQuery(query);
+		if(resultat.next()){
+			int id = resultat.getInt("idUser");
+			resultat.close();
+			lecture.close();
+			c.close();
+			return id;
+		}
+		resultat.close();
+		lecture.close();
+		c.close();
+		return -1;
+	}
+	
+	
+	
+	/**Supprime l'utilisateur de la bdd user
+	 * 
+	 * @param login de l'utilisateur
+	 * @return true/false
+	 * @throws SQLException
+	 */
+	public static boolean DeleteUser(String login) throws SQLException{
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+		Statement lecture= c.createStatement();
+		String query= "DELETE from user where login='"+login+"';";
+		int resultat = lecture.executeUpdate(query);
+		if(resultat == 1){
+			lecture.close();
+			c.close();
+			return true;
+		}
+		
+		lecture.close();
+		c.close();
+		return false;
+	}
+	
 
 }

@@ -29,7 +29,7 @@ public class Friend {
 		try {
 			if(!bd.BdTools.keyExist(key)) {
 				ret.put("Status", "KO");
-				ret.put("Error", "L'utilisateur n'est pas connect�");
+				ret.put("Error", "L'utilisateur n'est pas connecte");
 				return ret;
 		
 			}if(!bd.BdTools.userExist(idFriend)) {
@@ -90,10 +90,10 @@ public class Friend {
 			
 			if(!bd.BdTools.keyExist(key)) {
 				ret.put("Status", "KO");
-				ret.put("Error", "L'utilisateur n'est pas connect�");
+				ret.put("Error", "L'utilisateur n'est pas connecte");
 				return ret;
 			}else{
-				bd.BDFriends.getList(key);
+				System.out.println(bd.BDFriends.getList(key));
 				ret.put("Status","OK");
 				return ret;
 			}

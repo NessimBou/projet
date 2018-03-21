@@ -5,6 +5,7 @@ import serviceTool.ServiceRefused;
 import java.sql.SQLException;
 //import java.util.ArrayList;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -149,6 +150,56 @@ public class User {
 		return fin;
 		
 	}
+	
+	public static JSONObject SupprimerUser(String login) throws ClassNotFoundException{
+		
+		if(login == null){
+			return ServiceRefused.serviceRefused("Wrong argument" , -1);
+		}
+		JSONObject fin = new JSONObject();
+		try{
+			if(!BdTools.userExist(login)){
+				return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 3);
+			}
+			if(BdTools.DeleteUser(login)){
+				fin.put("utilisateur","supprimer");
+			}else{
+				return ServiceRefused.serviceRefused("l'utilisateur n'a pas ete supprime",4);
+			}
+		}catch(JSONException |SQLException e){
+			e.printStackTrace();
+		}
+	
+		return fin;
+		
+	}
+	
+	
+	public static JSONObject DeconnectionUrgente(String key){
+	
+		if(key == null){
+			return ServiceRefused.serviceRefused("Wrong argument",-1);
+		}
+		
+		JSONObject fin = new JSONObject();
+		try {
+			if(!BdTools.keyExist(key)){
+				return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
+			}
+			//on verifie qu'il n'est pas root puis ensuite on verifie qu'il a bien expir� la session
+			if(BdTools.deconnection(key)){
+				fin.put("session", "ferme");
+				fin.put("au Revoir", "A la prochaine");
+			}else{
+				return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
+			}	
+		}catch(JSONException | SQLException e){
+			e.printStackTrace();
+		}	
+		
+		return fin;
+	}
+	
 	
 	public static boolean verif(String login){
 		try{
