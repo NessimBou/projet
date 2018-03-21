@@ -25,11 +25,11 @@ public class ListFriends extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException{
 
-		String idUser = req.getParameter("idUser");
+		String key = req.getParameter("key");
 		JSONObject ret = new JSONObject();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			ret = Friend.listFriends(idUser);	
+			ret = Friend.listFriends(key);	
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}

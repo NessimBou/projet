@@ -27,13 +27,13 @@ public class RemoveFriend extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException{
 
-		String idUser = req.getParameter("idUser");
+		String key = req.getParameter("key");
 		String idFriend = req.getParameter("idFriend");
 		JSONObject ret = new JSONObject();
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			ret = Friend.removeFriend(idUser, idFriend);	
+			ret = Friend.removeFriend(key, idFriend);	
 
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();

@@ -12,10 +12,10 @@
 		Impl�mentation de listFriends (BD, Service, Servlet + web.xml), � tester aussi.
 28/02 : changer les implementations de logout addFriend removeFriend listFriend et voir note 2) j'ai commencer a revoir checkPaswword mais renvoie tout le temps false
 06/03 : CheckPassword ok, expireSession deconnecte l'user si il est connecté + de 30 min,L'heure de connexion affiche est la bonne
-21/03 :ListFriend fonctionne, ajout de certaine fonctionne : getUserId,DeconnectionUrgente,SupprimerUser	
+21/03 :ListFriend fonctionne, ajout de certaine fonctionne : getUserId,DeconnectionUrgente,SupprimerUser, fonctionne aussi sur serveur.	
 
 #Reste a faire:
-
+-finir les messages
 -modifier l'idMessage
 -tester en local puis serveur
 -Ajout de derni�re minute : am�lioration de deleteMessage (cf TD1)
