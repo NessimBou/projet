@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.mongodb.BasicDBObject;
 
@@ -22,14 +24,15 @@ public class DeleteMessage {
 	}
 	
 
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException, SQLException{
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException, SQLException, JSONException{
 		
 		String message = req.getParameter("idMessage");
 		String idUser = req.getParameter("idUser");
-		BasicDBObject ret = new BasicDBObject();
+		ObjectId id  = new ObjectId(idUser);
+		JSONObject ret = new JSONObject();
 		
 		//Class.forName("com.mysql.jdbc.Driver");
-		ret = Message.deleteMessage(idUser, message);
+		ret = Message.deleteMessage(idUser, id);
 		
 		PrintWriter out = res.getWriter();
 		res.setContentType("text/plain");

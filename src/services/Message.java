@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.bson.types.ObjectId;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -44,16 +46,16 @@ public class Message {
 	}
 	
 	
-	public static BasicDBObject deleteMessage(String idUser,String idMessage) throws UnknownHostException{
-		BasicDBObject fin = new BasicDBObject();
+	public static JSONObject deleteMessage(String idUser,ObjectId id_message) throws UnknownHostException, JSONException{
+		JSONObject fin = new JSONObject();
 		
 		
-		if(BDMessage.idMessageExist(idUser,idMessage)){
+		if(BDMessage.idMessageExist(idUser,id_message)){
 			
 			DBCollection col = Database.getCollection("message");
 			BasicDBObject query = new BasicDBObject();
 			query.put("idUser",idUser);
-			query.put("_id",idMessage);
+			query.put("_id",id_message);
 			DBCursor cursor = col.find(query);
 		
 			if(cursor.hasNext()){
@@ -63,16 +65,80 @@ public class Message {
 		fin.put("message remove", "ok");
 		return fin;
 	}
+
 	
-	public static BasicDBObject listMessage(String idUser, String content, String listId) throws UnknownHostException {
+	
+	
+	public static BasicDBObject listMessage(String idUser, String content, Date date) throws UnknownHostException {
 		BasicDBObject ret = new BasicDBObject();
-		//Cas 1 : idUser, content, listId tous null : on restaure TOUS les message
-/*		if(idUser == null & content == null & listId == null) {
-			DBCollection col = Database.getCollection("message");
-			col.find();
-			
+		DBCollection col = Database.getCollection("message");
+		col.find();
+		
+		//Cas 1 : idUser, content, date , id  null: on restaure tous les messages
+		//PAS POSSIBLE
+		if ( idUser == null && content == null && date == null){
+			BasicDBObject query = new BasicDBObject();
+			DBCursor cursor = col.find();
+			if(!cursor.hasNext()){
+				ret.put("erreur", "Message inexistant");
+			}else{
+				int i =0;
+				System.out.println(cursor.size());
+				while(cursor.hasNext()){
+					ret.put("message_" + i, cursor.next());
+					i++;
+				}
+			}
 		}
-*/		return ret;
+		
+		//Cas 2 : content null : on restaure les messages de l'idUSer
+		if(content == null && idUser != null && date == null){
+			BasicDBObject query = new BasicDBObject();
+			query.put("idUser",idUser);
+			DBCursor cursor = col.find(query);
+			if(!cursor.hasNext()){
+				ret.put("erreur", "Message Utilisateur introuvable");
+			}else{
+				System.out.println(cursor.size());
+				int i = 0;
+				while(cursor.hasNext()){
+					ret.put("message_"+i, cursor.next());
+					ret.put("\n","\n");
+					i++;
+					//System.out.println("je suis la ");
+				}
+			}
+		}
+		
+		//Cas 3 : IdUSer null : on restaure les messages avec content et idUser
+		if (idUser == null && content != null && date == null){
+			BasicDBObject query = new BasicDBObject();
+			query.put("content", content);
+			DBCursor cursor = col.find(query);
+			if(!cursor.hasNext()){
+				ret.put("erreur","message introuvable");
+			}else{
+				while(cursor.hasNext()){
+					ret.put("message", cursor.next());
+				}
+			}
+		}
+		
+		//Cas 4: Date non null on affiche tous les messages à date
+		if(idUser == null && content == null && date != null){
+			BasicDBObject query = new BasicDBObject();
+			query.put("date", date);
+			DBCursor cursor = col.find(query);
+			if(!cursor.hasNext()){
+				ret.put("eereur", "message introuvable");
+			}else{
+				while( cursor.hasNext()){
+					ret.put("message", cursor);
+				}
+			}
+		}
+		
+		return ret;
 	}
 
 }

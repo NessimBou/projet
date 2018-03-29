@@ -24,7 +24,23 @@ public class BDMessage {
 		
 	}
 
+	public static Date getDateMessage(ObjectId id) throws UnknownHostException{
 
+		DBObject ret = null;
+		DBCollection col = Database.getCollection("message");
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id",id);
+		DBCursor cursor = col.find(query);
+		if(cursor.size() != 1){
+			System.out.println("erreur pour trouver la data");
+			return null;
+		}
+		while(cursor.hasNext()){
+			ret = cursor.next();
+			
+		}
+		return (Date) ret.get("date");
+	}
 	
 	public static ObjectId getIdMessage(String idUser) throws UnknownHostException{
 		BasicDBObject retour = new BasicDBObject();
@@ -43,7 +59,7 @@ public class BDMessage {
 		return (ObjectId) ret.get("_id");	//On retourne un BasicDBObject avec l'id du DERNIER message ajouté par l'utilisateur
 	}
 	
-	public static boolean idMessageExist(String idUser, String id) throws UnknownHostException{
+	public static boolean idMessageExist(String idUser, ObjectId id) throws UnknownHostException{
 		DBCollection col = Database.getCollection("message");
 		BasicDBObject query = new BasicDBObject();
 		query.put("idUser",idUser);

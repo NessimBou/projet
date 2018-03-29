@@ -14,6 +14,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,6 +51,7 @@ public class MainTest {
 		String nom3="coucou";
 		String prenom3="coucou";
 		
+		
 
 		
 		Connection sql= bd.Database.getMySQLConnection();
@@ -57,31 +59,31 @@ public class MainTest {
 		User user= new User();
 		String key = BdTools.getKey(login);
 		
-		Friend.removeFriend(key, login);
-		Friend.removeFriend(key, login2);
-		Friend.removeFriend(key, login3);
-		Friend.removeFriend(key, login1);
-		
-		user.DeconnectionUrgente(key);
-		BdTools.DeleteUser(login1);
-		BdTools.DeleteUser(login2);
-		BdTools.DeleteUser(login3);
-		BdTools.DeleteUser(login);
-		
-		user.createUser(login, password, nom, prenom);
-		user.createUser(login1, password1, nom1, prenom1);
-		user.createUser(login2, password2, nom2, prenom2);
-		user.createUser(login3, password3, nom3, prenom3);
-		
-		user.login(login, password);
-		key = BdTools.getKey(login);
-		
-		
-		Friend.addFriend(key,login1);
-		Friend.addFriend(key,login2);
-		Friend.addFriend(key,login3);
-		Friend.listFriends(key);
-		
+//		Friend.removeFriend(key, login);
+//		Friend.removeFriend(key, login2);
+//		Friend.removeFriend(key, login3);
+//		Friend.removeFriend(key, login1);
+//		
+//		user.DeconnectionUrgente(key);
+//		BdTools.DeleteUser(login1);
+//		BdTools.DeleteUser(login2);
+//		BdTools.DeleteUser(login3);
+//		BdTools.DeleteUser(login);
+//		
+//		user.createUser(login, password, nom, prenom);
+//		user.createUser(login1, password1, nom1, prenom1);
+//		user.createUser(login2, password2, nom2, prenom2);
+//		user.createUser(login3, password3, nom3, prenom3);
+//		
+//		user.login(login, password);
+//		key = BdTools.getKey(login);
+//		
+//		
+//		Friend.addFriend(key,login1);
+//		Friend.addFriend(key,login2);
+//		Friend.addFriend(key,login3);
+//		Friend.listFriends(key);
+//		
 		
 //		String key = "190f2edf-7c2f-4dfc-8c66-95ef7cb32637";
 //		user.createUser(login, password, nom, prenom);
@@ -90,11 +92,49 @@ public class MainTest {
 		
 //		System.out.println(services.User.logout(key));
 //		System.out.println(bd.BdTools.checkPassword(login, mdp));
-//		Message message = new Message();
-//		BasicDBObject idmessage = new BasicDBObject();
-//		idmessage = message.addMessage(login,test);
+		Message message = new Message();
+//		ObjectId idmessage = new ObjectId();
+//		idmessage = BDMessage.getIdMessage(login);
+		
+//		Message.addMessage(login,test);
+//		test = " ezjfhqekhn";
+//		Message.addMessage(login,test);
+//		test = " zkefjaezo";
+//		Message.addMessage(login2,test);
+//		test = " blblbl";
+//		Message.addMessage(login2,test);
+//		test = " salut";
+//		Message.addMessage(login1,test);
+//		test = " coucou";
+//		Message.addMessage(login1,test);
+//		test = " one piece";
+//		Message.addMessage(login1,test);
+//		test = " rouroruou";
+//		Message.addMessage(login3,test);
+//		test = " ghe";
+//		Message.addMessage(login3,test);
+		Date date = null;
+		String comment = null;
+		String log = null;
+		
+//		System.out.println("---------------------");
+//		System.out.println("Premier essai");
+//		System.out.println(Message.listMessage(login,comment , date));
+//		System.out.println("fin premier essai");
+//		System.out.println("---------------------");
+//		System.out.println("deuxieme essai");
+//		System.out.println(Message.listMessage(login1,comment , date));
+//		System.out.println("fin deuxieme essai");
+//		System.out.println("---------------------");
+//		System.out.println("troisieme essai");
+//		System.out.println(Message.listMessage(login2,comment , date));
+//		System.out.println("fin troisieme essai");
+//		System.out.println("---------------------");
+		System.out.println("quatrieme essai");
+		System.out.println(Message.listMessage(log,comment , date));
+		System.out.println("fin quatrieme essai");
 //		System.out.println(BDMessage.getIdMessage(login));
-//		message.deleteMessage(login,BDMessage.getIdMessage(login));
+//		Message.deleteMessage(login,idmessage);
 	
 
 //	

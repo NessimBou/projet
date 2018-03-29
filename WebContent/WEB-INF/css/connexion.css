@@ -1,3 +1,8 @@
+body{
+    background-color: cornflowerblue;
+}
+
+
 p,h2{
     color: blue;
 }
@@ -13,6 +18,7 @@ h1{
 #t1,#button,#lien{
     width: 300px;
     margin-left: 30%;
+    position :relative;
 }
 
 tr{
@@ -28,13 +34,11 @@ input[type = "text"]{
 }
 
 p,a{
-    color: black
+    color: black;
 }
 
 #lien{
-   
-	display: flex;
-    flex-direction: row;
+    text-align: center;
     cursor: :pointer;   
 }
 

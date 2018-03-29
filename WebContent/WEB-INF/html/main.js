@@ -18,6 +18,6 @@ function setVirtualdb(){
 	follows[1]= [2,4];
 	follows[2]= new Set();
 	follows[4]=[1];
-	console.log("bonjour");
+	
 }
 
