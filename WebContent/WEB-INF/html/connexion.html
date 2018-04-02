@@ -4,46 +4,55 @@
         <title>Connexion</title>
         <link href="../css/connexion.css" rel="stylesheet" type="text/css">
     </head>
+    
     <body>
-        <h1>Ouvrir une session</h1>
-        <form method="get" action="javascript=connexion">
-            <table id ="t1" border="0"> 
-                <tr>
-                    <!--login-->
-                    <td>login</td>
-                    <td>
-                        <input type=text name="nom">
-                    </td>
-                </tr>
-                <!--password-->
-                <tr>
-                    <td>password</td>
-                    <td>
-                        <input type="text" password=mdp>
-                    </td>
-                </tr>
-            </table>            
-            <table id="button">
-                <!--bouton envoyer-->
-                <tr>
-                    <td>
-                        <input type="submit" value="Connexion" name="connexion">    
-                    </td>
-                </tr>
-            </table>
-            <table id="lien">   
-                <!--lien vers mots de passe perdu et inscription-->
-                <tr>
-                    <td>
-                        <a href="">Mot de passe perdu</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="inscription.html">Inscription</a>
-                    </td>
-                </tr>
-            </table>     
-        </form>
+        <div class="block_connexion">
+          <div class="block_title">
+            <h1>
+              Ouvrir une session
+            </h1>
+          </div>
+            
+          <div class="block_form">
+              
+            <form method="get" action="javascript=connexion">
+                
+              <div class="block_input">
+                <div class="title_form">
+                  <span>Login</span>
+                </div>
+                  
+                <div class="input_form">
+                  <input  type="text" name="login" />
+                </div>
+                  
+                <div class="title_form">
+                  <span>Password</span>
+                </div>
+                  
+                <div class="input_form">
+                  <input type="password" name="password" />
+                </div>
+              </div>
+                
+            </form>
+          </div>
+
+          <div class="block_buttons">
+            <div class="button">
+              <input class="input_login" type="submit" value="Connexion" name="connexion">
+            </div>
+              <div class="block_links">
+            <div class="lien">
+               <a href="">Mot de passe perdu</a>
+            </div>
+              
+            <div class="lien">
+              <a href="inscription.html">Inscription</a>
+            </div>
+              </div>
+          </div>
+            
+        </div>
     </body>
 </html>

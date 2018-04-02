@@ -1,0 +1,27 @@
+.profil{
+    display:block;
+    width:500px;
+    height:700px;
+    background-color:lightgrey;
+    margin: 0 auto;
+}
+
+.img{
+    
+}
+
+.block_profil{
+    
+}
+
+.block_login{
+    
+}
+
+.add_remove{
+    display:inline-block;
+}
+
+.small_img{
+    display:inline-block;
+}

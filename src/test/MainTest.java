@@ -119,19 +119,19 @@ public class MainTest {
 		
 //		System.out.println("---------------------");
 //		System.out.println("Premier essai");
-//		System.out.println(Message.listMessage(login,comment , date));
+//		System.out.println(Message.listMessage(login,comment, date));
 //		System.out.println("fin premier essai");
 //		System.out.println("---------------------");
 //		System.out.println("deuxieme essai");
-//		System.out.println(Message.listMessage(login1,comment , date));
+//		System.out.println(Message.listMessage(login1,comment, date));
 //		System.out.println("fin deuxieme essai");
 //		System.out.println("---------------------");
 //		System.out.println("troisieme essai");
-//		System.out.println(Message.listMessage(login2,comment , date));
+//		System.out.println(Message.listMessage(login2,comment, date));
 //		System.out.println("fin troisieme essai");
 //		System.out.println("---------------------");
 		System.out.println("quatrieme essai");
-		System.out.println(Message.listMessage(log,comment , date));
+		System.out.println(Message.listMessage(log, comment, date));
 		System.out.println("fin quatrieme essai");
 //		System.out.println(BDMessage.getIdMessage(login));
 //		Message.deleteMessage(login,idmessage);

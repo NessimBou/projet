@@ -25,7 +25,6 @@ public class Message {
 	
 	public static BasicDBObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException{
 		BasicDBObject message = new BasicDBObject();
-
 		
 		if(BdTools.userExist(idUser)){
 			
@@ -49,7 +48,6 @@ public class Message {
 	public static JSONObject deleteMessage(String idUser,ObjectId id_message) throws UnknownHostException, JSONException{
 		JSONObject fin = new JSONObject();
 		
-		
 		if(BDMessage.idMessageExist(idUser,id_message)){
 			
 			DBCollection col = Database.getCollection("message");
@@ -69,14 +67,14 @@ public class Message {
 	
 	
 	
-	public static BasicDBObject listMessage(String idUser, String content, Date date) throws UnknownHostException {
+	public static BasicDBObject listMessage(String idUser, String content) throws UnknownHostException {
 		BasicDBObject ret = new BasicDBObject();
 		DBCollection col = Database.getCollection("message");
 		col.find();
 		
 		//Cas 1 : idUser, content, date , id  null: on restaure tous les messages
 		//PAS POSSIBLE
-		if ( idUser == null && content == null && date == null){
+		if (idUser == null && content == null){
 			BasicDBObject query = new BasicDBObject();
 			DBCursor cursor = col.find();
 			if(!cursor.hasNext()){
@@ -92,7 +90,7 @@ public class Message {
 		}
 		
 		//Cas 2 : content null : on restaure les messages de l'idUSer
-		if(content == null && idUser != null && date == null){
+		if(content == null && idUser != null){
 			BasicDBObject query = new BasicDBObject();
 			query.put("idUser",idUser);
 			DBCursor cursor = col.find(query);
@@ -111,7 +109,7 @@ public class Message {
 		}
 		
 		//Cas 3 : IdUSer null : on restaure les messages avec content et idUser
-		if (idUser == null && content != null && date == null){
+		if (idUser == null && content != null){
 			BasicDBObject query = new BasicDBObject();
 			query.put("content", content);
 			DBCursor cursor = col.find(query);
@@ -125,12 +123,12 @@ public class Message {
 		}
 		
 		//Cas 4: Date non null on affiche tous les messages à date
-		if(idUser == null && content == null && date != null){
+		if(idUser != null && content != null){
 			BasicDBObject query = new BasicDBObject();
-			query.put("date", date);
+			//query.put("date", date);
 			DBCursor cursor = col.find(query);
 			if(!cursor.hasNext()){
-				ret.put("eereur", "message introuvable");
+				ret.put("erreur", "message introuvable");
 			}else{
 				while( cursor.hasNext()){
 					ret.put("message", cursor);

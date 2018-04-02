@@ -124,7 +124,7 @@ public class BdTools {
 	 *  
 	 * @param id_user l'id du user
 	 * @param root si il est root ou pas 
-	 * @return la clé du user
+	 * @return la cle du user
 	 * @throws SQLException
 	 */
 	public static String insertSession(int id_user,boolean root ) throws SQLException{
@@ -166,7 +166,6 @@ public class BdTools {
 		boolean a;
 		
 		//Creer une nouvelle connexion a cette adresse
-
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture = c.createStatement();
 		// cree une requete sql qui recupere l'identifiant de l'uilisateur
@@ -192,7 +191,6 @@ public class BdTools {
 	
 	
 	 /**Si l'utilisateur est reste connecter un certain nombre de minute on expire la session sauf si il est root
-	  * 
 	  * @param key cle de connexion 
 	  * @return True/False
 	  * @throws SQLException
@@ -224,7 +222,6 @@ public class BdTools {
 		
 		
 	/**Deconnecte l'utilisateur
-	 * 
 	 * @param key cle de connection
 	 * @return True/False
 	 * @throws SQLException
@@ -246,13 +243,11 @@ public class BdTools {
 	
 	
 	/**Verifie si la cle existe
-	 * 
 	 * @param key cle de l'utilisateur
 	 * @return true/false
 	 * @throws SQLException 
 	 */
 	public static boolean keyExist(String key) throws SQLException{
-		
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
 		Statement lecture = c.createStatement();
 		String query="Select * From session WHERE cle ='"+key+"';";
