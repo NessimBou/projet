@@ -25,6 +25,7 @@ public class Message {
 	
 	public static BasicDBObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException{
 		BasicDBObject message = new BasicDBObject();
+
 		
 		if(BdTools.userExist(idUser)){
 			
@@ -47,6 +48,7 @@ public class Message {
 	
 	public static JSONObject deleteMessage(String idUser,ObjectId id_message) throws UnknownHostException, JSONException{
 		JSONObject fin = new JSONObject();
+		
 		
 		if(BDMessage.idMessageExist(idUser,id_message)){
 			
@@ -74,7 +76,7 @@ public class Message {
 		
 		//Cas 1 : idUser, content, date , id  null: on restaure tous les messages
 		//PAS POSSIBLE
-		if (idUser == null && content == null){
+		if ( idUser == null && content == null){
 			BasicDBObject query = new BasicDBObject();
 			DBCursor cursor = col.find();
 			if(!cursor.hasNext()){
@@ -101,7 +103,6 @@ public class Message {
 				int i = 0;
 				while(cursor.hasNext()){
 					ret.put("message_"+i, cursor.next());
-					ret.put("\n","\n");
 					i++;
 					//System.out.println("je suis la ");
 				}
@@ -120,20 +121,7 @@ public class Message {
 					ret.put("message", cursor.next());
 				}
 			}
-		}
 		
-		//Cas 4: Date non null on affiche tous les messages à date
-		if(idUser != null && content != null){
-			BasicDBObject query = new BasicDBObject();
-			//query.put("date", date);
-			DBCursor cursor = col.find(query);
-			if(!cursor.hasNext()){
-				ret.put("erreur", "message introuvable");
-			}else{
-				while( cursor.hasNext()){
-					ret.put("message", cursor);
-				}
-			}
 		}
 		
 		return ret;
