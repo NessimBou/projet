@@ -1,29 +1,61 @@
-h1{
-    width: 300px;
-    margin-left: 40%;
-    
+/*h1{
+
+}
+*/
+
+.titre{
+    text-align: center;
+    padding: 
 }
 
-#coordonnee{
-    width: 400px;
-    margin-left: 30%;
-}
-
-input[type = "text"]{
-    width: 100%;
-}
-
-input[type = "password"]{
-    width: 100%;
+body{
+    display: block;
+    padding: 5px;
 }
 
 required{
     color: red;
 }
 
-#button{
-    margin-left: 50%;
+.form{
+    width: 100%;
+}
+
+.block_form{
+    display: block;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin : 0 auto;
+    padding:5px;
+}
+
+.title_form{
+    display:inline-block;
+    width : 30%;
+}
+
+.input_form{
     display: inline-block;
-    text-align:center;
+    width: 66%;
+    position: relative;
+    margin: 0 auto;
+    padding: 4px;
+}
+
+.block_button{
+    display: block;
+    position: relative;
+    margin: 5px;
+    text-align: center;
+}
+
+.button {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 46%;
+    margin: 1px;
+    padding: 3px;
 }
 

@@ -2,48 +2,6 @@ body{
     background-color: cornflowerblue;
 }
 
-/*
-p,h2{
-    color: blue;
-}
-
-h1{
-    color:blue;
-    text-align: center;
-    margin-bottom: 30px;
-    text-shadow: 1px 1px 0px black;
-}
-
-
-#t1,#button,#lien,#ids{
-    width: 300px;
-    margin-left: 30%;
-    position :relative;
-}
-
-tr{
-    height: 20px;
-}
-
-tr:first-child td{
-    padding-top: 20px; 
-}
-
-
-
-p,a{
-    color: black;
-}
-
-#lien{
-    text-align: center;
-    cursor: :pointer;   
-}
-
-#button{
-    cursor:pointer;
-}
-*/
 .block_connexion {
   display: block;
   width: 300px;
@@ -89,6 +47,7 @@ p,a{
     padding: 15px;
     vertical-align: top;
 }
+
 .input_login{
     width: 100%;
 }
