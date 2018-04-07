@@ -1,20 +1,29 @@
+function init() {
+    noConnection = true;
+    env = new Object();
+    SetVirtualDB();
 
+}
+function SetVirtualDB() {
+    localdb = [];
+    follows = [];
+    var u1 = {"id": 1, "login": "sly"};
+    var u2 = {"id": 2, "login": "joe"};
+    var u3 = {"id": 3, "login": "luc"};
 
-function init(){
-	noConnection=true;
-	env=new Object();
-	setVirtualdb();
 }
 
-function setVirtualdb(){
-	localdb=[];
-	follows=[];
-	var v1= {"id":1,"login":"sly"};
-	var v2= {"id":2,"login":"sly"};
-	var v3=  {"id":1,"login":"sly"};
-	follows[1]= [2,4];
-	follows[2]= new Set();
-	follows[4]=[1];
-	
+function getFromLocalDB(fromId,minId,maxId,nbMax){
+	var tab=[];
+	var nb=0;
+	var f=new Set();
+	if (fromId>0)
+		f=follows[fromId];
+	for (var i=localdb.length-1;i>=0;i--){
+        tab[i]=localdb[i];
+    }
+
+	return tab;
 }
+
 

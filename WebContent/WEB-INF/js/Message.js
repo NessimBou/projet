@@ -51,62 +51,6 @@ function revival1(key, value) {
     return value;
 }
 
-function SetVirtualDB() {
-    localdb = [];
-    follows = [];
-    var u1 = {"id": 1, "login": "sly"};
-    var u2 = {"id": 2, "login": "joe"};
-    var u3 = {"id": 3, "login": "luc"};
-}
-
-function init() {
-    noConnection = true;
-    env = new Object();
-    SetVirtualDB();
-    var m1 = new Message(12, "vinc", "Bonjour", new Date(), undefined);
-    var m2 = new Message(13,"doums","neymar",new Date(),undefined);
-    var tab = [m1, m2];
-    var s = "";
-    makeMainPanel(m1,m2,"lala");
-
-    for (var i = 0; i < tab.length; i++) {
-        s = s + tab[i].getHTML();
-    }
-    document.getElementById("main").innerHTML = s;
-
-}
-
-function makeMainPanel(fromId, fromLogin, query) {
-    env.messages = [];
-    if (fromId === undefined) {
-        fromId = 1;
-    }
-    env.fromId = fromId;
-    env.fromLogin = fromLogin;
-    console.log(env.fromLogin);
-    env.query = query;
-    var s = "<header id=\"top\">";
-    if (env.fromId < 0) {
-        s += "<div id=\"title\"> Actualités</div>";
-    }
-    else {
-        if (!env.follows.has(env.fromId)) {
-            s += "<div id=\"title\"> Page de " + fromLogin + "<div \
-            class=\"add\"><img src=\"Images/add.png\" title=\"suivre\" \
-            onclick= javascript:follow()\"></div></div>";
-        }
-        else {
-            s += "<div id=\"title\"> Page de " + fromLogin + "<div \
-            class=\"add\"><img src=\"Images/remove.png\" \
-            onclick= javascript:stopfollow()\"></div></div>";
-        }
-    }
-    s += "</div><div id=\"connect\"><span id=\"log\" \
-    onclick=\"javascript.pageUser(" + env.id + "," + env.login + ")\"> \
-    <img src=\"Images/logout.png\" \
-            onclick= javascript:logout()\"></div></div>";
-    return s;
-}
 
 function completeMessages() {
     if (!noConnection) {
@@ -132,16 +76,23 @@ function completeMessagesResponse(rep) {
     }
 }
 
-function getFromLocalDB(from, minId, maxId, nbMax) {
-    var tab = [];
-    var nb = 0;
-    var f = new Set();
-    if (from > 0) {
-        f = follows[from];
+function developpeMessage(id){
+    var m =env.msgs[id];
+    var e1 = $(".list_msg")+ id +$(".bloc_comment");
+    for(var i =0; i < m.length ; i++){
+        var c = m.Comments[i];
+        e1.append(c.getHTML());
     }
-    for (var i = localdb.length - 1; i >= 0; i--) {
-        messages += i;
-    }
-    return tab
+    e1 = $(".list_msg") + id +$(".bloc_comment");
+    e1.append();
+    $("#message_"+id+"img").remplaceWith("<img src="" onclick=\"javascript replieMessage("+id+")\"/>");
 }
 
+function replieMessage(id){
+    
+}
+
+function newComment(){
+    var commentaire = $("#comment").text();
+    
+}

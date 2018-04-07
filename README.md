@@ -15,8 +15,9 @@
 21/03 :ListFriend fonctionne, ajout de certaine fonctionne : getUserId,DeconnectionUrgente,SupprimerUser, fonctionne aussi sur serveur.	
 
 #Reste a faire:
--finir les messages
--modifier l'idMessage
+
+- Refaire le html avec moins de div
+- finir js
 -tester en local puis serveur
 -Ajout de derni�re minute : am�lioration de deleteMessage (cf TD1)
 

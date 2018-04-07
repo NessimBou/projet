@@ -1,36 +1,62 @@
+
+
 var form = document.querySelector("form");
-form.addEventListener("submit",function(e){var nom = form.elements.nom.value;
-                                           var prenom = form.elements.prenom.value;
-                                           var login = form.elements.login.value;
-                                           var email = form.elements.email.value;
-                                           var mdp = form.elements.password.value;
-                                           var check_mdp = form.elements.motdepasse.value;  
-                                           //var ok = enregistrement(nom,prenom,login,email,mdp,check_mdp)
-                                           console.log(enregistrement(nom,prenom,login,email,mdp,check_mdp));
-                                           if(!ok){
-                                               console.log("la");
-                                               //makeMainPanelEnregistrement(ok);
-                                           }else{
-                                               console.log("ok");
-                                           }
+form.addEventListener("submit",function(e){
+    
+    
+    var nom = form.elements.nom.value;
+    var prenom = form.elements.prenom.value;
+    var login = form.elements.login.value;
+    var email = form.elements.email.value;
+    var mdp = form.elements.password.value;
+    var check_mdp = form.elements.motdepasse.value;  
+    var ok = enregistrement(nom,prenom,login,email,mdp,check_mdp);
+
+    if(ok){
+        enregistre(prenom,nom,email,login,mdp);
+    }
                                             
 });
 
 
 
-function check_enregistrement(formulaire){
-    var nom = formulaire.nom.value;
-    var prenom = formulaire.prenom.value;
-    var login = formulaire.login.value;
-    var email = formulaire.email.value;
-    var mdp = formulaire.password.value;
-    var check_mdp = formulaire.motdepasse.value;
-   
-    /*if(!enregistrement(nom,prenom,login,email,mdp,check_mdp)){
-        erreur("enregistrement mauvais");
-    }*/
-    console.log("ok");
+function enregistre(prenom, nom, mail, login, password) {
+    if (!noConnection) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/BoutarHusseinTd2G1/createUser",
+            data: "prenom=" + prenom + "&nom=" + nom + "&login=" + login + "&pwd" + password,
+            datatype: "json",
+            success: function (rep) { enregistreResponse(rep); },
+            error: function (jqXHR, textStatus, errorThrow) { console.log("Erreur");}
+        });
+    }
 }
+
+
+
+function responseConnexion1(res){
+    if(res.erre===undefined){
+        env.key=res.key;
+        env.id =res.id;
+        env.login=res.login;
+        env.follows = new Set();
+    }
+    for(var i =1;i <rep.follows.length;i++){
+        env.follows.add(rep.follows[i]);
+    }
+    if(noConnection){
+        follows[rep.id] = new Set();
+        for(var i = 0 ; i < rep.follows.length;i++){
+            follows[rep.id].add(rep.follows[i]);
+        }
+    }else{
+        func_erreur(rep.erreur);
+    }
+}
+
+
+
 
 
 
@@ -38,83 +64,57 @@ function check_enregistrement(formulaire){
 function enregistrement(nom,prenom,login,email,mdp,check_mdp){
    
     if(nom  <= 0){
-        $("#AideNom").html("Nom Obligatoire");
-        $("#AideNom").css('color','red');
-        $("#nom").css('display','inline-block');
+        func_erreur("Nom Obligatoire");
         return false;
-        
-//        return "nom";
     }
     
     if(prenom<=0){
-        $("#AidePrenom").html("prenom Obligatoire");
-        $("#AidePrenom").css('color','red');
-        $("#prenom").css('display','inline-block');
+        func_erreur("prenom obligatoire")
         return false;
-        
-//        return "prenom";
     }
     //L'email ne contient pas de @
     var regex = /@/;
     if(!regex.test(email)){
-        $("#AideEmail").html("erreur mail");
-        $("#AideEmail").css('color','red');
-        $("#mail").css('display','inline-block');
+        func_erreur("Format email incorrect");
         return false;
-//        return "email";
     }
     
     //Si le login contient des lettres
     regex = /[a-zA-Z]/;
     if(regex.test(login)){
-        $("#AideLogin").html("erreur de login, Ne doit contenir que des chiffres");
-        $("#AideLogin").css('color','red');
-        $("#login").css('display','inline-block');
-//        return "login";
+        func_erreur("Login ne doit contenir que des chiffres");
         return false;
+
     }
     
     
     if(mdp <=0){
-        $("#AidePassword").html("Mot de passe Obligatoire");
-        $("#AidePassword").css('color','red');
-        $("#pass").css('display','inline-block');
-/*
-        return "pass";
-*/
+        func_erreur("mdp obligatoire");
         return false;
     }
     if(check_mdp <=0){
-        $("#AideCheckPassword").html("Mot de passe Obligatoire");
-        $("#AideCheckPassword").css('color','red');
-        $("#check_pass").css('display','inline-block');
-/*
-        return "check_pass";
-*/
+        func_erreur("mdp obligatoire");
         return false;
     }
     
     if(mdp != check_mdp){
-        $("#AideCheckPassword").html("Les mots de passe ne sont pas pareil");
-        $("#AideCheckPassword").css('color','red');
-        $("#check_pass").css('display','inline-block');
+        func_erreur("Les deux mots de passe ne sont pas les mêmes");
         return false;
     }
     return true;
 }
 
-function erreur(message){
-    var msg = "<div id =\"message_erreur\">"+message+"></div>";
-    if(message.length <= 0){
-        $("form").prepend(msg);
+
+
+function func_erreur(msg){
+	var msg_box="<div id=\"msg_erreur\">"+msg+"<br><br></div>";
+	var old_msg=$("#msg_erreur");
+	if (old_msg.length==0){
+		$("form").prepend(msg_box);
+	}else{
+		old_msg.replaceWith(msg_box);
     }
-    else{
-        $("#erreur").replaceWith(msg);
-    }    
-    $("#erreur").css({"color":"red"}); 
-}
-
-
-
+    $("#msg_erreur").css("color","red");
+}    
 
 

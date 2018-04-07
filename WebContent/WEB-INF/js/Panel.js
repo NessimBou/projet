@@ -1,9 +1,38 @@
-function makeMainPanel(){
-    
+function makeMainPanel(fromId, fromLogin, query) {
+    env.messages = [];
+    if (fromId === undefined) {
+        fromId = 1;
+    }
+    env.fromId = fromId;
+    env.fromLogin = fromLogin;
+    console.log(env.fromLogin);
+    env.query = query;
+    var s = "<header id=\"top\">";
+    if (env.fromId < 0) {
+        s += "<div id=\"title\"> Actualités</div>";
+    }
+    else {
+        if (!env.follows.has(env.fromId)) {
+            s += "<div id=\"title\"> Page de " + fromLogin + "<div \
+            class=\"add\"><img src=\"Images/add.png\" title=\"suivre\" \
+            onclick= javascript:follow()\"></div></div>";
+        }
+        else {
+            s += "<div id=\"title\"> Page de " + fromLogin + "<div \
+            class=\"add\"><img src=\"Images/remove.png\" \
+            onclick= javascript:stopfollow()\"></div></div>";
+        }
+    }
+    s += "</div><div id=\"connect\"><span id=\"log\" \
+    onclick=\"javascript.pageUser(" + env.id + "," + env.login + ")\"> \
+    <img src=\"Images/logout.png\" \
+            onclick= javascript:logout()\"></div></div>";
+    return s;
 }
 
 function makeMainPanelEnregistrement(){
     $("body").load("../html/inscription.html");
+    console.log("Apres le load");
 }
 
 function makeMainPanelConnexion(){
@@ -18,7 +47,49 @@ function makeMainPanelProfil(){
     $("body").load("../html/Profil.html");
 }
 
-
+function makeMainPanelEnregistrementErreur(erreur){
+    makeMainPanelEnregistrement();
+    console.log(erreur);
+    console.log("Avant les erreurs");
+    if(erreur ==="nom"){
+        $("#AideNom").html("Nom obligatoire");
+        $("#AideNom").css("color","red");
+        $("#nom").css("display","block-inline");
+    }
+    
+    if(erreur ==="prenom"){
+        $("#AidePrenom")("Prenom Obligatoire");
+        $("#AidePrenom").css("color","red");
+        $("#prenom").css("display","block-inline");
+    }
+    
+    if(erreur === "login"){
+        $("#AideLogin").html("Le Login ne doit contenir que des chiffres");
+        $("#AideLogin").css("color","red");
+        $("#login").css("display","block-inline");
+        
+    }
+    
+    if(erreur === "email"){
+        $("#AideEmail").html("Mail incorrect");
+        $("#AideEmail").css("color","red");
+        $("#email").css("display","block-inline");
+    }
+    
+    if(erreur === "password"){
+        $("#AidePassword").html("Mot de passe incorrect");
+        $("#AidePassword").css("color","red");
+        $("#pass").css("display","block-inline");
+        
+    }
+    
+    if(erreur === "motdepasse"){
+        $("#AideCheckPasswrd").html("Mot de passe incorrect");
+        $("#AideCheckPassword").css("color","red");
+        $("#check_pass").css("display","block_inline");
+    }
+}
+/*
 function makeMainPanelEnregistrement(erreur){
     var s="<div class=\"titre\">";
     s+="<h1>Inscription</h1>";
@@ -28,7 +99,7 @@ function makeMainPanelEnregistrement(erreur){
     s+="<div class =\"block_coord\">";
     s+="<dv class=\"title_form\"><span>Nom :</span></div>";
     s=+"<div id=\"nom\" class=\"input_form\">";
-    s+="<input type=\"text\" nampe=\"nom\" class=\"form\" required/>";
+    s+="<input type=\"text\" name=\"nom\" class=\"form\" required/>";
     if(erreur === "nom"){
         s+= "<span id=\"AideNom\"></span>";
         $("#AideNom").html("Nom Obligatoire");
@@ -120,5 +191,7 @@ function makeMainPanelEnregistrement(erreur){
     s+="</form>";
     s+="</div>";
     
-    return s;
+    
+    $('body').html(s);
 }
+*/
