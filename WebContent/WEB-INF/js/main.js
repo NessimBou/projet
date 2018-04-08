@@ -7,9 +7,7 @@ function init() {
 function SetVirtualDB() {
     localdb = [];
     follows = [];
-    var u1 = {"id": 1, "login": "sly"};
-    var u2 = {"id": 2, "login": "joe"};
-    var u3 = {"id": 3, "login": "luc"};
+
 
 }
 
@@ -27,3 +25,16 @@ function getFromLocalDB(fromId,minId,maxId,nbMax){
 }
 
 
+function creationUser(login, mdp){
+    if(follows.length === 0){
+        var u = {"id":1, "login":login, "mdp" : mdp};
+        follows.add(u);
+        console.log(follows);
+        console.log(follows.length);
+    }else{
+        u = {"id": follows.length, "login":login, "mdp" : mdp};
+        follows.add(u);
+        console.log(follows);
+        console.log(follows.length);
+    }
+}

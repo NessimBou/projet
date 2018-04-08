@@ -3,9 +3,10 @@
     <head>
         <title>Connexion</title>
         <link href="../css/connexion.css" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
     </head>
     
-    <body>
+    <body onload="init()">
         <div class="block_connexion">
           <div class="block_title">
             <h1>
@@ -15,7 +16,7 @@
             
           <div class="block_form">
               
-            <form method="get" action="javascript:function(){return;}()">
+            <form method="get" action="javascript:function(){return;}()" >
                 
               <div class="block_input">
                 <div class="title_form">
@@ -40,7 +41,7 @@
 
           <div class="block_buttons">
             <div class="button">
-              <input class="input_login" type="submit" value="Connexion" name="connexion" >
+              <input class="input_login" type="submit" value="Connexion" name="connexion" onclick="check()">
             </div>
               <div class="block_links">
             <div class="lien">
@@ -56,4 +57,7 @@
         </div>
     </body>
     <script type="text/javascript" src="../js/connexion.js"></script>
+    <script type="text/javascript" src="../js/Panel.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+    
 </html>

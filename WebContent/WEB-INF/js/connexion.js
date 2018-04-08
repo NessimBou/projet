@@ -1,26 +1,39 @@
 var form = document.querySelector("form");
-form.addEventListener("submit",check);
+//form.addEventListener("submit",check);
 
 
 function check(){
+    console.log("je suis la");
     var login  = form.elements.login.value;
     var mdp  = form.elements.password.value;
     console.log(login);
     console.log(mdp)
     if(formulaire_bon(login,mdp)){
-        connecte(login,mdp);
+        console.log("ok");
+      //  connecte(login,mdp);
+        makeMainPanelPagePrincipal();
     }
 }
 
 
 function formulaire_bon(login,mdp){
     if(login.length <=0){
-        func_erreur("login obligatoire");
+        erreur("login obligatoire");
         return false;
     }
     
     if(mdp <= 0){
-        func_erreur("mdp obligatoire");
+        erreur("mdp obligatoire");
+        return false;
+    }
+    
+    if(login.length >= 10 ){
+        erreur("Login ou mdp incorrect");
+        return false;
+    }
+    
+    if(regex.test(login)){
+        erreur("Login ou mdp incorrect");
         return false;
     }
     
@@ -28,7 +41,7 @@ function formulaire_bon(login,mdp){
 }
 
 
-function connecte(login, password) {
+function connecte(login, password){
     var idUser = 78;
     var key = "ABCD";
     if (!noConnection) {
@@ -55,7 +68,7 @@ function responseConnexion(res){
         env.follows = new Set();
     }
     for(var i =1;i <rep.follows.length;i++){
-        env.follows.add(rep.follows[i]):
+        env.follows.add(rep.follows[i]);
     }
     if(noConnection){
         follows[rep.id] = new Set();

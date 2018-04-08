@@ -10,14 +10,12 @@ function makeMainPanel(fromId, fromLogin, query) {
     var s = "<header id=\"top\">";
     if (env.fromId < 0) {
         s += "<div id=\"title\"> Actualités</div>";
-    }
-    else {
+    } else {
         if (!env.follows.has(env.fromId)) {
             s += "<div id=\"title\"> Page de " + fromLogin + "<div \
             class=\"add\"><img src=\"Images/add.png\" title=\"suivre\" \
             onclick= javascript:follow()\"></div></div>";
-        }
-        else {
+        } else {
             s += "<div id=\"title\"> Page de " + fromLogin + "<div \
             class=\"add\"><img src=\"Images/remove.png\" \
             onclick= javascript:stopfollow()\"></div></div>";
@@ -30,63 +28,65 @@ function makeMainPanel(fromId, fromLogin, query) {
     return s;
 }
 
-function makeMainPanelEnregistrement(){
+function makeMainPanelEnregistrement() {
+    $("head").load("../html/inscription.html");
     $("body").load("../html/inscription.html");
-    console.log("Apres le load");
 }
 
-function makeMainPanelConnexion(){
+function makeMainPanelConnexion() {
+    $("head").load("../html/connexion.html");
     $("body").load("../html/connexion.html");
 }
 
-function makeMainPanelPagePrincipal(){
+function makeMainPanelPagePrincipal() {
+    $("head").load("../html/PagePrincipale.html");
     $("body").load("../html/PagePrincipale.html");
 }
 
-function makeMainPanelProfil(){
+function makeMainPanelProfil() {
     $("body").load("../html/Profil.html");
 }
 
-function makeMainPanelEnregistrementErreur(erreur){
+function makeMainPanelEnregistrementErreur(erreur) {
     makeMainPanelEnregistrement();
     console.log(erreur);
     console.log("Avant les erreurs");
-    if(erreur ==="nom"){
+    if (erreur === "nom") {
         $("#AideNom").html("Nom obligatoire");
-        $("#AideNom").css("color","red");
-        $("#nom").css("display","block-inline");
+        $("#AideNom").css("color", "red");
+        $("#nom").css("display", "block-inline");
     }
-    
-    if(erreur ==="prenom"){
+
+    if (erreur === "prenom") {
         $("#AidePrenom")("Prenom Obligatoire");
-        $("#AidePrenom").css("color","red");
-        $("#prenom").css("display","block-inline");
+        $("#AidePrenom").css("color", "red");
+        $("#prenom").css("display", "block-inline");
     }
-    
-    if(erreur === "login"){
+
+    if (erreur === "login") {
         $("#AideLogin").html("Le Login ne doit contenir que des chiffres");
-        $("#AideLogin").css("color","red");
-        $("#login").css("display","block-inline");
-        
+        $("#AideLogin").css("color", "red");
+        $("#login").css("display", "block-inline");
+
     }
-    
-    if(erreur === "email"){
+
+    if (erreur === "email") {
         $("#AideEmail").html("Mail incorrect");
-        $("#AideEmail").css("color","red");
-        $("#email").css("display","block-inline");
+        $("#AideEmail").css("color", "red");
+        $("#email").css("display", "block-inline");
     }
-    
-    if(erreur === "password"){
+
+    if (erreur === "password") {
         $("#AidePassword").html("Mot de passe incorrect");
-        $("#AidePassword").css("color","red");
-        $("#pass").css("display","block-inline");
-        
+        $("#AidePassword").css("color", "red");
+        $("#pass").css("display", "block-inline");
+
     }
-    
-    if(erreur === "motdepasse"){
+
+    if (erreur === "motdepasse") {
         $("#AideCheckPasswrd").html("Mot de passe incorrect");
-        $("#AideCheckPassword").css("color","red");
-        $("#check_pass").css("display","block_inline");
+        $("#AideCheckPassword").css("color", "red");
+        $("#check_pass").css("display", "block_inline");
     }
 }
 /*

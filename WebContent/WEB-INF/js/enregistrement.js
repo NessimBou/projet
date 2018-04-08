@@ -1,9 +1,8 @@
-
-
 var form = document.querySelector("form");
-form.addEventListener("submit",function(e){
-    
-    
+
+
+
+function envoye_formulaire(){
     var nom = form.elements.nom.value;
     var prenom = form.elements.prenom.value;
     var login = form.elements.login.value;
@@ -13,10 +12,13 @@ form.addEventListener("submit",function(e){
     var ok = enregistrement(nom,prenom,login,email,mdp,check_mdp);
 
     if(ok){
-        enregistre(prenom,nom,email,login,mdp);
-    }
-                                            
-});
+        alert("Inscription ok");
+        creationUser(login,mdp);
+        makeMainPanelConnexion();
+//        enregistre(prenom,nom,email,login,mdp);
+        
+    } 
+}
 
 
 
@@ -51,7 +53,7 @@ function responseConnexion1(res){
             follows[rep.id].add(rep.follows[i]);
         }
     }else{
-        func_erreur(rep.erreur);
+        erreur(rep.erreur);
     }
 }
 
@@ -64,41 +66,47 @@ function responseConnexion1(res){
 function enregistrement(nom,prenom,login,email,mdp,check_mdp){
    
     if(nom  <= 0){
-        func_erreur("Nom Obligatoire");
+        erreur("Nom Obligatoire");
         return false;
     }
     
     if(prenom<=0){
-        func_erreur("prenom obligatoire")
+        erreur("prenom obligatoire")
         return false;
     }
     //L'email ne contient pas de @
-    var regex = /@/;
+    var regex = /@upmc.fr$/;
     if(!regex.test(email)){
-        func_erreur("Format email incorrect");
+        erreur("Format email incorrect,doit finir par\"@upmc.fr\"");
+        return false;
+    }
+    
+    if(login.length >= 10){
+        erreur("Le login ne doit faire que 10 characteres max");
         return false;
     }
     
     //Si le login contient des lettres
     regex = /[a-zA-Z]/;
     if(regex.test(login)){
-        func_erreur("Login ne doit contenir que des chiffres");
+        erreur("Login ne doit contenir que des chiffres");
         return false;
 
     }
     
     
     if(mdp <=0){
-        func_erreur("mdp obligatoire");
+        erreur("mdp obligatoire");
         return false;
     }
+    
     if(check_mdp <=0){
-        func_erreur("mdp obligatoire");
+        erreur("mdp obligatoire");
         return false;
     }
     
     if(mdp != check_mdp){
-        func_erreur("Les deux mots de passe ne sont pas les mêmes");
+        erreur("Les deux mots de passe ne sont pas les mêmes");
         return false;
     }
     return true;
@@ -106,7 +114,7 @@ function enregistrement(nom,prenom,login,email,mdp,check_mdp){
 
 
 
-function func_erreur(msg){
+function erreur(msg){
 	var msg_box="<div id=\"msg_erreur\">"+msg+"<br><br></div>";
 	var old_msg=$("#msg_erreur");
 	if (old_msg.length==0){
