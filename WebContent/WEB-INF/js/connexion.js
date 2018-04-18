@@ -31,7 +31,7 @@ function formulaire_bon(login,mdp){
         erreur("Login ou mdp incorrect");
         return false;
     }
-    
+    var  regex = /[a-zA-Z]/;
     if(regex.test(login)){
         erreur("Login ou mdp incorrect");
         return false;

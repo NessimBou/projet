@@ -35,9 +35,9 @@ body{
   display: inline-block;
 }
 
-.lien{
-    display: block;
-    padding: 5px;
+#lien{
+   /* display: inline-block;
+   */ padding: 5px;
     text-align: center;
 }
 
@@ -48,13 +48,28 @@ body{
     vertical-align: top;
 }
 
+#inscription{
+	position:relative;
+	display: block;
+	text-align: center;
+}
+
+#lien{
+	position: relative;
+	display: block;
+	text-align: center;
+}
+
 .input_login{
-    width: 100%;
+    width: 40%;
+	display: block;
 }
 
 .block_links{
-    width: 40%;
-    display: inline-block;
+    width: 50%;
+    display: block;
+	position:relative;
+	text-align: center;
 }
 
 h1 {

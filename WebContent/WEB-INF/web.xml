@@ -39,6 +39,10 @@
 		<servlet-name>DeleteMessage</servlet-name>
 		<servlet-class>servlets.message.DeleteMessage</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ListMessage</servlet-name>
+		<servlet-class>servlets.message.ListMessage</servlet-class>
+	</servlet>
 	
 	<!-- createUser/login/logout -->
 	<servlet-mapping>
@@ -68,7 +72,7 @@
 		<url-pattern>/listFriends</url-pattern>	
 	</servlet-mapping>
 	
-	<!-- AddMessage/DeleteMessage -->
+	<!-- AddMessage/DeleteMessage/ListMessage -->
 	<servlet-mapping>
 		<servlet-name>AddMessage</servlet-name>
 		<url-pattern>/addMessage</url-pattern>
@@ -76,6 +80,10 @@
 	<servlet-mapping>
 		<servlet-name>DeleteMessage</servlet-name>
 		<url-pattern>/deleteMessage</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ListMessage</servlet-name>
+		<url-pattern>/listMessage</url-pattern>
 	</servlet-mapping>
 
 </web-app>

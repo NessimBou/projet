@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +17,7 @@ import com.mongodb.BasicDBObject;
 
 import services.Message;
 
-public class DeleteMessage {
+public class DeleteMessage extends HttpServlet{
 
 
 	public DeleteMessage(){
@@ -24,7 +25,7 @@ public class DeleteMessage {
 	}
 	
 
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException, SQLException, JSONException{
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException{
 		
 		String message = req.getParameter("idMessage");
 		String idUser = req.getParameter("idUser");
@@ -32,7 +33,12 @@ public class DeleteMessage {
 		JSONObject ret = new JSONObject();
 		
 		//Class.forName("com.mysql.jdbc.Driver");
-		ret = Message.deleteMessage(idUser, id);
+		try {
+			ret = Message.deleteMessage(idUser, id);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		PrintWriter out = res.getWriter();
 		res.setContentType("text/plain");

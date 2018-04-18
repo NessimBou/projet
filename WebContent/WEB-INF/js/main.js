@@ -24,17 +24,4 @@ function getFromLocalDB(fromId,minId,maxId,nbMax){
 	return tab;
 }
 
-
-function creationUser(login, mdp){
-    if(follows.length === 0){
-        var u = {"id":1, "login":login, "mdp" : mdp};
-        follows.add(u);
-        console.log(follows);
-        console.log(follows.length);
-    }else{
-        u = {"id": follows.length, "login":login, "mdp" : mdp};
-        follows.add(u);
-        console.log(follows);
-        console.log(follows.length);
-    }
-}
+		

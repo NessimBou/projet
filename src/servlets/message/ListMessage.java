@@ -27,15 +27,11 @@ public class ListMessage extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException{
 		String content = req.getParameter("content");
 		String idUser = req.getParameter("idUser");
-		String date = req.getParameter("date");
-		
-		SimpleDateFormat.parse("");
-		
 		
 		BasicDBObject ret = new BasicDBObject();
 
 		//Class.forName("com.mysql.jdbc.Driver");
-		ret = Message.listMessage(idUser, content,date);
+		ret = Message.listMessage(idUser, content);
 			
 		PrintWriter out = res.getWriter();
 		res.setContentType("text/plain");

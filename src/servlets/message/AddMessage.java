@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,14 +16,14 @@ import com.mongodb.BasicDBObject;
 import services.Friend;
 import services.Message;
 
-public class AddMessage {
+public class AddMessage extends HttpServlet{
 	
 	public AddMessage(){
 		super();
 	
 	}
 	
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException, SQLException{
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException{
 		
 		String message = req.getParameter("message");
 		String idUser = req.getParameter("idUser");
@@ -31,7 +32,7 @@ public class AddMessage {
 			//Class.forName("com.mysql.jdbc.Driver");
 			ret = Message.addMessage(idUser, message);
 
-		}catch(ClassNotFoundException  e){
+		}catch(ClassNotFoundException | SQLException  e){
 			e.printStackTrace();
 		}
 		PrintWriter out = res.getWriter();

@@ -8,8 +8,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,36 +31,36 @@ public class MainTest {
 
 	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, IOException {
 		
-		String login="1234";
-		String password="root";
-		String nom="coucou";
-		String prenom="coucou";
-		String test = "message test";
-		
-		
-		String login1="12345";
-		String password1="root";
-		String nom1="coucou";
-		String prenom1="coucou";
-		
-		String login2="123456";
-		String password2="root";
-		String nom2="coucou";
-		String prenom2="coucou";
-		
-		String login3="123457";
-		String password3="root";
-		String nom3="coucou";
-		String prenom3="coucou";
-		
-		
-
-		
-		Connection sql= bd.Database.getMySQLConnection();
-		DBCollection mango = bd.Database.getCollection("message");
-		User user= new User();
-		String key = BdTools.getKey(login);
-		
+//		String login="1234";
+//		String password="root";
+//		String nom="coucou";
+//		String prenom="coucou";
+//		String test = "message test";
+//		
+//		
+//		String login1="12345";
+//		String password1="root";
+//		String nom1="coucou";
+//		String prenom1="coucou";
+//		
+//		String login2="123456";
+//		String password2="root";
+//		String nom2="coucou";
+//		String prenom2="coucou";
+//		
+//		String login3="123457";
+//		String password3="root";
+//		String nom3="coucou";
+//		String prenom3="coucou";
+//		
+//		
+//
+//		
+//		Connection sql= bd.Database.getMySQLConnection();
+//		DBCollection mango = bd.Database.getCollection("message");
+//		User user= new User();
+//		String key = BdTools.getKey(login);
+//		
 //		Friend.removeFriend(key, login);
 //		Friend.removeFriend(key, login2);
 //		Friend.removeFriend(key, login3);
@@ -92,7 +94,7 @@ public class MainTest {
 		
 //		System.out.println(services.User.logout(key));
 //		System.out.println(bd.BdTools.checkPassword(login, mdp));
-		Message message = new Message();
+//		Message message = new Message();
 //		ObjectId idmessage = new ObjectId();
 //		idmessage = BDMessage.getIdMessage(login);
 		
@@ -113,10 +115,10 @@ public class MainTest {
 //		Message.addMessage(login3,test);
 //		test = " ghe";
 //		Message.addMessage(login3,test);
-		Date date = null;
-		String comment = null;
-		String log = null;
-		
+//		Date date = null;
+//		String comment = null;
+//		String log = null;
+//		
 //		System.out.println("---------------------");
 //		System.out.println("Premier essai");
 //		System.out.println(Message.listMessage(login,comment, date));
@@ -130,9 +132,9 @@ public class MainTest {
 //		System.out.println(Message.listMessage(login2,comment, date));
 //		System.out.println("fin troisieme essai");
 //		System.out.println("---------------------");
-		System.out.println("quatrieme essai");
-		System.out.println(Message.listMessage(log, comment, date));
-		System.out.println("fin quatrieme essai");
+//		System.out.println("quatrieme essai");
+//		System.out.println(Message.listMessage(log, comment, date));
+//		System.out.println("fin quatrieme essai");
 //		System.out.println(BDMessage.getIdMessage(login));
 //		Message.deleteMessage(login,idmessage);
 	
@@ -154,8 +156,17 @@ public class MainTest {
 //		curseur.close();
 //		lecture.close();
 //		mango.close();
-		sql.close();
-
+//		sql.close();
+//
+		
+		List<String> l1 = new ArrayList<>(); 
+		//list<String> l2 = new ArrayList<>();
+		
+		System.out.print(l1.size());
+		System.out.println(l1.isEmpty());
+		
+		
+		
 	}
 
 }
