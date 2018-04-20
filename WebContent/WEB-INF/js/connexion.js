@@ -9,10 +9,10 @@ function check(){
     console.log(login);
     console.log(mdp)
     if(formulaire_bon(login,mdp)){
-        console.log("ok");
-      //  connecte(login,mdp);
-        makeMainPanelPagePrincipal();
-    }
+        connecte(login,mdp);
+    }else{
+		console.log("error connexion");
+	}
 }
 
 
@@ -42,22 +42,55 @@ function formulaire_bon(login,mdp){
 
 
 function connecte(login, password){
-    var idUser = 78;
-    var key = "ABCD";
-    if (!noConnection) {
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/BoutarHusseinTd2G1/Login",
-            data: "login=" + login + "&password=" + password,
-            success: function (rep) { connexionResponse(rep); },
-            error: function (jqXHR, textStatus, errorThrow) {
+    $.ajax({
+    	type: "GET",
+        url: "http://localhost:8080/BoutarHusseinTd2G1/login",
+        data: "login=" + login + "&pwd=" + password,
+        success: function (rep) { connexionResponse(rep,login); },
+        error: function (jqXHR, textStatus, errorThrow) {
                 alert(textStatus);
-            }
-        });
-    } else {
-        responseConnexion({"key":key,"id":idUSer,"login":login,"follows":[2]});
-    }
+        },
+    });
 }
+
+
+function connexionResponse(rep,login){
+	var ret = JSON.parse(rep,revival1);
+	var status = ret.status;
+	if(status === "OK"){
+		env.login = login;
+		env.id = ret.id;
+		env.key = ret.key;
+		makeMainPanelPagePrincipal();
+	}
+	else{
+		console.log("erreur");
+	}
+}
+
+
+function revival1(key, value) {
+    if (value.comment != undefined) {
+        var c = new Message(value.id, value.auteur, value.text, value.date, value.comments);
+        return c;
+    }
+    else if (value.text != undefined) {
+        var f = new Commentaire(value.id, value.auteur, value.text, value.date);
+        return f;
+    }
+    else if (key === value.date) {
+        var d = new Date(value);
+        return d;
+    }
+
+    return value;
+}
+
+
+
+//function revival(resp,)	
+
+
 
 
 function responseConnexion(res){

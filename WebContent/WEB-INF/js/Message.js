@@ -35,7 +35,7 @@ Commentaire.prototype.getHTML = function() {
 }
 
 
-function revival1(key, value) {
+function revival(key, value) {
     if (value.comment != undefined) {
         var c = new Message(value.id, value.auteur, value.text, value.date, value.comments);
         return c;
@@ -48,6 +48,7 @@ function revival1(key, value) {
         var d = new Date(value);
         return d;
     }
+
     return value;
 }
 

@@ -90,19 +90,19 @@ public class User {
 			//parse int cree une erreur.
 			int id_user = Integer.parseInt(login);
 	
-			JSONObject retour  = new JSONObject();
+			JSONObject ret  = new JSONObject();
 			String key = BdTools.insertSession(id_user,true);
 			
 			//verifier si il est bien connecté
 			//je pense que le getConnect est optionnel si on a la cle a voir 
 			if(key != null){
-				retour.put("status", "ok");
-				retour.put("key",key);
-				return retour;
+				ret.put("status", "OK");
+				ret.put("key",key);
+				return ret;
 			}else{
-				retour.put("status", "KO");
-				retour.put("Erreur cle ou connection", -1);
-				return retour;
+				ret.put("status", "KO");
+				ret.put("Erreur cle ou connection", -1);
+				return ret;
 			}
 				
 		}catch(NumberFormatException e){
@@ -128,7 +128,7 @@ public class User {
 		if(key == null){
 			return ServiceRefused.serviceRefused("Wrong Argument",-1);
 		}
-		JSONObject fin = new JSONObject();
+		JSONObject ret = new JSONObject();
 		try {
 			if(!BdTools.keyExist(key)){
 				return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
@@ -136,8 +136,8 @@ public class User {
 			//on verifie qu'il n'est pas root puis ensuite on verifie qu'il a bien expir� la session
 			if(BdTools.isRoot(key)){
 				if(BdTools.expireSession(key)){
-					fin.put("session", "ferme");
-					fin.put("au Revoir", "A la prochaine");
+					ret.put("session", "ferme");
+					ret.put("au Revoir", "A la prochaine");
 				}else{
 					return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
 				}	
@@ -147,22 +147,23 @@ public class User {
 		}catch(JSONException | SQLException e){
 			e.printStackTrace();
 		}	
-		return fin;
+		return ret;
 		
 	}
 	
 	public static JSONObject SupprimerUser(String login) throws ClassNotFoundException{
 		
+		
 		if(login == null){
 			return ServiceRefused.serviceRefused("Wrong argument" , -1);
 		}
-		JSONObject fin = new JSONObject();
+		JSONObject ret = new JSONObject();
 		try{
 			if(!BdTools.userExist(login)){
 				return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 3);
 			}
 			if(BdTools.DeleteUser(login)){
-				fin.put("utilisateur","supprimer");
+				ret.put("utilisateur","supprimer");
 			}else{
 				return ServiceRefused.serviceRefused("l'utilisateur n'a pas ete supprime",4);
 			}
@@ -170,7 +171,7 @@ public class User {
 			e.printStackTrace();
 		}
 	
-		return fin;
+		return ret;
 		
 	}
 	
@@ -181,15 +182,15 @@ public class User {
 			return ServiceRefused.serviceRefused("Wrong argument",-1);
 		}
 		
-		JSONObject fin = new JSONObject();
+		JSONObject ret = new JSONObject();
 		try {
 			if(!BdTools.keyExist(key)){
 				return ServiceRefused.serviceRefused("L'utilisateur n'est pas connecte", 3);
 			}
 			//on verifie qu'il n'est pas root puis ensuite on verifie qu'il a bien expir� la session
 			if(BdTools.deconnection(key)){
-				fin.put("session", "ferme");
-				fin.put("au Revoir", "A la prochaine");
+				ret.put("session", "ferme");
+				ret.put("au Revoir", "A la prochaine");
 			}else{
 				return ServiceRefused.serviceRefused("La session n'a pas expire", 4);
 			}	
@@ -197,7 +198,7 @@ public class User {
 			e.printStackTrace();
 		}	
 		
-		return fin;
+		return ret;
 	}
 	
 	

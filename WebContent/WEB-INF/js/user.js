@@ -1,3 +1,5 @@
+
+
 function deleteUser(login){
 	if(noConnection){
 		if(follow.contains(login)){

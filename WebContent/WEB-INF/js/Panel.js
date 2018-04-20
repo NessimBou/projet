@@ -1,32 +1,25 @@
+/*
 function makeMainPanel(fromId, fromLogin, query) {
-    env.messages = [];
-    if (fromId === undefined) {
-        fromId = 1;
-    }
-    env.fromId = fromId;
-    env.fromLogin = fromLogin;
-    console.log(env.fromLogin);
-    env.query = query;
-    var s = "<header id=\"top\">";
-    if (env.fromId < 0) {
-        s += "<div id=\"title\"> Actualités</div>";
-    } else {
-        if (!env.follows.has(env.fromId)) {
-            s += "<div id=\"title\"> Page de " + fromLogin + "<div \
-            class=\"add\"><img src=\"Images/add.png\" title=\"suivre\" \
-            onclick= javascript:follow()\"></div></div>";
-        } else {
-            s += "<div id=\"title\"> Page de " + fromLogin + "<div \
-            class=\"add\"><img src=\"Images/remove.png\" \
-            onclick= javascript:stopfollow()\"></div></div>";
-        }
-    }
-    s += "</div><div id=\"connect\"><span id=\"log\" \
-    onclick=\"javascript.pageUser(" + env.id + "," + env.login + ")\"> \
-    <img src=\"Images/logout.png\" \
-            onclick= javascript:logout()\"></div></div>";
-    return s;
+    var html = "<div class='navbar'><a id='home_m_btn' value='home' href='#' onclick='profil()'>Profil</a>";
+	//Si env.id != -1
+	//On Est toujous connecté du coup on affiche le bouton deconnexion
+	if(env.id != -1){
+		
+	}
 }
+
+
+
+
+
+
+//profil() -> Affiche la page profile
+function profil(){
+	makeMainPanel(-1,env.login);
+}
+*/
+
+
 
 function makeMainPanelEnregistrement() {
     $("head").load("../html/inscription.html");

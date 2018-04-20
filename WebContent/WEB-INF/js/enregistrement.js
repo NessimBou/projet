@@ -2,7 +2,7 @@ var form = document.querySelector("form");
 
 
 
-function envoye_formulaire(){
+function envoye_formulaire() {
     var nom = form.elements.nom.value;
     var prenom = form.elements.prenom.value;
     var login = form.elements.login.value;
@@ -10,11 +10,11 @@ function envoye_formulaire(){
     var mdp = form.elements.password.value;
     var check_mdp = form.elements.motdepasse.value;  
     var ok = enregistrement(nom,prenom,login,email,mdp,check_mdp);
-
+	
     if(ok){
         alert("Inscription ok");
-        creationUser(login,mdp);
-        makeMainPanelConnexion();
+        enregistre(prenom, nom, email, login, mdp );
+       
 //        enregistre(prenom,nom,email,login,mdp);
         
     } 
@@ -23,16 +23,40 @@ function envoye_formulaire(){
 
 
 function enregistre(prenom, nom, mail, login, password) {
-    if (!noConnection) {
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/BoutarHusseinTd2G1/createUser",
-            data: "prenom=" + prenom + "&nom=" + nom + "&login=" + login + "&pwd" + password,
-            datatype: "json",
-            success: function (rep) { enregistreResponse(rep); },
-            error: function (jqXHR, textStatus, errorThrow) { console.log("Erreur");}
+	$.ajax({
+        type: "GET",
+        url: "http://localhost:8080/BoutarHusseinTd2G1/createUser",
+        data: "prenom=" + prenom + "&nom=" + nom + "&login=" + login + "&pwd=" + password,
+        datatype: "json",
+        success: function (rep) { enregistreResponse(rep);
+								 makeMainPanelConnexion();},
+        error: function (jqXHR, textStatus, errorThrow) { console.log("Erreur");},
         });
+}	
+
+function enregistreResponse(rep){
+	var ret = JSON.parse(rep,revival2);
+	var status = ret.status;
+	if(status === "OK"){
+		makeMainPanelConnexion();
+	}
+}
+
+function revival2(key, value) {
+    if (value.comment != undefined) {
+        var c = new Message(value.id, value.auteur, value.text, value.date, value.comments);
+        return c;
     }
+    else if (value.text != undefined) {
+        var f = new Commentaire(value.id, value.auteur, value.text, value.date);
+        return f;
+    }
+    else if (key === value.date) {
+        var d = new Date(value);
+        return d;
+    }
+
+    return value;
 }
 
 

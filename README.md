@@ -14,7 +14,7 @@
 06/03 : CheckPassword ok, expireSession deconnecte l'user si il est connectÃ© + de 30 min,L'heure de connexion affiche est la bonne
 21/03 :ListFriend fonctionne, ajout de certaine fonctionne : getUserId,DeconnectionUrgente,SupprimerUser, fonctionne aussi sur serveur.	
 8/04: on peut s'inscrire, se connecter, reste Ã  relier au serveur 
-
+jesaispasladate: ajax fait pour enregistrement et connexion(Quand on se connecte les donnée sont envoyé a la bdd)
 #Reste a faire:
 
 

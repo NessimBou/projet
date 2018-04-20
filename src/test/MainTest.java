@@ -31,12 +31,12 @@ public class MainTest {
 
 	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, IOException {
 		
-//		String login="1234";
-//		String password="root";
-//		String nom="coucou";
-//		String prenom="coucou";
-//		String test = "message test";
-//		
+		String login="1234";
+		String password="root";
+		String nom="coucou";
+		String prenom="coucou";
+		String test = "message test";
+		
 //		
 //		String login1="12345";
 //		String password1="root";
@@ -56,9 +56,9 @@ public class MainTest {
 //		
 //
 //		
-//		Connection sql= bd.Database.getMySQLConnection();
+		Connection sql= bd.Database.getMySQLConnection();
 //		DBCollection mango = bd.Database.getCollection("message");
-//		User user= new User();
+		User user= new User();
 //		String key = BdTools.getKey(login);
 //		
 //		Friend.removeFriend(key, login);
@@ -72,7 +72,7 @@ public class MainTest {
 //		BdTools.DeleteUser(login3);
 //		BdTools.DeleteUser(login);
 //		
-//		user.createUser(login, password, nom, prenom);
+		user.createUser(login, password, nom, prenom);
 //		user.createUser(login1, password1, nom1, prenom1);
 //		user.createUser(login2, password2, nom2, prenom2);
 //		user.createUser(login3, password3, nom3, prenom3);

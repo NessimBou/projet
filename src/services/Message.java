@@ -60,7 +60,8 @@ public class Message {
 		
 			if(cursor.hasNext()){
 				col.remove(cursor.next());
-			}		
+			}
+			cursor.close();
 		}
 		fin.put("message remove", "ok");
 		return fin;
@@ -89,6 +90,7 @@ public class Message {
 					i++;
 				}
 			}
+			cursor.close();
 		}
 		
 		//Cas 2 : content null : on restaure les messages de l'idUSer
@@ -107,6 +109,7 @@ public class Message {
 					//System.out.println("je suis la ");
 				}
 			}
+			cursor.close();
 		}
 		
 		//Cas 3 : IdUSer null : on restaure les messages avec content et idUser
@@ -121,8 +124,10 @@ public class Message {
 					ret.put("message", cursor.next());
 				}
 			}
+			cursor.close();
 		
 		}
+
 		
 		return ret;
 	}
