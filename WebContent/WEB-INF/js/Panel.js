@@ -76,6 +76,19 @@ function makeMainPanelEnregistrementErreur(erreur) {
         $("#check_pass").css("display", "block_inline");
     }
 }
+
+/**
+*Affiche pour chaque ami un bloc dans la zone statistique
+*/
+function makeListFriend(list){
+	s = "<div><p>";
+	for(id : list){
+		s+= id +" </p></div>";
+		s+="<div><p>";
+	}
+	s+="</p></div>";
+	$("#list").html(s);
+}
 /*
 function makeMainPanelEnregistrement(erreur){
     var s="<div class=\"titre\">";

@@ -73,6 +73,8 @@ function addFriend(rep){
 	var error = ret.Error;
 	if(status === "OK"){
 		console.log("ajout ami ok");
+		var idFriend = ret.idFriend;
+		makeAjoutFriend(idFriend);
 	}else{
 		if(status === "KO"){
 			if(error === "Error"){

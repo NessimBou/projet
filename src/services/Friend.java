@@ -40,6 +40,7 @@ public class Friend {
 				return ret;
 			}else{
 				ret.put("Status","OK");
+				ret.put("idFriend",idFriend);
 				bd.BDFriends.addFriend(key, idFriend);
 				return ret;
 			}
