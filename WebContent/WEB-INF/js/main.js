@@ -1,16 +1,26 @@
+//plus besoin
+/**
+ * Initialise une base de donnée virtuelle
+ * @returns rien
+ */
 function init() {
     noConnection = true;
     env = new Object();
     SetVirtualDB();
 
 }
+//plus besoin
+/**
+ * Initialise une base de donnée virtuelle
+ * @returns rien
+ */
 function SetVirtualDB() {
     localdb = [];
     follows = [];
 
 
 }
-
+//plus besoin 
 function getFromLocalDB(fromId,minId,maxId,nbMax){
 	var tab=[];
 	var nb=0;

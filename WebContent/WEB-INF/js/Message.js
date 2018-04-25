@@ -1,3 +1,13 @@
+
+/**
+ * Constructeur d'un message
+ * @param id:id du message
+ * @param login:login du message
+ * @param text: le message
+ * @param date:date d'envoie
+ * @param comments:commentaire
+ * @returns:rien 
+ */
 function Message(id, login, text, date, comments) {
     this.id = id;
     this.auteur = login;
@@ -9,6 +19,9 @@ function Message(id, login, text, date, comments) {
     this.comments = comments;
 }
 
+/**
+ * @returns: le code html pour mettre un message
+ */
 Message.prototype.getHTML = function() {
     return "<div id=\"message_" + this.id + "\" \
     class=\"message\"> \
@@ -18,6 +31,15 @@ Message.prototype.getHTML = function() {
     </span></div></div></div>";
 }
 
+
+/**
+ * Constructeur d'un commentaire
+ * @param id: id du commentaire
+ * @param auteur: login de l'user
+ * @param text : le commentaire 
+ * @param date: date d'envoi
+ * @returns : rien 
+ */
 function Commentaire(id, auteur, text, date) {
     this.id = id;
     this.auteur = auteur;
@@ -25,6 +47,9 @@ function Commentaire(id, auteur, text, date) {
     this.date = date;
 }
 
+/**
+ * @returns le code html pour poster un commentaire
+ */
 Commentaire.prototype.getHTML = function() {
     return "<div id=\"message_" + this.id + "\" \
     class=\"message\"> \
@@ -34,7 +59,11 @@ Commentaire.prototype.getHTML = function() {
     </span></div></div></div>";
 }
 
-
+/**Fonction pour parser les valeus de json
+*@param key: clé du json
+*@param value: valeur du json
+*@returns la valeur du json
+*/
 function revival(key, value) {
     if (value.comment != undefined) {
         var c = new Message(value.id, value.auteur, value.text, value.date, value.comments);

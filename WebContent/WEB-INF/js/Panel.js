@@ -1,41 +1,35 @@
-/*
-function makeMainPanel(fromId, fromLogin, query) {
-    var html = "<div class='navbar'><a id='home_m_btn' value='home' href='#' onclick='profil()'>Profil</a>";
-	//Si env.id != -1
-	//On Est toujous connecté du coup on affiche le bouton deconnexion
-	if(env.id != -1){
-		
-	}
-}
-
-
-
-
-
-
-//profil() -> Affiche la page profile
-function profil(){
-	makeMainPanel(-1,env.login);
-}
-*/
-
-
-
+/**
+ *Envoie le code de la page d'inscription 
+ * @returns inscription.html
+ */
 function makeMainPanelEnregistrement() {
     $("head").load("../html/inscription.html");
     $("body").load("../html/inscription.html");
 }
 
+/**
+ *Envoie le code de la page de connexion 
+ * @returns connexion.html
+ */
 function makeMainPanelConnexion() {
-    $("head").load("../html/connexion.html");
-    $("body").load("../html/connexion.html");
+	console.log("la");
+    $("head").load("WEB-INF/html/connexion.html");
+    $("body").load("WEB-INF/html/connexion.html");
+	$("head").load("WeB-INF/css/connexion.css");
 }
-
+/**
+ *Envoie le code de la page principal
+ * @returns PagePrincipal.html
+ */
 function makeMainPanelPagePrincipal() {
     $("head").load("../html/PagePrincipale.html");
     $("body").load("../html/PagePrincipale.html");
 }
 
+/**
+ *Envoie le code de la page de profil 
+ * @returns profil.html
+ */
 function makeMainPanelProfil() {
     $("body").load("../html/Profil.html");
 }

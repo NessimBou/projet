@@ -1,10 +1,12 @@
 package services;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import bd.BdTools;
 import serviceTool.ServiceRefused;
 
 public class Friend {
@@ -93,7 +95,11 @@ public class Friend {
 				ret.put("Error", "L'utilisateur n'est pas connecte");
 				return ret;
 			}else{
-				System.out.println(bd.BDFriends.getList(key));
+				
+				ArrayList<String> list = bd.BDFriends.getList(key);
+				for(String friend : list){
+					ret.put( "idFriend", friend);
+				}
 				ret.put("Status","OK");
 				return ret;
 			}
