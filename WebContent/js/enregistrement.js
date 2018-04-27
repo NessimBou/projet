@@ -1,18 +1,18 @@
 //form = variable qui recupere les valeurs du formulaire
-var form = document.querySelector("form");
+//var form = document.querySelector("form");
 
 
 /**
  * recupere les valeurs du formulaire  
  * @returns une requete ajax
  */
-function envoye_formulaire() {
-    var nom = form.elements.nom.value;
-    var prenom = form.elements.prenom.value;
-    var login = form.elements.login.value;
-    var email = form.elements.email.value;
-    var mdp = form.elements.password.value;
-    var check_mdp = form.elements.motdepasse.value;  
+function envoye_formulaire(form) {
+    var nom = form.nom.value;
+    var prenom = form.prenom.value;
+    var login = form.login.value;
+    var email = form.email.value;
+    var mdp = form.password.value;
+    var check_mdp = form.motdepasse.value;  
     var ok = enregistrement(nom,prenom,login,email,mdp,check_mdp);
 	
     if(ok){

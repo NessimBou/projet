@@ -1,15 +1,15 @@
 //form = variable qui recupere les valeurs du formulaire
-var form = document.querySelector("form");
+//var form = document.querySelector("form");
 //form.addEventListener("submit",check);
 
 /**
  * recupere les valeurs du formulaire  
  * @returns une requete ajax
  */
-function check(){
+function check(form){
     
-    var login  = form.elements.login.value;
-    var mdp  = form.elements.password.value;
+    var login  = form.login.value;
+    var mdp  = form.password.value;
 	
     console.log(login);
     console.log(mdp)
