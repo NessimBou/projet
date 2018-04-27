@@ -156,7 +156,7 @@ function messageResponse(rep){
 		$("#comment").val("");
 		//recharger la page
 		$(makeMainPanel(env.id, env.login));
-		
+			
 	}
 	else{
 		alert(res.error)

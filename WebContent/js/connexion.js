@@ -7,9 +7,10 @@ var form = document.querySelector("form");
  * @returns une requete ajax
  */
 function check(){
-    console.log("je suis la");
+    
     var login  = form.elements.login.value;
     var mdp  = form.elements.password.value;
+	
     console.log(login);
     console.log(mdp)
     if(formulaire_bon(login,mdp)){

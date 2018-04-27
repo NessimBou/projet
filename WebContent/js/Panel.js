@@ -9,7 +9,7 @@ function makeMainPanelEnregistrement() {
 
 
 
-function makeMainPanelConnexion(){
+function makeMainPanelConnexion1(){
 	$("body").load("./html/connexion.html");
 	$("head").load("./css/connexion.css");
 	$("head").load("./html/connexion.html");
@@ -20,38 +20,44 @@ function makeMainPanelConnexion(){
  *Envoie le code de la page de connexion 
  * @returns connexion.html
  */
-function makeMainPanelConnexion1() {
+function makeMainPanelConnexion() {
 //	console.log("la");
-    $("head").load("./html/connexion.html");
+   // $("head").load("./html/connexion.html");
 //    $("body").load("./html/connexion.html");
 	//$("head").load("./css/connexion.css");
 	var html = "";
-	html += "<div class='block_connexion'>";
-	html += "	<form method='get' action='javascript:function(){return;}()'>";
-	html += "	 	<div class='block_input'>";
-	html += "       	<div class='title_form'";
-	html += "		    	<span>Login</span>";
-    html += "        	</div>";
-	html += "			<div class='input_form'>";
-	html += "				<input  type='text' name='login' />";
-	html += "       	</div>";
-	html += "       	<div class='title_form'>";
-	html += "       		<span>Password</span>";
-	html += "       	</div>";
-	html += "        	<div class='input_form'>";
-	html += "       		<input type='password' name='password' />";
-	html += "        	</div>";
-	html += "     	</div>";
-	html += "     </form>";
-	html += "   </div>";
-	html += "	<input class='input_login' type='submit' value='Connexion' name='connexion' onclick='check()' />";
-	html += "   <div class='block_links'>";
-	html += "		<a id='lien' href=''>Mot de passe perdu</a>";
-	html += "       <a id='inscription' href='./html/inscription.html'>Inscription</a>";
-	html += "   </div>";
-	html += "  </div>";
+	html += "<div class=\"block_connexion_co\">";
+	html += "	<div class=\"block_title_co\">";
+	html += "	<h1>";
+	html += "		Ouvrir une session";
+	html += "	</h1>";
+	html += "	<div class=\"block_form_co\">";
+	html += "		<form method=\"get\" action=\"javascript:function(){return;}()\">";
+	html += "	 		<div class=\"block_input_co\">";
+	html += "       		<div class=\"title_form_co\"";
+	html += "		    		<span>Login</span>";
+    html += "        		</div>";
+	html += "				<div class=\"input_form_co\">";
+	html += "					<input  type=\"text\" name=\"login\" />";
+	html += "       		</div>";
+	html += "       		<div class=\"title_form_co\">";
+	html += "       			<span>Password</span>";
+	html += "       		</div>";
+	html += "        		<div class=\"input_form_co\">";
+	html += "       			<input type=\"password\" name=\"password\" />";
+	html += "        		</div>";
+	html += "     		</div>";
+	html += "			<input class=\"input_login_co\" type=\"submit\" value=\"Connexion\" name=\"connexion\" onclick=\"check()\" />";
+	html += "   	<div class=\"block_links_co\">";
+	html += "			<a id=\"lien\" href=\"\">Mot de passe perdu</a>";
+	html += "       	<a id=\"inscription\" href=\"./html/inscription.html\">Inscription</a>";
+	html += "   	</div>";
+	html += "   </form>";
+	html += "</div>";
+	
 	
 	$('body').html(html);
+	
 }
 /**
  *Envoie le code de la page principal

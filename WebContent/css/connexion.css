@@ -1,8 +1,10 @@
+/*Connexion*/
+
 body{
     background-color: cornflowerblue;
 }
 
-.block_connexion {
+.block_connexion_co {
   display: block;
   width: 300px;
   height: 400px;
@@ -10,27 +12,27 @@ body{
   margin: 0 auto;
 }
 
-.block_title {
+.block_title_co {
   text-align: center;
   padding: 10px;
 }
 
-.block_form {
+.block_form_co {
   color: blue;
   border: 3px solid black;
   background-color: white;
 }
 
-.block_input {
+.block_input_co {
   padding: 5px;
 }
 
-.input_form {
+.input_form_co {
   width: 65%;
   display: inline-block;
 }
 
-.title_form {
+.title_form_co {
   width: 30%;
   display: inline-block;
 }
@@ -60,12 +62,12 @@ body{
 	text-align: center;
 }
 
-.input_login{
+.input_login_co{
     width: 40%;
 	display: block;
 }
 
-.block_links{
+.block_links_co{
     width: 50%;
     display: block;
 	position:relative;
@@ -76,3 +78,271 @@ h1 {
   color: blue;
   font-size: 23px;
 }
+
+/*inscription*/
+
+/*h1{
+
+}
+*/
+
+.titre{
+    text-align: center;
+    padding: 
+}
+
+body{
+    display: block;
+    padding: 5px;
+}
+
+required{
+    color: red;
+}
+
+.form{
+    width: 100%;
+}
+
+.block_form{
+    display: block;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin : 0 auto;
+    padding:5px;
+}
+
+.title_form{
+    display:inline-block;
+    width : 30%;
+}
+
+.input_form{
+    display: inline-block;
+    width: 66%;
+    position: relative;
+    margin: 0 auto;
+    padding: 4px;
+}
+
+.block_button{
+    display: block;
+    position: relative;
+    margin: 5px;
+    text-align: center;
+}
+
+.button {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 46%;
+    margin: 1px;
+    padding: 3px;
+}
+
+/*Page Principal*/
+
+body{
+    width: 100%;
+        margin:0;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li #profil {
+    float: left;
+}
+
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: red;
+}
+
+.rec{
+    position: relative;
+    margin: 6px;
+    padding: 10px;
+}
+
+#header{
+	position: relative;
+    width: 100%;
+    height: 50px;
+    background: grey;
+}
+
+#profil{
+    /*margin-right: 20%;*/
+    display:block;
+    position:left;
+}
+    
+#recherche{
+   
+    display: inline-block;
+    position:relative;
+	
+}
+
+li{
+    display: inline-block;
+    vertical-align: top;
+}
+
+#deconnexion{
+    display:inline-block;
+   
+}	
+
+.logo{
+    width: 20%;
+    height: 25px;
+    background-image: url(../images/logo.jpg);
+    background-size: contain;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+        
+}
+.list_msg{
+    margin-top: 10px;
+}
+
+.menu{
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    text-align: center;
+}
+.disconnect{
+    width:20%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: right;
+    float: right;
+}
+.newmessage{
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    background-color: #4169E1;
+    position: relative;
+    margin-left: 0;
+
+}
+.send_button{
+        float: right;
+    margin: 5px;
+}
+
+.list_msg {
+    display: inline-block;
+    background-color: lightblue;
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+}
+
+h3{
+    margin: 0;
+    font-size: 14px;
+}
+
+p{
+    margin:0;
+    font-size:16px;
+}
+
+.content{
+    padding:7px;
+}
+
+.bloc_comment{
+    width: 95%;
+    margin: 0 auto;
+    display: none;
+}
+
+.date{
+    font-size: 12px;
+    padding: 2px;
+    text-align: right;
+    display: inline-block;
+    margin-top: 2px;
+}
+
+.plus{
+        padding: 3px;
+    margin: 6px;
+    width: 25px;
+    height: 25px;
+}
+
+.rep_button{
+    float: right;
+    padding: 2px;
+    display: inline-block;
+    margin-top: -3px;
+}
+
+.username{
+    padding: 5px;
+}
+
+.box_message{
+    display: block;
+    margin: 15px;
+    background: white;
+}
+
+.block_message{
+    display: inline-block;
+    width: 82%;
+    margin: 1%;
+    position: relative;
+}
+
+#textarea{
+	width:100%;
+	height:100px;
+	padding:12px 20px;
+	background-color:#E0FFFF;
+	resize:none;
+	box-sizing:border-box;
+	border: 1px solid #ccc;
+	overflow:auto;
+
+}
+
+
+.stat{
+	background-color: #333;
+    display: inline-block;
+    position: relative;
+    width: 14%;
+    height: 1000px;
+    vertical-align: top;
+    float: left;
+}
+
+
+
+
+
+
+
+

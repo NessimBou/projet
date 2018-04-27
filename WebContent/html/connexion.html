@@ -3,60 +3,61 @@
     <head>
         <title>Connexion</title>
         <link href="../css/connexion.css" rel="stylesheet" type="text/css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
+        
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
     </head>
     
     <body onload="init()">
 		
-        <div class="block_connexion">
+        <div class="block_connexion_co">
 			
-          <div class="block_title">
+          <div class="block_title_co">
             <h1>
               Ouvrir une session
             </h1>
           </div>
             
-          <div class="block_form">
+          <div class="block_form_co">
               
             <form method="get" action="javascript:function(){return;}()"  >
                 
-              <div class="block_input">
-                <div class="title_form">
+              <div class="block_input_co">
+                <div class="title_form_co">
                   <span>Login</span>
                 </div>
                   
-                <div class="input_form">
+                <div class="input_form_co">
                   <input  type="text" name="login" />
                 </div>
                   
-                <div class="title_form">
+                <div class="title_form_co">
                   <span>Password</span>
                 </div>
                   
-                <div class="input_form">
+                <div class="input_form_co">
                   <input type="password" name="password" />
                 </div>
               </div>
-                
+              <input class="input_login_co" type="submit" value="Connexion" name="connexion" onclick="check()" />
+			  
+            <div class="block_links_co">
+           		<a id="lien" href="">Mot de passe perdu</a>
+				<a id="inscription" href="./html/inscription.html">Inscription</a>
+            </div>
             </form>
           </div>
 
    <!--       <div class="block_buttons">		-->
  
-            <input class="input_login" type="submit" value="Connexion" name="connexion" onclick="check()" />
-			  
-            <div class="block_links">
-           		<a id="lien" href="">Mot de passe perdu</a>
-				<a id="inscription" href="./html/inscription.html">Inscription</a>
-            </div>
+            
 			  
           
 			
         </div>
 		
     </body>
-    <script type="text/javascript" src="../js/connexion.js"></script>
+  <!--  <script type="text/javascript" src="../js/connexion.js"></script>
     <script type="text/javascript" src="../js/Panel.js"></script>
     <script type="text/javascript" src="../js/main.js"></script>
-    
+    -->
 </html>
