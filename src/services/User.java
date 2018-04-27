@@ -48,10 +48,10 @@ public class User {
 				return ret;
 			}
 			if(bd.BdTools.userExist(login)){
-				ret.put("Status","KO");
+				ret.put("status","KO");
 				ret.put("Error","UserExist");
 			}else{
-				ret.put("Status","OK");
+				ret.put("status","OK");
 				bd.BdTools.addToDBUser(login, mdp, nom, prenom);
 			}
 		}catch(JSONException | SQLException e){

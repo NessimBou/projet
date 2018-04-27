@@ -1,3 +1,11 @@
+var textarea = document.getElementById('textarea').value;
+
+function envoyeMessage(){
+	if(textarea.length > 0){
+		id = env.login;
+		newMessage(id,textarea);	
+	}
+}
 
 /**
  * Constructeur d'un message
@@ -82,6 +90,7 @@ function revival(key, value) {
 }
 
 
+
 function completeMessages() {
     if (!noConnection) {
 
@@ -125,4 +134,66 @@ function replieMessage(id){
 function newComment(){
     var commentaire = $("#comment").text();
     
+}
+
+function newMessage(id,textarea){
+	$.ajax({
+    	type: "get",
+        url: "http://localhost:8080/BoutarHusseinTd2G1/addMessage",
+        data: "idUser=" + id + "&message=" + textarea,
+		datatype:"json",
+        success: function (rep) { messageResponse(rep);},
+        error: function (jqXHR, textStatus, errorThrow) {
+                alert(textStatus);
+        },
+    });
+}
+
+function messageResponse(rep){
+	var res = JSON.parse(rep, revival);
+	if(res.status == "OK"){
+		// alert("Message posté")
+		$("#comment").val("");
+		//recharger la page
+		$(makeMainPanel(env.id, env.login));
+		
+	}
+	else{
+		alert(res.error)
+	}
+}
+
+
+function deleteMessage(idUser,idMessage){
+	$.ajax({
+    	type: "get",
+        url: "http://localhost:8080/BoutarHusseinTd2G1/deleteMessage",
+        data: "idUser=" + idUser + "&idMessage=" + idMessage,
+		datatype:"json",
+        success: function (rep) { messageSuppResponse(rep);},
+        error: function (jqXHR, textStatus, errorThrow) {
+                alert(textStatus);
+        },
+    });
+}
+
+function messageSuppResponse(rep){
+	
+}
+
+function listMessage(idUser,content){
+	$.ajax({
+    	type: "get",
+        url: "http://localhost:8080/BoutarHusseinTd2G1/listMessage",
+        data: "idUser=" + idUser + "&content=" + content,
+		datatype:"json",
+        success: function (rep) { listMessageResponse(rep);},
+        error: function (jqXHR, textStatus, errorThrow) {
+                alert(textStatus);
+        },
+    });
+}
+
+function listMessageResponse(rep){
+	
 }

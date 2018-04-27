@@ -3,27 +3,63 @@
  * @returns inscription.html
  */
 function makeMainPanelEnregistrement() {
-    $("head").load("../html/inscription.html");
-    $("body").load("../html/inscription.html");
+    $("head").load("./html/inscription.html");
+    $("body").load("./html/inscription.html");
 }
+
+
+
+function makeMainPanelConnexion(){
+	$("body").load("./html/connexion.html");
+	$("head").load("./css/connexion.css");
+	$("head").load("./html/connexion.html");
+}
+
 
 /**
  *Envoie le code de la page de connexion 
  * @returns connexion.html
  */
-function makeMainPanelConnexion() {
-	console.log("la");
-    $("head").load("WEB-INF/html/connexion.html");
-    $("body").load("WEB-INF/html/connexion.html");
-	$("head").load("WeB-INF/css/connexion.css");
+function makeMainPanelConnexion1() {
+//	console.log("la");
+    $("head").load("./html/connexion.html");
+//    $("body").load("./html/connexion.html");
+	//$("head").load("./css/connexion.css");
+	var html = "";
+	html += "<div class='block_connexion'>";
+	html += "	<form method='get' action='javascript:function(){return;}()'>";
+	html += "	 	<div class='block_input'>";
+	html += "       	<div class='title_form'";
+	html += "		    	<span>Login</span>";
+    html += "        	</div>";
+	html += "			<div class='input_form'>";
+	html += "				<input  type='text' name='login' />";
+	html += "       	</div>";
+	html += "       	<div class='title_form'>";
+	html += "       		<span>Password</span>";
+	html += "       	</div>";
+	html += "        	<div class='input_form'>";
+	html += "       		<input type='password' name='password' />";
+	html += "        	</div>";
+	html += "     	</div>";
+	html += "     </form>";
+	html += "   </div>";
+	html += "	<input class='input_login' type='submit' value='Connexion' name='connexion' onclick='check()' />";
+	html += "   <div class='block_links'>";
+	html += "		<a id='lien' href=''>Mot de passe perdu</a>";
+	html += "       <a id='inscription' href='./html/inscription.html'>Inscription</a>";
+	html += "   </div>";
+	html += "  </div>";
+	
+	$('body').html(html);
 }
 /**
  *Envoie le code de la page principal
  * @returns PagePrincipal.html
  */
 function makeMainPanelPagePrincipal() {
-    $("head").load("../html/PagePrincipale.html");
-    $("body").load("../html/PagePrincipale.html");
+    $("head").load("./html/PagePrincipale.html");
+    $("body").load("./html/PagePrincipale.html");
 }
 
 /**
@@ -82,7 +118,7 @@ function makeMainPanelEnregistrementErreur(erreur) {
 */
 function makeListFriend(list){
 	s = "<div><p>";
-	for(id : list){
+	for(var id in list){
 		s+= id +" </p></div>";
 		s+="<div><p>";
 	}

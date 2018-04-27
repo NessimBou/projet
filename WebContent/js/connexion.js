@@ -80,6 +80,9 @@ function connexionResponse(rep,login){
 		env.login = login;
 		//on Stock la clé mais je sais pas ou encore
 		env.key = ret.key;
+		
+		console.log(env.login);
+		console.log(env.key);
 		makeMainPanelPagePrincipal();
 	}
 	else{

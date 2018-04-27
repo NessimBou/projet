@@ -23,7 +23,7 @@ public class Message {
 		
 	}
 	
-	public static BasicDBObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException{
+	public static JSONObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException{
 		BasicDBObject message = new BasicDBObject();
 
 		
@@ -40,8 +40,8 @@ public class Message {
 			
 			col.insert(message);
 		}
-		BasicDBObject id = new BasicDBObject();
-		id.put("message envoyé","ok");
+		JSONObject id = new JSONObject();
+		id.put("Status","ok");
 		return id;
 	}
 	

@@ -1,13 +1,16 @@
-//plus besoin
+
 /**
- * Initialise une base de donnée virtuelle
+ * Initialise une base de donnée virtuelle et la variable env
  * @returns rien
  */
 function init() {
-    noConnection = true;
+    noConnection = false;
     env = new Object();
     SetVirtualDB();
-
+	env.key = -1;
+	env.login = -1 ; 
+	env.idMessage = -1 ; 
+	
 }
 //plus besoin
 /**

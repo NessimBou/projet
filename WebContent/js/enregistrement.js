@@ -63,7 +63,7 @@ function enregistreResponse(rep){
 	console.log("debut enregistreResponse");
 	var ret = JSON.parse(rep,revival2);
 	var status = ret.status;
-	if(status === "OK"){
+	if(status == "OK"){
 		console.log("Debut if enregistreResponse");
 		alert("Inscription ok");
 		makeMainPanelConnexion();
@@ -92,7 +92,7 @@ function revival2(key, value) {
         return d;
     }
 
-    return value;
+    return (key,value);
 }
 
 

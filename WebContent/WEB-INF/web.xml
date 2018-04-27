@@ -69,7 +69,7 @@
 	</servlet-mapping>
 		<servlet-mapping>
 		<servlet-name>ListFriends</servlet-name>
-		<url-pattern>/listFriends</url-pattern>	
+		<url-pattern>/listFriend</url-pattern>	
 	</servlet-mapping>
 	
 	<!-- AddMessage/DeleteMessage/ListMessage -->
