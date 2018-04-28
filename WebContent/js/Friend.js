@@ -17,7 +17,7 @@ function ajout(form){
 	console.log(idFriend);
 	console.log(env.key);
 	var  regex = /[a-zA-Z]/;
-	if(regex.test(idFriend){
+	if(!regex.test(idFriend)){
 	 	follow(env.key,idFriend);  
 	 }
 	
@@ -31,6 +31,7 @@ function ajout(form){
  * @returns:rien
  */
 function follow(cle,idFriend){
+	//console.log(ici);
     $.ajax({
 		type : "get",
 		url: "http://localhost:8080/BoutarHusseinTd2G1/addFriend",
@@ -38,7 +39,7 @@ function follow(cle,idFriend){
 		success: function(rep){addFriend(rep);},
 		error: function (jqXHR, textStatus, errorThrow) {
                 alert(textStatus);},
-	})
+	});
     
 }
 
@@ -51,16 +52,23 @@ function follow(cle,idFriend){
 
 function addFriend(rep){
 	var ret = JSON.parse(rep,revival3);
-	var status = ret.status;
+	var status = ret.Status;
 	var error = ret.Error;
-	if(status === "OK"){
+	console.log("ici");
+	console.log(ret);
+	console.log(status);
+	if(status == "OK"){
 		console.log("ajout ami ok");
+		console.log("je suis ici");
 		var idFriend = ret.idFriend;
 		var date = ret.Date;
 		makeAjoutFriend(idFriend,date);
 	}else{
+		console.log("je suis la");
 		if(status === "KO"){
+			console.log("la");
 			if(error === "Error"){
+				console.log("et la");
 				console.log(error);
 			}
 		}

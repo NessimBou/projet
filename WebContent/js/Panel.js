@@ -120,7 +120,7 @@ function makeMainPanelConnexion() {
 function makeAjoutFriend(idFriend,date){
 	var html ="";
 	html += "<li>";
-	html += "	Ajout de"+idFriend+"le"+date;
+	html += "Ajout de: "+idFriend+" ,le :"+date;
 	html += "</li>";
 	$("#list").html(html);
 	  
@@ -131,9 +131,9 @@ function makeAjoutFriend(idFriend,date){
  *Envoie le code de la page principal
  * @returns PagePrincipal.html
  */
-function makeMainPanelPagePrincipal() {
-    /*$("head").load("./html/PagePrincipale.html");
-    $("body").load("./html/PagePrincipale.html");*/
+/*function makeMainPanelPagePrincipal() {
+    $("head").load("./html/PagePrincipale.html");
+    $("body").load("./html/PagePrincipale.html");
 	$("body").load("./html/PagePrincipale.html");
 	$("head").append("<link>");
 	var css = $("head").children(":last");
@@ -144,7 +144,7 @@ function makeMainPanelPagePrincipal() {
 	});
 	
     
-}
+}*/
 
 
 /**
@@ -211,3 +211,77 @@ function makeListFriend(list){
 	$("#list").html(s);
 }
 
+
+function makeMainPanelPagePrincipal(){
+	var html = "";
+	html += "<header id=\"header\">";
+    html += "<div class=\"logo\"></div>";       
+    html += " <ul class=\"menu\">";       
+	html +=	"<li><input class=\"rec\" id=recherche type=search name=\"zone\" placeholder=\"Zone Recherche\"></li>";		
+	html +=	"<li><a  id=buttonrecherche href=\"\">Recherche</a></li>";			
+	html +=	"</ul>";	
+    html +=  "<ul class=\"disconnect\">";      
+    html +=  "<li><a id=deconnexion href=\"deconnexion.html\">Deconnexion</a></li>";
+    html +=  "</ul>";      
+    html +=  "</header>";          
+//        <!--Zone statistique-->
+    html += " <div class=\"stat\">"; 
+	html +="<div id=\"friend\">";
+	html +="<form method='get'  action='javascript:(function(){return;})()' onSubmit=javascript:ajout(this)>"; 
+	html +="<input id=\"ami\" type=\"text\" name=\"ami\" placeholder=\"IdAmi\">";	
+	html +="<input type=\"submit\" value=\"Ajouter\" id=\"ajouter\" >";
+	html +="</form>";
+	html +="</div>";		
+	html +="<div id=\"list\">";		
+	html +="</div>";		
+    html += "<ul>";  	
+    html += "<li>Nombre des messages postes</li>";      	
+    html += "<li>Nombre de messages de l'utilisateur</li>";          
+    html += "</ul>";      
+    html += "</div>";      
+    html += "<div class=\"block_message\">";  
+    html += "<div class=\"newmessage\">";      
+    html +="<label for=\"textarea\">votre message:</label>";           
+    html +=" <br /> ";          
+    html += "<textarea id=\"textarea\" placeholder=\"Ecrivez un message ici\" > </textarea>";          
+    html +=  "<input type=\"submit\" value=\"Envoyer\" class=\"send_button\" id=\"buttonenvoyer\">";         
+    html +="</div>";    
+//    <!--section liste message -->
+    html +="<div class=\"list_msg\">";               
+    html +="<div class=\"box_message\">";              
+    html +="<div class=\"username\">";                  
+    html +=" <h3>Login</h3>";                     
+    html +=" </div>";                 
+    html +="<div class=\"content\">";                 
+    html +="<textarea id=\"comment\" placeholder=\"Ecrivez un commentaire ici\"></textarea>";                    
+    html +="<p class=\"date\"> Date </p>";                   
+    html +="<input type=\"submit\" value=\"Répondre\" class=\"rep_button\" id=\"buttonrep\" onclick=\"envoyeMessage()\" >";                  
+    html +="</div>";             
+    html +=" <div class=\"icon\">";           
+    html +="<input type=\"submit\" value=\"+\" class=\"plus\" id=\"buttonplus\">";     
+	html +="</div>";                                      
+    html +="<div class=\"bloc_comment\">";                  
+    html +="<div class=\"username\">";                  
+    html +="<h3>Login</h3>";                      
+    html +=" </div>";                 
+    html +="<div class=\"content\">";                       
+    html +=" <p>Contenu blablabla..........</p>";                     
+    html +="<p class=\"date\"> Date </p>";                      
+    html +="<input type=\"submit\" value=\"Répondre\" class=\"rep_button\" id=\"buttonrep\">";
+    html +=" </div>";                  
+    html +=" </div>";                          
+    html +=" </div>";              
+    html +=" </div>";     
+    html +=" </div>"; 
+	
+	$("body").html(html);
+	
+	$("head").append("<link>");
+	var css = $("head").children(":last");
+	css.attr({
+      rel:  "stylesheet",
+      type: "text/css",
+      href: "./css/PagePrincipale.css"
+	});
+        
+}

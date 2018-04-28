@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBObject;
@@ -27,12 +28,15 @@ public class AddMessage extends HttpServlet{
 		
 		String message = req.getParameter("message");
 		String idUser = req.getParameter("idUser");
-		BasicDBObject ret = new BasicDBObject();
+		JSONObject ret = new JSONObject();
 		try{
 			//Class.forName("com.mysql.jdbc.Driver");
 			ret = Message.addMessage(idUser, message);
 
 		}catch(ClassNotFoundException | SQLException  e){
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		PrintWriter out = res.getWriter();

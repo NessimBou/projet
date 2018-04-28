@@ -23,7 +23,7 @@ public class Message {
 		
 	}
 	
-	public static JSONObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException{
+	public static JSONObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException, JSONException{
 		BasicDBObject message = new BasicDBObject();
 
 		
