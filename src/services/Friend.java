@@ -1,5 +1,6 @@
 package services;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -39,9 +40,14 @@ public class Friend {
 				ret.put("Error", "Friend n'existe pas");
 				return ret;
 			}else{
+				java.util.Date d1 = new java.util.Date();
+				Date dateToday = new java.sql.Date(d1.getTime());
 				ret.put("Status","OK");
 				ret.put("idFriend",idFriend);
+				ret.put("Date",dateToday);
+				
 				bd.BDFriends.addFriend(key, idFriend);
+				
 				return ret;
 			}
 		}catch(JSONException | SQLException e){

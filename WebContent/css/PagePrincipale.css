@@ -193,6 +193,19 @@ p{
     float: left;
 }
 
+.friend{
+	display:inline-block;
+	position: relative;
+	box-sizing:border-box;
+} 
+
+
+.ami{
+	width:50%;
+	height: 50%;
+}
+
+ 
 
 
 

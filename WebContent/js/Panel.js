@@ -57,7 +57,7 @@ function makeMainPanelEnregistrement() {
 	
 	html += "			<div class=block_button>";
 	html += "				<input class='button' type='submit' value='Envoyer' name='envoyer' 	>";
-	html += "				 <input class='button' type='submit' value='Annuler' name='annuler'>";
+	html += "				 <input class='button' type='submit' value='Retour' name='retour' onClick='makeMainPanelConnexion()'>";
 	html += "			</div>";
 	html += "		</form>";
 	html += "	</div>";
@@ -77,6 +77,13 @@ function makeMainPanelConnexion() {
    // $("head").load("./html/connexion.html");
 //    $("body").load("./html/connexion.html");
 	//$("head").load("./css/connexion.css");
+	$("head").append("<link>");
+	var css = $("head").children(":last");
+	css.attr({
+      rel:  "stylesheet",
+      type: "text/css",
+      href: "./css/connexion.css"
+	});
 	var html = "";
 	html += "<div class=\"block_connexion_co\">";
 	html += "	<div class=\"block_title_co\">";
@@ -109,14 +116,36 @@ function makeMainPanelConnexion() {
 	$('body').html(html);
 	
 }
+
+function makeAjoutFriend(idFriend,date){
+	var html ="";
+	html += "<li>";
+	html += "	Ajout de"+idFriend+"le"+date;
+	html += "</li>";
+	$("#list").html(html);
+	  
+}
+
+
 /**
  *Envoie le code de la page principal
  * @returns PagePrincipal.html
  */
 function makeMainPanelPagePrincipal() {
-    $("head").load("./html/PagePrincipale.html");
-    $("body").load("./html/PagePrincipale.html");
+    /*$("head").load("./html/PagePrincipale.html");
+    $("body").load("./html/PagePrincipale.html");*/
+	$("body").load("./html/PagePrincipale.html");
+	$("head").append("<link>");
+	var css = $("head").children(":last");
+	css.attr({
+      rel:  "stylesheet",
+      type: "text/css",
+      href: "./css/PagePrincipale.css"
+	});
+	
+    
 }
+
 
 /**
  *Envoie le code de la page de profil 

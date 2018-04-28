@@ -11,6 +11,19 @@ function Friend(id,friendId,date){
     this.date = date;
 }
 
+
+function ajout(form){
+	idFriend = form.ami.value;
+	console.log(idFriend);
+	console.log(env.key);
+	var  regex = /[a-zA-Z]/;
+	if(regex.test(idFriend){
+	 	follow(env.key,idFriend);  
+	 }
+	
+}
+
+
 /**
  * requete Ajax pour ajouter un ami
  * @param cle: key de la connection
@@ -27,6 +40,31 @@ function follow(cle,idFriend){
                 alert(textStatus);},
 	})
     
+}
+
+
+/**
+ * affiche un message quand on a ajouté un ami
+ * @param rep: reponse json de la requete
+ * @returns un message
+ */
+
+function addFriend(rep){
+	var ret = JSON.parse(rep,revival3);
+	var status = ret.status;
+	var error = ret.Error;
+	if(status === "OK"){
+		console.log("ajout ami ok");
+		var idFriend = ret.idFriend;
+		var date = ret.Date;
+		makeAjoutFriend(idFriend,date);
+	}else{
+		if(status === "KO"){
+			if(error === "Error"){
+				console.log(error);
+			}
+		}
+	}
 }
 
 /**
@@ -62,27 +100,6 @@ function listFriend(cle){
 	
 }
 
-/**
- * affiche un message quand on a ajouté un ami
- * @param rep: reponse json de la requete
- * @returns un message
- */
-function addFriend(rep){
-	var ret = JSON.parse(rep,revival3);
-	var status = ret.status;
-	var error = ret.Error;
-	if(status === "OK"){
-		console.log("ajout ami ok");
-		var idFriend = ret.idFriend;
-		makeAjoutFriend(idFriend);
-	}else{
-		if(status === "KO"){
-			if(error === "Error"){
-				console.log(error);
-			}
-		}
-	}
-}
 
 
 /**
