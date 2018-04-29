@@ -25,7 +25,8 @@ public class Message {
 	
 	public static JSONObject addMessage(String idUser, String Content) throws ClassNotFoundException, SQLException, UnknownHostException, JSONException{
 		BasicDBObject message = new BasicDBObject();
-
+		GregorianCalendar c= new java.util.GregorianCalendar();
+		Date d = c.getTime();
 		
 		if(BdTools.userExist(idUser)){
 			
@@ -33,15 +34,17 @@ public class Message {
 			
 			//message.put("_id", 'NULL');
 			message.put("idUser",idUser);
-			GregorianCalendar c= new java.util.GregorianCalendar();
-			Date d = c.getTime();
+			
 			message.put("date",d);
 			message.put("message", Content);
 			
 			col.insert(message);
 		}
 		JSONObject id = new JSONObject();
-		id.put("Status","ok");
+		id.put("idUser",idUser);
+		id.put("date",d);
+		id.put("message", Content);
+		id.put("Status","OK");
 		return id;
 	}
 	

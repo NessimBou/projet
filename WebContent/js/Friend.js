@@ -5,14 +5,14 @@
  * @param date: date amitié
  * @returns:rien 
  */
-function Friend(id,friendId,date){
+function Friend(id, friendId, date) {
     this.id = id;
     this.friendId = friendId;
     this.date = date;
 }
 
 
-function ajout(form){
+function ajout(form) {
 	idFriend = form.ami.value;
 	console.log(idFriend);
 	console.log(env.key);
@@ -56,13 +56,11 @@ function addFriend(rep){
 	var error = ret.Error;
 	console.log("ici");
 	console.log(ret);
-	console.log(status);
 	if(status == "OK"){
 		console.log("ajout ami ok");
 		console.log("je suis ici");
-		var idFriend = ret.idFriend;
-		var date = ret.Date;
-		makeAjoutFriend(idFriend,date);
+		//listFriend(env.key);
+		makeAjoutFriend(ret.idFriend,ret.Date);
 	}else{
 		console.log("je suis la");
 		if(status === "KO"){
@@ -89,8 +87,35 @@ function unFollow(cle,idFriend){
 		success: function(rep){removeFriend(rep);},
 		error: function (jqXHR, textStatus, errorThrow) {
                 alert(textStatus);},
-	})
+	});
 }
+
+
+
+
+/**
+ * affiche un message quand on a supprimé un ami
+ * @param rep: reponse json de la requete
+ * @returns un message
+ */
+function removeFriend(rep){
+	var ret = JSON.parse(rep,revival3);
+	var status = ret.Status;
+	var error = ret.Error;
+	if(status == "OK"){
+		console.log("enlever ami ok");
+	}else{
+		if(status == "KO"){
+			if(error === "Error"){
+				console.log(error);
+		
+			}
+		}
+	}
+	
+}
+
+
 /**
  * requete Ajax pour afficher les amis
  * @param cle: key de la connection
@@ -104,29 +129,8 @@ function listFriend(cle){
 		success:function(rep){listFriends(rep);},
 		error: function (jqXHR, textStatus, errorThrow) {
                 alert(textStatus);},
-	})
+	});
 	
-}
-
-
-
-/**
- * affiche un message quand on a supprimé un ami
- * @param rep: reponse json de la requete
- * @returns un message
- */
-function removeFriend(rep){
-	var ret = JSON.parse(rep,revival3);
-	var status = ret.status;
-	var error = ret.Error;
-	if(status === "OK"){
-		console.log("enlever ami ok");
-	}else{
-		if(status ==="KO"){
-			if(error === "Error")
-				console.log(error);
-		}
-	}
 }
 
 
@@ -137,11 +141,21 @@ function removeFriend(rep){
  */
 function listFriends(rep){
 	var ret = JSON.parse(rep,revival3);
-	var status = ret.status;
-	if(status === "OK"){
+	var status = ret.Status;
+	
+	if(status == "OK"){
 		
+		for(var i = 0 ; i< ret.id;i++){
+			var id = ret.idFriend+"_"+i;
+			var date = ret.Date+"_"+i;
+			console.log(id);
+			console.log(date);
+			makeAjoutFriend(id,date);
+		}		
 	}
 }
+
+
 
 
 /**Fonction pour parser les valeus de json

@@ -1,4 +1,6 @@
+/*
 var textarea = document.getElementById('textarea').value;
+*/
 
 function envoyeMessage(){
 	if(textarea.length > 0){
@@ -124,7 +126,7 @@ function developpeMessage(id){
     }
     e1 = $(".list_msg") + id +$(".bloc_comment");
     e1.append();
-    $("#message_"+id+"img").remplaceWith("<img src="" onclick=\"javascript replieMessage("+id+")\"/>");
+  /*  $("#message_"+id+"img").remplaceWith("<img src="" onclick=\"javascript replieMessage("+id+")\"/>");*/
 }
 
 function replieMessage(id){
@@ -134,6 +136,11 @@ function replieMessage(id){
 function newComment(){
     var commentaire = $("#comment").text();
     
+}
+
+function envoie(form){
+	var message = form.textarea.value;
+	newMessage(env.login,message);
 }
 
 function newMessage(id,textarea){
@@ -151,11 +158,15 @@ function newMessage(id,textarea){
 
 function messageResponse(rep){
 	var res = JSON.parse(rep, revival);
-	if(res.status == "OK"){
+	console.log(res);
+	if(res.Status == "OK"){
 		// alert("Message posté")
-		$("#comment").val("");
+		//$("#comment").val("");
 		//recharger la page
-		$(makeMainPanel(env.id, env.login));
+		var html = "";
+		html += "<p>"+res.message+"</p>";
+		$("#affichage").html(html);
+		//makeMainPanelPagePrincipal();
 			
 	}
 	else{

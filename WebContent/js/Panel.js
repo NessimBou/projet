@@ -119,32 +119,14 @@ function makeMainPanelConnexion() {
 
 function makeAjoutFriend(idFriend,date){
 	var html ="";
-	html += "<li>";
+	html += "<li id=\"lala\">";
 	html += "Ajout de: "+idFriend+" ,le :"+date;
 	html += "</li>";
 	$("#list").html(html);
-	  
+	$("#lala").css("color","white");  
 }
 
 
-/**
- *Envoie le code de la page principal
- * @returns PagePrincipal.html
- */
-/*function makeMainPanelPagePrincipal() {
-    $("head").load("./html/PagePrincipale.html");
-    $("body").load("./html/PagePrincipale.html");
-	$("body").load("./html/PagePrincipale.html");
-	$("head").append("<link>");
-	var css = $("head").children(":last");
-	css.attr({
-      rel:  "stylesheet",
-      type: "text/css",
-      href: "./css/PagePrincipale.css"
-	});
-	
-    
-}*/
 
 
 /**
@@ -227,7 +209,7 @@ function makeMainPanelPagePrincipal(){
 //        <!--Zone statistique-->
     html += " <div class=\"stat\">"; 
 	html +="<div id=\"friend\">";
-	html +="<form method='get'  action='javascript:(function(){return;})()' onSubmit=javascript:ajout(this)>"; 
+	html +="<form method='get'  action='javascript:(function(){return;})()' onSubmit='javascript:ajout(this)'>"; 
 	html +="<input id=\"ami\" type=\"text\" name=\"ami\" placeholder=\"IdAmi\">";	
 	html +="<input type=\"submit\" value=\"Ajouter\" id=\"ajouter\" >";
 	html +="</form>";
@@ -238,14 +220,18 @@ function makeMainPanelPagePrincipal(){
     html += "<li>Nombre des messages postes</li>";      	
     html += "<li>Nombre de messages de l'utilisateur</li>";          
     html += "</ul>";      
-    html += "</div>";      
+    html += "</div>"; 
+	html +="<form method='get'  action='javascript:(function(){return;})()' onSubmit='javascript:envoie(this)'>"
     html += "<div class=\"block_message\">";  
     html += "<div class=\"newmessage\">";      
     html +="<label for=\"textarea\">votre message:</label>";           
     html +=" <br /> ";          
     html += "<textarea id=\"textarea\" placeholder=\"Ecrivez un message ici\" > </textarea>";          
-    html +=  "<input type=\"submit\" value=\"Envoyer\" class=\"send_button\" id=\"buttonenvoyer\">";         
-    html +="</div>";    
+    html +=  "<input type=\"submit\" value=\"Envoyer\" class=\"send_button\" id=\"buttonenvoyer\">";     
+	html += "</from>";
+    html +="</div>";
+	html +="<div id=\"affichage\">";
+	html +=" </div>";
 //    <!--section liste message -->
     html +="<div class=\"list_msg\">";               
     html +="<div class=\"box_message\">";              

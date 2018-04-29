@@ -57,7 +57,7 @@ public class MainTest {
 //
 //		
 		Connection sql= bd.Database.getMySQLConnection();
-//		DBCollection mango = bd.Database.getCollection("message");
+		DBCollection mango = bd.Database.getCollection("message");
 		User user= new User();
 //		String key = BdTools.getKey(login);
 //		
@@ -72,19 +72,19 @@ public class MainTest {
 //		BdTools.DeleteUser(login3);
 //		BdTools.DeleteUser(login);
 //		
-		user.createUser(login, password, nom, prenom);
+//		user.createUser(login, password, nom, prenom);
 //		user.createUser(login1, password1, nom1, prenom1);
 //		user.createUser(login2, password2, nom2, prenom2);
 //		user.createUser(login3, password3, nom3, prenom3);
 //		
-//		user.login(login, password);
+//		user.login("1", "root");
 //		key = BdTools.getKey(login);
 //		
 //		
 //		Friend.addFriend(key,login1);
 //		Friend.addFriend(key,login2);
 //		Friend.addFriend(key,login3);
-//		Friend.listFriends(key);
+		System.out.println(Friend.listFriends("e8f9f52d-6987-41eb-a2c6-a16b02ec85e8"));
 //		
 		
 //		String key = "190f2edf-7c2f-4dfc-8c66-95ef7cb32637";
@@ -99,8 +99,8 @@ public class MainTest {
 //		idmessage = BDMessage.getIdMessage(login);
 		
 //		Message.addMessage(login,test);
-//		test = " ezjfhqekhn";
-//		Message.addMessage(login,test);
+//		String test = " ezjfhqekhn";
+		Message.addMessage("1",test);
 //		test = " zkefjaezo";
 //		Message.addMessage(login2,test);
 //		test = " blblbl";
@@ -156,7 +156,7 @@ public class MainTest {
 //		curseur.close();
 //		lecture.close();
 //		mango.close();
-//		sql.close();
+		sql.close();
 //
 		
 		List<String> l1 = new ArrayList<>(); 

@@ -2,11 +2,6 @@ package bd;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -15,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
@@ -285,6 +280,26 @@ public class BdTools {
 		return "erreur";
 	}
 	
+	public static Date getDate(String key, String id) throws SQLException{
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
+		Statement lecture = c.createStatement();
+		int friends = Integer.parseInt(id);
+		int login = getIdUser(key);
+		String query = "Select * from friend where idUser='"+login+"' and idFriend ='"+friends+"';";
+		ResultSet resultat = lecture.executeQuery(query);
+		if(resultat.next()){
+			Date date = resultat.getDate("ntimesStamp");
+			resultat.close();
+			lecture.close();
+			c.close();
+			return date;
+		
+		}
+		resultat.close();
+		lecture.close();
+		c.close();
+		return null;
+	}
 	
 	public static int getIdUser(String key) throws SQLException{
 		Connection c = DriverManager.getConnection("jdbc:mysql://localhost/boutar_hussein","root","root");
@@ -328,5 +343,5 @@ public class BdTools {
 		return false;
 	}
 	
-
+	
 }

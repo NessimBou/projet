@@ -104,8 +104,14 @@ public class Friend {
 			}else{
 				
 				ArrayList<String> list = bd.BDFriends.getList(key);
+				System.out.println(list.size());
+				int i = 0;
 				for(String friend : list){
-					ret.put( "idFriend", friend);
+					Date date = BdTools.getDate(key, friend);
+					//ret.put("id",list.size());
+					ret.put("idFriend_"+i, friend);
+					ret.put("Date_"+i, date);
+					i++;
 				}
 				ret.put("Status","OK");
 				return ret;
