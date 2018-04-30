@@ -122,7 +122,7 @@ function makeAjoutFriend(idFriend,date){
 	html += "<li id=\"lala\">";
 	html += "Ajout de: "+idFriend+" ,le :"+date;
 	html += "</li>";
-	$("#list").html(html);
+	$("#list").append(html);
 	$("#lala").css("color","white");  
 }
 

@@ -105,13 +105,13 @@ public class Friend {
 				
 				ArrayList<String> list = bd.BDFriends.getList(key);
 				System.out.println(list.size());
-				int i = 0;
 				for(String friend : list){
+					JSONObject ami = new JSONObject();
 					Date date = BdTools.getDate(key, friend);
 					//ret.put("id",list.size());
-					ret.put("idFriend_"+i, friend);
-					ret.put("Date_"+i, date);
-					i++;
+					ami.put("idFriend",friend);
+					ami.put("Date",date);
+
 				}
 				ret.put("Status","OK");
 				return ret;

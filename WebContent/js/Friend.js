@@ -59,8 +59,8 @@ function addFriend(rep){
 	if(status == "OK"){
 		console.log("ajout ami ok");
 		console.log("je suis ici");
-		//listFriend(env.key);
-		makeAjoutFriend(ret.idFriend,ret.Date);
+		listFriend(env.key);
+		//makeAjoutFriend(ret.idFriend,ret.Date);
 	}else{
 		console.log("je suis la");
 		if(status === "KO"){
@@ -142,12 +142,11 @@ function listFriend(cle){
 function listFriends(rep){
 	var ret = JSON.parse(rep,revival3);
 	var status = ret.Status;
-	
+	console.log(ret);
 	if(status == "OK"){
-		
 		for(var i = 0 ; i< ret.id;i++){
-			var id = ret.idFriend+"_"+i;
-			var date = ret.Date+"_"+i;
+			var id = ret.idFriend;
+			var date = ret.Date;
 			console.log(id);
 			console.log(date);
 			makeAjoutFriend(id,date);
