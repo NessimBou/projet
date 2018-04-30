@@ -18,7 +18,7 @@ function ajout(form) {
 	console.log(env.key);
 	var  regex = /[a-zA-Z]/;
 	if(!regex.test(idFriend)){
-	 	follow(env.key,idFriend);  
+	 	follow(env.key,idFriend);
 	 }
 	
 }
@@ -50,7 +50,7 @@ function follow(cle,idFriend){
  * @returns un message
  */
 
-function addFriend(rep){
+function addFriend(rep) {
 	var ret = JSON.parse(rep,revival3);
 	var status = ret.Status;
 	var error = ret.Error;
@@ -143,10 +143,12 @@ function listFriends(rep){
 	var ret = JSON.parse(rep,revival3);
 	var status = ret.Status;
 	console.log(ret);
+	var j= 0;
+	console.log(ret.friend[j].idFriend);
 	if(status == "OK"){
 		for(var i = 0 ; i< ret.id;i++){
-			var id = ret.idFriend;
-			var date = ret.Date;
+			var id = ret.friend[i].idFriend;
+			var date = ret.friend[i].Date;
 			console.log(id);
 			console.log(date);
 			makeAjoutFriend(id,date);

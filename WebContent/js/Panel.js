@@ -180,18 +180,7 @@ function makeMainPanelEnregistrementErreur(erreur) {
     }
 }
 
-/**
-*Affiche pour chaque ami un bloc dans la zone statistique
-*/
-function makeListFriend(list){
-	s = "<div><p>";
-	for(var id in list){
-		s+= id +" </p></div>";
-		s+="<div><p>";
-	}
-	s+="</p></div>";
-	$("#list").html(s);
-}
+
 
 
 function makeMainPanelPagePrincipal(){

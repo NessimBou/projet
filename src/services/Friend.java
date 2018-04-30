@@ -92,6 +92,7 @@ public class Friend {
 	
 	public static JSONObject listFriends(String key) throws ClassNotFoundException {
 		JSONObject ret = new JSONObject();
+		JSONObject user = new JSONObject();
 		if(key==null) {
 			return ServiceRefused.serviceRefused("Wrong Argument", -1);
 		}
@@ -105,15 +106,19 @@ public class Friend {
 				
 				ArrayList<String> list = bd.BDFriends.getList(key);
 				System.out.println(list.size());
+				int i = 0;
 				for(String friend : list){
 					JSONObject ami = new JSONObject();
 					Date date = BdTools.getDate(key, friend);
 					//ret.put("id",list.size());
 					ami.put("idFriend",friend);
 					ami.put("Date",date);
-
+					user.put(""+i, ami);
+					i++;
 				}
+				ret.put("id",list.size());
 				ret.put("Status","OK");
+				ret.put("friend", user);
 				return ret;
 			}
 		}catch(JSONException | SQLException e){
