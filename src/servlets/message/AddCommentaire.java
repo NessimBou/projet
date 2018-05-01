@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import services.Commentaire;
 import services.Message;
 
 public class AddCommentaire extends HttpServlet {
@@ -27,7 +28,7 @@ public class AddCommentaire extends HttpServlet {
 		JSONObject ret = new JSONObject();
 		try{
 			int id = Integer.parseInt(idMessage);
-			ret = Message.addCommentaire(key, id, message);
+			ret = Commentaire.addCommentaire(key, id, message);
 		
 		}catch(SQLException  e){
 			e.printStackTrace();

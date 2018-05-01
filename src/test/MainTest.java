@@ -29,7 +29,7 @@ import serviceTool.*;
 
 public class MainTest {
 
-	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, IOException {
+	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, IOException, InstantiationException, IllegalAccessException {
 		
 		String login="1";
 		String password="root";
@@ -103,11 +103,11 @@ public class MainTest {
 		ObjectId idmessage = new ObjectId();
 
 	//	System.out.println(Message.addMessage(login,message));
-		//idmessage = BDMessage.getIdMessage(login);
+		idmessage = BDMessage.getIdMessage(login);
 		System.out.println(idmessage);
 		int id = BDMessage.getId(idmessage);
 		System.out.println(id);
-//		Message.addCommentaire(key, id, commentaire);
+		Commentaire.deleteCommentaire("1", "88070");
 		System.out.println(user.logout(key));
 		
 		//		String test = " ezjfhqekhn";
@@ -147,7 +147,7 @@ public class MainTest {
 //		System.out.println(Message.listMessage(log, comment, date));
 //		System.out.println("fin quatrieme essai");
 //		System.out.println(BDMessage.getIdMessage(login));
-		Message.deleteMessage("2","60169");
+		//Message.deleteMessage("2","60169");
 	
 
 //	

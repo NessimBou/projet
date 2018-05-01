@@ -52,36 +52,7 @@ public class Message {
 		
 		return id;
 	}
-	
-	public static JSONObject addCommentaire(String key, int id_message,String content) throws JSONException, UnknownHostException, SQLException{
-		JSONObject res = new JSONObject();
-		GregorianCalendar c= new java.util.GregorianCalendar();
-		Date d = c.getTime();
-		if(BdTools.keyExist(key)){
-			int idUser = BdTools.getIdUser(key);
-			DBCollection col = Database.getCollection("message");
-			BasicDBObject commentaire = new BasicDBObject();
-			
-			//variable pour faire la recherche dans mongo
-			DBObject searchQuery = new BasicDBObject();
-			DBObject updateQuery = new BasicDBObject();
-			
-			commentaire.put("idUser", idUser);
-			commentaire.put("Date", d);
-			commentaire.put("message",content);
-			commentaire.put("idMessage",id_message);
-			
-			searchQuery.put("idMessage",id_message);
-			updateQuery.put("$push", new BasicDBObject("commentaires",commentaire));
-			col.update(searchQuery, updateQuery);
-			res.put("Status", "OK");
-			res.put("commentaire",commentaire);
-		}else{
-			res.put("Status", "KO");
-		}
-		return res; 
-	}
-	
+
 	public static JSONObject deleteMessage(String idUser,String id_message) throws UnknownHostException, JSONException{
 		JSONObject fin = new JSONObject();
 		
