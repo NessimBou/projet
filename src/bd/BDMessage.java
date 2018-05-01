@@ -59,6 +59,26 @@ public class BDMessage {
 		return (ObjectId) ret.get("_id");	//On retourne un BasicDBObject avec l'id du DERNIER message ajouté par l'utilisateur
 	}
 	
+	public static int getId(ObjectId id) throws UnknownHostException{
+		BasicDBObject retour = new BasicDBObject();
+		DBObject ret = null;
+		DBCollection col = Database.getCollection("message");
+		
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id",id);
+		
+		DBCursor cursor = col.find();
+		while(cursor.hasNext()){
+			
+			ret = cursor.next();
+		}
+		
+	
+		return  (int) ret.get("idMessage");	//On retourne un BasicDBObject avec l'id du DERNIER message ajouté par l'utilisateur
+	}
+	
+	
+	
 	public static boolean idMessageExist(String idUser, ObjectId id) throws UnknownHostException{
 		DBCollection col = Database.getCollection("message");
 		BasicDBObject query = new BasicDBObject();

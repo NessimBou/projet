@@ -113,29 +113,3 @@ function revival1(key, value) {
     return value;
 }
 
-
-
-//function revival(resp,)	
-
-
-
-//Je pense qu'on en a plus besoin vu qu'on est plus en no connection
-//function responseConnexion(res){
-//    if(res.erre===undefined){
-//        env.key=res.key;
-//        env.id =res.id;
-//        env.login=res.login;
-//        env.follows = new Set();
-//    }
-//    for(var i =1;i <rep.follows.length;i++){
-//        env.follows.add(rep.follows[i]);
-//    }
-//    if(noConnection){
-//        follows[rep.id] = new Set();
-//        for(var i = 0 ; i < rep.follows.length;i++){
-//            follows[rep.id].add(rep.follows[i]);
-//        }
-//    }else{
-//        func_erreur(rep.erreur);
-//    }
-//}

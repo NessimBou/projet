@@ -135,7 +135,8 @@ public class User {
 			}
 			//on verifie qu'il n'est pas root puis ensuite on verifie qu'il a bien expir� la session
 			if(BdTools.isRoot(key)){
-				if(BdTools.expireSession(key)){
+				if(BdTools.deconnection(key)){
+					ret.put("Status", "OK");
 					ret.put("session", "ferme");
 					ret.put("au Revoir", "A la prochaine");
 				}else{

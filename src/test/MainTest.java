@@ -31,12 +31,12 @@ public class MainTest {
 
 	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, IOException {
 		
-		String login="1234";
+		String login="12345";
 		String password="root";
 		String nom="coucou";
 		String prenom="coucou";
-		String test = "message test";
-		
+		String message = "message test";
+		String commentaire = "est ce que c'est bon?";		
 //		
 //		String login1="12345";
 //		String password1="root";
@@ -56,11 +56,16 @@ public class MainTest {
 //		
 //
 //		
+		//User.createUser(login, password, nom, prenom);
+		User.login(login,password);
 		Connection sql= bd.Database.getMySQLConnection();
 		DBCollection mango = bd.Database.getCollection("message");
 		User user= new User();
-//		String key = BdTools.getKey(login);
-//		
+		String key = BdTools.getKey(login);
+//		System.out.println(user.logout(key));
+	
+		
+		//		
 //		Friend.removeFriend(key, login);
 //		Friend.removeFriend(key, login2);
 //		Friend.removeFriend(key, login3);
@@ -84,7 +89,7 @@ public class MainTest {
 //		Friend.addFriend(key,login1);
 //		Friend.addFriend(key,login2);
 //		Friend.addFriend(key,login3);
-		System.out.println(Friend.listFriends("e8f9f52d-6987-41eb-a2c6-a16b02ec85e8"));
+//		System.out.println(Friend.listFriends("e8f9f52d-6987-41eb-a2c6-a16b02ec85e8"));
 //		
 		
 //		String key = "190f2edf-7c2f-4dfc-8c66-95ef7cb32637";
@@ -95,12 +100,18 @@ public class MainTest {
 //		System.out.println(services.User.logout(key));
 //		System.out.println(bd.BdTools.checkPassword(login, mdp));
 //		Message message = new Message();
-//		ObjectId idmessage = new ObjectId();
-//		idmessage = BDMessage.getIdMessage(login);
+		ObjectId idmessage = new ObjectId();
+
+		System.out.println(Message.addMessage(login,message));
+		idmessage = BDMessage.getIdMessage(login);
+		System.out.println(idmessage);
+		int id = BDMessage.getId(idmessage);
+		System.out.println(id);
+		Message.addCommentaire(key, id, commentaire);
+		System.out.println(user.logout(key));
 		
-//		Message.addMessage(login,test);
-//		String test = " ezjfhqekhn";
-		Message.addMessage("1",test);
+		//		String test = " ezjfhqekhn";
+//		Message.addMessage("1",test);
 //		test = " zkefjaezo";
 //		Message.addMessage(login2,test);
 //		test = " blblbl";

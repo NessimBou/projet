@@ -43,7 +43,10 @@
 		<servlet-name>ListMessage</servlet-name>
 		<servlet-class>servlets.message.ListMessage</servlet-class>
 	</servlet>
-	
+	<servlet>
+		<servlet-name>AddCommentaire</servlet-name>
+		<servlet-class>servlets.message.AddCommentaire</servlet-class>
+	</servlet>
 	<!-- createUser/login/logout -->
 	<servlet-mapping>
 		<servlet-name>CreateUser</servlet-name>
@@ -84,6 +87,10 @@
 	<servlet-mapping>
 		<servlet-name>ListMessage</servlet-name>
 		<url-pattern>/listMessage</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddCommentaire</servlet-name>
+		<url-pattern>/addCommentaire</url-pattern>
 	</servlet-mapping>
 
 </web-app>

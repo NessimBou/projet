@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 import bd.BDMessage;
 import bd.BdTools;
@@ -27,27 +28,59 @@ public class Message {
 		BasicDBObject message = new BasicDBObject();
 		GregorianCalendar c= new java.util.GregorianCalendar();
 		Date d = c.getTime();
-		
+		int idMessage = 5 + (int)(Math.random() * ((100000 - 5) + 1));
+		JSONObject id = new JSONObject();
 		if(BdTools.userExist(idUser)){
 			
 			DBCollection col = Database.getCollection("message");
 			
-			//message.put("_id", 'NULL');
+			
 			message.put("idUser",idUser);
-			
+			message.put("idMessage", idMessage);
 			message.put("date",d);
-			message.put("message", Content);
+			message.put("message ", Content);
 			
+			id.put("idMessage", idMessage);
+			id.put("idUser",idUser);
+			id.put("date",d);
+			id.put("message", Content);
+			id.put("Status","OK");
 			col.insert(message);
+		}else{
+			id.put("Status", "KO");
 		}
-		JSONObject id = new JSONObject();
-		id.put("idUser",idUser);
-		id.put("date",d);
-		id.put("message", Content);
-		id.put("Status","OK");
+		
 		return id;
 	}
 	
+	public static JSONObject addCommentaire(String key, int id_message,String content) throws JSONException, UnknownHostException, SQLException{
+		JSONObject res = new JSONObject();
+		GregorianCalendar c= new java.util.GregorianCalendar();
+		Date d = c.getTime();
+		if(BdTools.keyExist(key)){
+			int idUser = BdTools.getIdUser(key);
+			DBCollection col = Database.getCollection("message");
+			BasicDBObject commentaire = new BasicDBObject();
+			
+			//variable pour faire la recherche dans mongo
+			DBObject searchQuery = new BasicDBObject();
+			DBObject updateQuery = new BasicDBObject();
+			
+			commentaire.put("idUser", idUser);
+			commentaire.put("Date", d);
+			commentaire.put("message",content);
+			commentaire.put("idMessage",id_message);
+			
+			searchQuery.put("idMessage",id_message);
+			updateQuery.put("$push", new BasicDBObject("commentaires",commentaire));
+			col.update(searchQuery, updateQuery);
+			res.put("Status", "OK");
+			res.put("commentaire",commentaire);
+		}else{
+			res.put("Status", "KO");
+		}
+		return res; 
+	}
 	
 	public static JSONObject deleteMessage(String idUser,ObjectId id_message) throws UnknownHostException, JSONException{
 		JSONObject fin = new JSONObject();

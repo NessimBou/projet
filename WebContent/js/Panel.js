@@ -109,7 +109,7 @@ function makeMainPanelConnexion() {
 	html += "			<input class=\"input_login_co\" type=\"submit\" value=\"Connexion\" name=\"connexion\"  />";
 	html += "   	<div class=\"block_links_co\">";
 	html += "			<a id=\"lien\" href=\"\">Mot de passe perdu</a>";
-	html += "       	<a id=\"inscription\" href=\"javascript:makeMainPanelEnregistrement();\">Inscription</a>";
+	html += "       	<a id=\"inscription\" href=\"javascript:makeMainPanelEnregistrement()\">Inscription</a>";
 	html += "   	</div>";
 	html += "   </form>";
 	html += "</div>";
@@ -191,8 +191,10 @@ function makeMainPanelPagePrincipal(){
 	html +=	"<li><input class=\"rec\" id=recherche type=search name=\"zone\" placeholder=\"Zone Recherche\"></li>";		
 	html +=	"<li><a  id=buttonrecherche href=\"\">Recherche</a></li>";			
 	html +=	"</ul>";	
-    html +=  "<ul class=\"disconnect\">";      
-    html +=  "<li><a id=deconnexion href=\"deconnexion.html\">Deconnexion</a></li>";
+    html +=  "<ul class=\"disconnect\">";
+    html +=	 "<form method='get'  action='javascript:(function(){return;})()' onSubmit='javascript:deco()'>";
+    html +=  "<li><input type=\"submit\" value=\"Deconnexion\" id=\"deconnexion\"  ></li>";
+    html += "</form>";
     html +=  "</ul>";      
     html +=  "</header>";          
 //        <!--Zone statistique-->
