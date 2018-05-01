@@ -9,7 +9,8 @@ function init() {
     SetVirtualDB();
 	env.key = -1;
 	env.login = -1 ; 
-	env.idMessage = -1 ; 
+	env.idMessage = -1 ;
+	env.msgs = [];
 	
 }
 //plus besoin

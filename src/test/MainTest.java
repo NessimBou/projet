@@ -31,7 +31,7 @@ public class MainTest {
 
 	public static void main(String[] args) throws SQLException, JSONException, ClassNotFoundException, IOException {
 		
-		String login="12345";
+		String login="1";
 		String password="root";
 		String nom="coucou";
 		String prenom="coucou";
@@ -127,13 +127,13 @@ public class MainTest {
 //		test = " ghe";
 //		Message.addMessage(login3,test);
 //		Date date = null;
-//		String comment = null;
+		String comment = null;
 //		String log = null;
 //		
-//		System.out.println("---------------------");
-//		System.out.println("Premier essai");
-//		System.out.println(Message.listMessage(login,comment, date));
-//		System.out.println("fin premier essai");
+		System.out.println("---------------------");
+		System.out.println("Premier essai");
+//		System.out.println(Message.listMessage(login,comment));
+		System.out.println("fin premier essai");
 //		System.out.println("---------------------");
 //		System.out.println("deuxieme essai");
 //		System.out.println(Message.listMessage(login1,comment, date));

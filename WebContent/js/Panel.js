@@ -253,6 +253,8 @@ function makeMainPanelPagePrincipal(){
 	
 	$("body").html(html);
 	
+	$(listMessage(env.login,null));
+	
 	$("head").append("<link>");
 	var css = $("head").children(":last");
 	css.attr({

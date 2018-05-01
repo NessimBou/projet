@@ -29,12 +29,12 @@ public class DeleteMessage extends HttpServlet{
 		
 		String message = req.getParameter("idMessage");
 		String idUser = req.getParameter("idUser");
-		ObjectId id  = new ObjectId(idUser);
+		//ObjectId id  = new ObjectId(idUser);
 		JSONObject ret = new JSONObject();
 		
 		//Class.forName("com.mysql.jdbc.Driver");
 		try {
-			ret = Message.deleteMessage(idUser, id);
+			ret = Message.deleteMessage(idUser, message);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

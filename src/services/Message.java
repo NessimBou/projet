@@ -82,7 +82,7 @@ public class Message {
 		return res; 
 	}
 	
-	public static JSONObject deleteMessage(String idUser,ObjectId id_message) throws UnknownHostException, JSONException{
+	public static JSONObject deleteMessage(String idUser,String id_message) throws UnknownHostException, JSONException{
 		JSONObject fin = new JSONObject();
 		
 		
@@ -91,7 +91,7 @@ public class Message {
 			DBCollection col = Database.getCollection("message");
 			BasicDBObject query = new BasicDBObject();
 			query.put("idUser",idUser);
-			query.put("_id",id_message);
+			query.put("idMessage",id_message);
 			DBCursor cursor = col.find(query);
 		
 			if(cursor.hasNext()){
@@ -99,6 +99,7 @@ public class Message {
 			}
 			cursor.close();
 		}
+		fin.put("Status", "OK");
 		fin.put("message remove", "ok");
 		return fin;
 	}
@@ -106,66 +107,41 @@ public class Message {
 	
 	
 	
-	public static BasicDBObject listMessage(String idUser, String content) throws UnknownHostException {
-		BasicDBObject ret = new BasicDBObject();
+	public static JSONObject listMessage(String idUser ) throws UnknownHostException, JSONException, ClassNotFoundException, SQLException {
+		JSONObject ret = new JSONObject();
+		JSONObject resultat = new JSONObject();
 		DBCollection col = Database.getCollection("message");
 		col.find();
-		
-		//Cas 1 : idUser, content, date , id  null: on restaure tous les messages
-		//PAS POSSIBLE
-		if ( idUser == null && content == null){
-			BasicDBObject query = new BasicDBObject();
-			DBCursor cursor = col.find();
-			if(!cursor.hasNext()){
-				ret.put("erreur", "Message inexistant");
-			}else{
-				int i =0;
-				System.out.println(cursor.size());
-				while(cursor.hasNext()){
-					ret.put("message_" + i, cursor.next());
-					i++;
+		System.out.println("debut de la fonction");
+		System.out.println(idUser);	
+		//System.out.println(content);
+	
+		if(idUser != null){
+			if(BdTools.userExist(idUser)){
+				System.out.println("cas 2");
+				BasicDBObject query = new BasicDBObject();
+				query.put("idUser",idUser);
+				DBCursor cursor = col.find(query);
+				if(!cursor.hasNext()){
+					ret.put("Status", "KO");
+				}else{
+					System.out.println(cursor.size());
+					int i = 0;
+					while(cursor.hasNext()){
+						ret.put(""+i, cursor.next());
+						i++;
+						//System.out.println("je suis la ");
+					}
 				}
+				resultat.put("Status", "OK");
+				resultat.put("messages",ret);
+				cursor.close();
 			}
-			cursor.close();
-		}
-		
-		//Cas 2 : content null : on restaure les messages de l'idUSer
-		if(content == null && idUser != null){
-			BasicDBObject query = new BasicDBObject();
-			query.put("idUser",idUser);
-			DBCursor cursor = col.find(query);
-			if(!cursor.hasNext()){
-				ret.put("erreur", "Message Utilisateur introuvable");
-			}else{
-				System.out.println(cursor.size());
-				int i = 0;
-				while(cursor.hasNext()){
-					ret.put("message_"+i, cursor.next());
-					i++;
-					//System.out.println("je suis la ");
-				}
-			}
-			cursor.close();
-		}
-		
-		//Cas 3 : IdUSer null : on restaure les messages avec content et idUser
-		if (idUser == null && content != null){
-			BasicDBObject query = new BasicDBObject();
-			query.put("content", content);
-			DBCursor cursor = col.find(query);
-			if(!cursor.hasNext()){
-				ret.put("erreur","message introuvable");
-			}else{
-				while(cursor.hasNext()){
-					ret.put("message", cursor.next());
-				}
-			}
-			cursor.close();
-		
-		}
+			
 
-		
-		return ret;
+			}
+					
+		return resultat;
 	}
 
 }

@@ -20,7 +20,7 @@ function envoyeMessage(){
  */
 function Message(id, login, text, date, comments) {
     this.id = id;
-    this.auteur = login;
+    this.login = login;
     this.text = text;
     this.date = date;
     if (comments === undefined) {
@@ -33,12 +33,24 @@ function Message(id, login, text, date, comments) {
  * @returns: le code html pour mettre un message
  */
 Message.prototype.getHTML = function() {
-    return "<div id=\"message_" + this.id + "\" \
-    class=\"message\"> \
-    <div class=\"text_message\"> \
-    " + this.text + "<div class=\"infos_message\"> \
-    <span> Post de " + this.auteur + "\
-    </span></div></div></div>";
+   	var html="<div class='message'  id='message_"+this.id+"'>"
+	html += "	<span id='delete_m' onclick='deleteMessage("+this.login+","+this.id+")'>&times;</span>"
+	html += "	<div class='corps_message'>"
+	html += "   	<div class='text_message'>"+this.text+"</div>"	
+	html += "		<div class='info_message'>" 
+	html += "			<span class='auteur_message'>Message ecrit par :" + this.login + "</span>"	
+	html += "			<span class='date_message'> Posté le : " + this.date + "</span>"
+	html += "		</div>"
+	html += "	</div>"		
+	html += "	<div class='commentaires'></div>"
+	html += "	<div class='show_hide'>"
+	html += "	   <div class='show_comments' onclick='javascript:developpeMessage("+ JSON.stringify(this.id) +")'>"
+	html += "			<i class='fa fa-sort-down' id='developpe_comments'></i>"
+	html += "		</div>"
+	html += "	</div>"
+	html += " </div>"
+	return html;
+	
 }
 
 
@@ -50,11 +62,12 @@ Message.prototype.getHTML = function() {
  * @param date: date d'envoi
  * @returns : rien 
  */
-function Commentaire(id, auteur, text, date) {
+function Commentaire(id,idMsg, auteur, text, date) {
     this.id = id;
     this.auteur = auteur;
     this.text = text;
     this.date = date;
+	this.idMsg = idMsg;
 }
 
 /**
@@ -75,32 +88,23 @@ Commentaire.prototype.getHTML = function() {
 *@returns la valeur du json
 */
 function revival(key, value) {
-    if (value.comment != undefined) {
+    /*if (value.comment != undefined) {
         var c = new Message(value.id, value.auteur, value.text, value.date, value.comments);
         return c;
     }
     else if (value.text != undefined) {
-        var f = new Commentaire(value.id, value.auteur, value.text, value.date);
+        var f = new Commentaire(value.id,value.idMsg, value.auteur, value.text, value.date);
         return f;
     }
     else if (key === value.date) {
         var d = new Date(value);
         return d;
-    }
+    }*/
 
     return value;
 }
 
 
-
-function completeMessages() {
-    if (!noConnection) {
-
-    } else {
-        var tab = getFromLocalDB(env.fromId, -1, env.minId, 1);
-        completeMessagesResponse(JSON.stringify(tab));
-    }
-}
 
 function completeMessagesResponse(rep) {
     var tab = JSON.parse(rep, revival1);
@@ -163,15 +167,24 @@ function messageResponse(rep){
 		// alert("Message posté")
 		//$("#comment").val("");
 		//recharger la page
-		var html = "";
+		$("#textarea").val("");
+		var message = new Message(res.idMessage,res.idUser,res.message,res.date,[]);
+		$(".box_message").prepend(message.getHTML());
+		env.msgs[message.idMessage] = message;
+	}else{
+		console.log("Erreur message");
+	}
+		
+		
+		/*var html = "";
+		html +="<div class=\"username\">";                  
+    	//html +=" <h3>Login</h3>";                     
+    	html += "<p> Message de :"+res.idUser +"</p>";
+		html +=" </div>";      
+		
 		html += "<p>"+res.message+"</p>";
-		$("#affichage").html(html);
+		$("#affichage").html(html);*/
 		//makeMainPanelPagePrincipal();
-			
-	}
-	else{
-		alert(res.error)
-	}
 }
 
 
@@ -181,23 +194,40 @@ function deleteMessage(idUser,idMessage){
         url: "http://localhost:8080/BoutarHusseinTd2G1/deleteMessage",
         data: "idUser=" + idUser + "&idMessage=" + idMessage,
 		datatype:"json",
-        success: function (rep) { messageSuppResponse(rep);},
+        success: function (rep) { messageSuppResponse(rep,idMessage);},
         error: function (jqXHR, textStatus, errorThrow) {
                 alert(textStatus);
         },
     });
 }
 
-function messageSuppResponse(rep){
-	
+function messageSuppResponse(rep,idMessage){
+	var res = JSON.parse(rep, revival);
+	if(res.Status == "OK"){
+		env.msgs[idMessage] = null;
+		//maj affichage
+		var html = "";
+		
+		for(var i in env.msgs){
+			if(env.msgs[i] != null)
+				html = env.msgs[i].getHtml() + html;
+		}
+		
+		$(".box_message").html(html);
+	}
+	else{
+		console.log("Erreur suppression message");
+	}
 }
 
 function listMessage(idUser,content){
+	console.log(idUser);
+	console.log(content);
 	$.ajax({
     	type: "get",
         url: "http://localhost:8080/BoutarHusseinTd2G1/listMessage",
         data: "idUser=" + idUser + "&content=" + content,
-		datatype:"json",
+		datatype:"JSON",
         success: function (rep) { listMessageResponse(rep);},
         error: function (jqXHR, textStatus, errorThrow) {
                 alert(textStatus);
@@ -206,5 +236,39 @@ function listMessage(idUser,content){
 }
 
 function listMessageResponse(rep){
+	console.log(rep);
+	var res = JSON.parse(rep,revival);
+	console.log(res);
+	var status = res.Status;
+	if (status == "OK"){
+		message = res.messages;
+		console.log("message " + message);
+		for(var key in message){
+			console.log("key " + key);
+			var msgMeta = message[key];
+			console.log("msgMeta: " + msgMeta);
+			//recup des commentaire
+			var coms = []
+			for(var c in msgMeta.commentaires){
+				var com = msgMeta.commentaires[c]
+				//console.log(com.date);
+				
+				coms.push(new Commentaire(com.id, msgMeta.id, com.auteur, com.text, com.date))					
+			}
+			
+			var msg = new Message(msgMeta.id, msgMeta.login, msgMeta.text, msgMeta.date, coms);
+			
+			env.msgs[msg.id]=msg;
+			
+		}
+		for(var key in env.msgs){
+			messagesHtml = env.msgs[parseInt(key)].getHTML() + messagesHtml;		
+		}
+		//ajout bouton charger
+		/*messagesHtml += "<a id='charger' onclick='completeMessages("+mid+")'>Plus de posts</a>"*/
+	   //$('#messages_container').html(messagesHtml);
+	}else{
+		console.log("erreur list");
+	}
 	
 }

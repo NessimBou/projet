@@ -79,11 +79,11 @@ public class BDMessage {
 	
 	
 	
-	public static boolean idMessageExist(String idUser, ObjectId id) throws UnknownHostException{
+	public static boolean idMessageExist(String idUser, String id) throws UnknownHostException{
 		DBCollection col = Database.getCollection("message");
 		BasicDBObject query = new BasicDBObject();
 		query.put("idUser",idUser);
-		query.put("_id",id);
+		query.put("idMessage",id);
 		DBCursor cursor = col.find(query);
 		if(cursor.hasNext()){
 			cursor.close();
