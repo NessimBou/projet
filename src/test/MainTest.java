@@ -102,12 +102,12 @@ public class MainTest {
 //		Message message = new Message();
 		ObjectId idmessage = new ObjectId();
 
-		System.out.println(Message.addMessage(login,message));
-		idmessage = BDMessage.getIdMessage(login);
+	//	System.out.println(Message.addMessage(login,message));
+		//idmessage = BDMessage.getIdMessage(login);
 		System.out.println(idmessage);
 		int id = BDMessage.getId(idmessage);
 		System.out.println(id);
-		Message.addCommentaire(key, id, commentaire);
+//		Message.addCommentaire(key, id, commentaire);
 		System.out.println(user.logout(key));
 		
 		//		String test = " ezjfhqekhn";
@@ -147,7 +147,7 @@ public class MainTest {
 //		System.out.println(Message.listMessage(log, comment, date));
 //		System.out.println("fin quatrieme essai");
 //		System.out.println(BDMessage.getIdMessage(login));
-//		Message.deleteMessage(login,idmessage);
+		Message.deleteMessage("2","60169");
 	
 
 //	

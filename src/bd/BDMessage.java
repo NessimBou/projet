@@ -83,7 +83,7 @@ public class BDMessage {
 		DBCollection col = Database.getCollection("message");
 		BasicDBObject query = new BasicDBObject();
 		query.put("idUser",idUser);
-		query.put("idMessage",id);
+		query.put("idMessage",Integer.parseInt(id));
 		DBCursor cursor = col.find(query);
 		if(cursor.hasNext()){
 			cursor.close();

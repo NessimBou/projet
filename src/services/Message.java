@@ -87,19 +87,22 @@ public class Message {
 		
 		
 		if(BDMessage.idMessageExist(idUser,id_message)){
-			
+			System.out.println("je suis la");
 			DBCollection col = Database.getCollection("message");
 			BasicDBObject query = new BasicDBObject();
 			query.put("idUser",idUser);
-			query.put("idMessage",id_message);
+			query.put("idMessage",Integer.parseInt(id_message));
 			DBCursor cursor = col.find(query);
 		
 			if(cursor.hasNext()){
 				col.remove(cursor.next());
+				fin.put("Status", "OK");
+			}else{
+				fin.put("Status", "KO");
 			}
 			cursor.close();
 		}
-		fin.put("Status", "OK");
+		
 		fin.put("message remove", "ok");
 		return fin;
 	}

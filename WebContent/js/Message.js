@@ -171,6 +171,7 @@ function messageResponse(rep){
 		var message = new Message(res.idMessage,res.idUser,res.message,res.date,[]);
 		$(".box_message").prepend(message.getHTML());
 		env.msgs[message.idMessage] = message;
+		listMessage(env.login);
 	}else{
 		console.log("Erreur message");
 	}
@@ -189,6 +190,7 @@ function messageResponse(rep){
 
 
 function deleteMessage(idUser,idMessage){
+	console.log("la");
 	$.ajax({
     	type: "get",
         url: "http://localhost:8080/BoutarHusseinTd2G1/deleteMessage",
@@ -203,30 +205,31 @@ function deleteMessage(idUser,idMessage){
 
 function messageSuppResponse(rep,idMessage){
 	var res = JSON.parse(rep, revival);
+	console.log(" puis la");
 	if(res.Status == "OK"){
 		env.msgs[idMessage] = null;
+		//listMessage(env.login);
 		//maj affichage
 		var html = "";
 		
 		for(var i in env.msgs){
-			if(env.msgs[i] != null)
-				html = env.msgs[i].getHtml() + html;
+			if(env.msgs[i] != null){
+				html = env.msgs[i].getHTML() + html;
+			}
 		}
-		
-		$(".box_message").html(html);
+		makeMainPanelPagePrincipal();
+		//$(".box_message").html(html);
 	}
 	else{
 		console.log("Erreur suppression message");
 	}
 }
 
-function listMessage(idUser,content){
-	console.log(idUser);
-	console.log(content);
+function listMessage(idUser){
 	$.ajax({
     	type: "get",
         url: "http://localhost:8080/BoutarHusseinTd2G1/listMessage",
-        data: "idUser=" + idUser + "&content=" + content,
+        data: "idUser=" + idUser ,
 		datatype:"JSON",
         success: function (rep) { listMessageResponse(rep);},
         error: function (jqXHR, textStatus, errorThrow) {
@@ -247,23 +250,16 @@ function listMessageResponse(rep){
 		
 		for (var i =0 ; i < taille ;i++){
 			var msgMeta = res.messages[i];
-			console.log(msgMeta);
-			console.log(msgMeta.message);
 			//recup des commentaire
 			var coms = []
 			for(var c in msgMeta.commentaires){
 				var com = msgMeta.commentaires[c]
-				//console.log(com.date);
 				
 				coms.push(new Commentaire(com.id, msgMeta.idMessage, com.idUser, com.message, com.date))					
 			}
 			
 			var msg = new Message(msgMeta.idMessage, msgMeta.idUser, msgMeta.message, msgMeta.date, coms);
-			/*console.log(msg);
-			console.log(msg.id);
-			console.log(msg.login);
-			console.log(msg.date);
-			console.log(msg.text);*/
+			
 			
 			env.msgs[i]=msg;
 			
@@ -271,9 +267,7 @@ function listMessageResponse(rep){
 		for(var key in env.msgs){
 			messagesHtml = env.msgs[parseInt(key)].getHTML() + messagesHtml;		
 		}
-		//ajout bouton charger
-		/*messagesHtml += "<a id='charger' onclick='completeMessages("+mid+")'>Plus de posts</a>"*/
-	   $('.box_message').append(messagesHtml);
+	    $('.box_message').append(messagesHtml);
 	}else{
 		console.log("erreur list");
 	}
