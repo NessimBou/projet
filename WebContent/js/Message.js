@@ -239,6 +239,8 @@ function listMessageResponse(rep){
 	console.log(rep);
 	var res = JSON.parse(rep,revival);
 	console.log(res);
+	console.log(res.messages["0"]);
+	console.log("stop");
 	var status = res.Status;
 	if (status == "OK"){
 		message = res.messages;
