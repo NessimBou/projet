@@ -38,7 +38,7 @@ public class Message {
 			message.put("idUser",idUser);
 			message.put("idMessage", idMessage);
 			message.put("date",d);
-			message.put("message ", Content);
+			message.put("message", Content);
 			
 			id.put("idMessage", idMessage);
 			id.put("idUser",idUser);
@@ -132,6 +132,7 @@ public class Message {
 						i++;
 						//System.out.println("je suis la ");
 					}
+					resultat.put("taille", i);
 				}
 				resultat.put("Status", "OK");
 				resultat.put("messages",ret);

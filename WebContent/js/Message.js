@@ -236,31 +236,36 @@ function listMessage(idUser,content){
 }
 
 function listMessageResponse(rep){
-	console.log(rep);
+	//console.log(rep);
+	var messagesHtml = "";
 	var res = JSON.parse(rep,revival);
-	console.log(res);
-	console.log(res.messages["0"]);
-	console.log("stop");
+	
 	var status = res.Status;
 	if (status == "OK"){
-		message = res.messages;
-		console.log("message " + message);
-		for(var key in message){
-			console.log("key " + key);
-			var msgMeta = message[key];
-			console.log("msgMeta: " + msgMeta);
+		env.msgs = [];
+		taille = res.taille;
+		
+		for (var i =0 ; i < taille ;i++){
+			var msgMeta = res.messages[i];
+			console.log(msgMeta);
+			console.log(msgMeta.message);
 			//recup des commentaire
 			var coms = []
 			for(var c in msgMeta.commentaires){
 				var com = msgMeta.commentaires[c]
 				//console.log(com.date);
 				
-				coms.push(new Commentaire(com.id, msgMeta.id, com.auteur, com.text, com.date))					
+				coms.push(new Commentaire(com.id, msgMeta.idMessage, com.idUser, com.message, com.date))					
 			}
 			
-			var msg = new Message(msgMeta.id, msgMeta.login, msgMeta.text, msgMeta.date, coms);
+			var msg = new Message(msgMeta.idMessage, msgMeta.idUser, msgMeta.message, msgMeta.date, coms);
+			/*console.log(msg);
+			console.log(msg.id);
+			console.log(msg.login);
+			console.log(msg.date);
+			console.log(msg.text);*/
 			
-			env.msgs[msg.id]=msg;
+			env.msgs[i]=msg;
 			
 		}
 		for(var key in env.msgs){
@@ -268,7 +273,7 @@ function listMessageResponse(rep){
 		}
 		//ajout bouton charger
 		/*messagesHtml += "<a id='charger' onclick='completeMessages("+mid+")'>Plus de posts</a>"*/
-	   //$('#messages_container').html(messagesHtml);
+	   $('.box_message').append(messagesHtml);
 	}else{
 		console.log("erreur list");
 	}
