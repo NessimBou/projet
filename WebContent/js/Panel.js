@@ -110,6 +110,54 @@ function makeMainPanelConnexion() {
 	html += "   	<div class=\"block_links_co\">";
 	html += "			<a id=\"lien\" href=\"\">Mot de passe perdu</a>";
 	html += "       	<a id=\"inscription\" href=\"javascript:makeMainPanelEnregistrement()\">Inscription</a>";
+	html +=	"           <a id=\"supprimer\" href=\"javascript:makeMainPanelSupprimerUser()\">Supprimer un compte</a>";			
+	html += "   	</div>";
+	html += "   </form>";
+	html += "</div>";
+	$('body').html(html);
+	
+}
+
+function makeMainPanelSupprimerUser(){
+	  
+	$("head").append("<link>");
+	var css = $("head").children(":last");
+	css.attr({
+      rel:  "stylesheet",
+      type: "text/css",
+      href: "./css/connexion.css"
+	});
+	
+	
+	var html = "";
+	html += "<div class=\"block_connexion_co\">";
+	html += "	<div class=\"block_title_co\">";
+	html += "	<h1>";
+	html += "		Supprimer un user";
+	html += "	</h1>";
+	html += "	<div class=\"block_form_co\">";
+	html += "		<form method=\"get\" action=\"javascript:function(){return;}()\" onSubmit=javascript:supp(this)>";
+	html += "	 		<div class=\"block_input_co\">";
+	html += "       		<div class=\"title_form_co\"";
+	html += "		    		<span>Login</span>";
+    html += "        		</div>";
+	html += "				<div class=\"input_form_co\">";
+	html += "					<input  type=\"text\" name=\"login\" />";
+	html += "       		</div>";
+	html += "       		<div class=\"title_form_co\">";
+	html += "       			<span>Password</span>";
+	html += "       		</div>";
+	html += "        		<div class=\"input_form_co\">";
+	html += "       			<input type=\"password\" name=\"password\" />";
+	html += "        		</div>";
+	html += "       		<div class=\"title_form_co\">";
+	html += "       			<span>Retapez votre mot de passe</span>";
+	html += "       		</div>";
+	html += "        		<div class=\"input_form_co\">";
+	html += "       			<input type=\"password\" name=\"mdp\" />";
+	html += "        		</div>";
+	html += "     		</div>";
+	html += "			<input class=\"input_login_co\" type=\"submit\" value=\"Suppimer\" name=\"Supprimer\"  />";
 	html += "   	</div>";
 	html += "   </form>";
 	html += "</div>";
@@ -119,8 +167,10 @@ function makeMainPanelConnexion() {
 
 function makeAjoutFriend(idFriend,date){
 	var html ="";
+	var key = env.key;
 	html += "<li id=\"lala\">";
-	html += "Ajout de: "+idFriend+" ,le :"+date;
+	html += "<p>Ajout de: "+idFriend+" ,le :"+date+"</p>";
+	html += "<span id='delete_m' onclick='unFollow(\""+key+"\",\""+idFriend+"\")'>&times;</span>";
 	html += "</li>";
 	$("#list").append(html);
 	$("#lala").css("color","white");  
@@ -252,6 +302,8 @@ function makeMainPanelPagePrincipal(){
     html +=" </div>"; 
 	
 	$("body").html(html);
+	
+	$(listFriend(env.key));
 	
 	$(listMessage(env.login));
 	

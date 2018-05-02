@@ -59,7 +59,7 @@ function addFriend(rep) {
 	if(status == "OK"){
 		console.log("ajout ami ok");
 		console.log("je suis ici");
-		listFriend(env.key);
+		makeMainPanelPagePrincipal();
 		//makeAjoutFriend(ret.idFriend,ret.Date);
 	}else{
 		console.log("je suis la");
@@ -104,6 +104,7 @@ function removeFriend(rep){
 	var error = ret.Error;
 	if(status == "OK"){
 		console.log("enlever ami ok");
+		makeMainPanelPagePrincipal();
 	}else{
 		if(status == "KO"){
 			if(error === "Error"){
@@ -142,15 +143,13 @@ function listFriend(cle){
 function listFriends(rep){
 	var ret = JSON.parse(rep,revival3);
 	var status = ret.Status;
-	console.log(ret);
 	var j= 0;
 	console.log(ret.friend[j].idFriend);
 	if(status == "OK"){
 		for(var i = 0 ; i< ret.id;i++){
 			var id = ret.friend[i].idFriend;
 			var date = ret.friend[i].Date;
-			console.log(id);
-			console.log(date);
+			
 			makeAjoutFriend(id,date);
 		}		
 	}

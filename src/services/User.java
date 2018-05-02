@@ -2,6 +2,7 @@ package services;
 
 import serviceTool.ServiceRefused;
 
+import java.io.IOException;
 import java.sql.SQLException;
 //import java.util.ArrayList;
 
@@ -152,7 +153,7 @@ public class User {
 		
 	}
 	
-	public static JSONObject SupprimerUser(String login) throws ClassNotFoundException{
+	public static JSONObject SupprimerUser(String login,String password) throws ClassNotFoundException, IOException{
 		
 		
 		if(login == null){
@@ -163,8 +164,12 @@ public class User {
 			if(!BdTools.userExist(login)){
 				return ServiceRefused.serviceRefused("L'utilisateur n'existe pas ", 3);
 			}
+			if(!BdTools.checkPassword(login, password)){
+				return ServiceRefused.serviceRefused("Mauvais mot de passe", 5);
+			}
 			if(BdTools.DeleteUser(login)){
 				ret.put("utilisateur","supprimer");
+				ret.put("Status", "OK");
 			}else{
 				return ServiceRefused.serviceRefused("l'utilisateur n'a pas ete supprime",4);
 			}

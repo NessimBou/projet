@@ -88,7 +88,7 @@ Commentaire.prototype.getHTML = function() {
 *@returns la valeur du json
 */
 function revival(key, value) {
-    /*if (value.comment != undefined) {
+    if (value.comment != undefined) {
         var c = new Message(value.id, value.auteur, value.text, value.date, value.comments);
         return c;
     }
@@ -99,7 +99,7 @@ function revival(key, value) {
     else if (key === value.date) {
         var d = new Date(value);
         return d;
-    }*/
+    }
 
     return value;
 }
@@ -130,7 +130,6 @@ function developpeMessage(id){
     }
     e1 = $(".list_msg") + id +$(".bloc_comment");
     e1.append();
-  /*  $("#message_"+id+"img").remplaceWith("<img src="" onclick=\"javascript replieMessage("+id+")\"/>");*/
 }
 
 function replieMessage(id){
@@ -169,7 +168,7 @@ function messageResponse(rep){
 		//recharger la page
 		$("#textarea").val("");
 		var message = new Message(res.idMessage,res.idUser,res.message,res.date,[]);
-		$(".box_message").prepend(message.getHTML());
+		//$(".box_message").prepend(message.getHTML());
 		env.msgs[message.idMessage] = message;
 		listMessage(env.login);
 	}else{
@@ -267,7 +266,7 @@ function listMessageResponse(rep){
 		for(var key in env.msgs){
 			messagesHtml = env.msgs[parseInt(key)].getHTML() + messagesHtml;		
 		}
-	    $('.box_message').append(messagesHtml);
+	    $('.box_message').prepend(messagesHtml);
 	}else{
 		console.log("erreur list");
 	}
